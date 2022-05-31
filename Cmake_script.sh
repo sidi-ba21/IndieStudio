@@ -8,7 +8,7 @@ if [ $# -eq 1 ]; then
     if [ $1 = "build" ]; then
         mkdir $CMAKE_FILE && cd $CMAKE_FILE && cmake .. && cmake --build . && cd ..
     elif [ $1 = "clean" ]; then
-        rm -rf $CMAKE_FILE && rm -rf $BINARY
+        rm -r $CMAKE_FILE && rm $BINARY
     fi
 else
     echo $USAGE
