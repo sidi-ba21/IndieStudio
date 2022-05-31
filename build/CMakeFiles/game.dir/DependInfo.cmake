@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/aganem/2022/B-YEP-400-PAR-4-1-indiestudio-bill.on/src/main.cpp" "/home/aganem/2022/B-YEP-400-PAR-4-1-indiestudio-bill.on/build/CMakeFiles/game.dir/src/main.cpp.o"
+  "/home/elzenaryamyr/tek2/Cpp_project/B-YEP-400-PAR-4-1-indiestudio-bill.on/src/main.cpp" "/home/elzenaryamyr/tek2/Cpp_project/B-YEP-400-PAR-4-1-indiestudio-bill.on/build/CMakeFiles/game.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
