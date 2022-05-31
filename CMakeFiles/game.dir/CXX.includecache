@@ -1,0 +1,12 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/elzenaryamyr/tek2/Cpp_project/B-YEP-400-PAR-4-1-indiestudio-bill.on/src/main.cpp
+raylib.h
+/home/elzenaryamyr/tek2/Cpp_project/B-YEP-400-PAR-4-1-indiestudio-bill.on/src/raylib.h
+
