@@ -5,70 +5,108 @@
 ** main
 */
 
-#include "raylib.h"
+#include <raylib.h>
+#include <math.h>
 
 int main(void)
 {
-    // Initialization
-    //--------------------------------------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+	int screenWidth = 800;
+	int screenHeight = 600;
 
-    InitWindow(screenWidth, screenHeight, "raylib [shapes] example - basic shapes drawing");
+	InitWindow(screenWidth, screenHeight, "3D TEST");
+	SetTargetFPS(60);
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
-    //--------------------------------------------------------------------------------------
+	/* CAMERA VARS */
+	Camera3D camera = (Camera3D){(Vector3){-5, 8, -5}, (Vector3){0, 2, 0}, (Vector3){0, 2, 0}, 45, CAMERA_PERSPECTIVE};
 
-    // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
-    {
-        // Update
-        //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
-        //----------------------------------------------------------------------------------
+	float cam_radius = 15;
+	float cam_angle = 1.57;
+	/**/
 
-        // Draw
-        //----------------------------------------------------------------------------------
-        BeginDrawing();
+	// Load model mesh
+	
+	Model model_test = LoadModel("../assets/robo6.iqm");
+	
 
-            ClearBackground(RAYWHITE);
+	// Load model texture
+	
+	Texture2D texture = LoadTexture("../assets/txr.png");
+	SetMaterialTexture(&model_test.materials[0], MATERIAL_MAP_DIFFUSE, texture);
+	
 
-            DrawText("some basic shapes available on raylib", 20, 20, 20, DARKGRAY);
+	// Load model animation
+	
+	unsigned int animsCount = 2;
+	ModelAnimation *anims = LoadModelAnimations("../assets/robo6.iqm", &animsCount);
+	int animFrameCounter = 0;
+	
+	
 
-            // Circle shapes and lines
-            DrawCircle(screenWidth/5, 120, 35, DARKBLUE);
-            DrawCircleGradient(screenWidth/5, 220, 60, GREEN, SKYBLUE);
-            DrawCircleLines(screenWidth/5, 340, 80, DARKBLUE);
+	SetCameraMode(camera, CAMERA_CUSTOM);
 
-            // Rectangle shapes and ines
-            DrawRectangle(screenWidth/4*2 - 60, 100, 120, 60, RED);
-            DrawRectangleGradientH(screenWidth/4*2 - 90, 170, 180, 130, MAROON, GOLD);
-            DrawRectangleLines(screenWidth/4*2 - 40, 320, 80, 60, ORANGE);  // NOTE: Uses QUADS internally, not lines
+	//--------------------------------------------------------------------------------------
+	float x = 0;
+	float y = 0;
+	while (!WindowShouldClose())
+	{
+		/* ROTATE CAMERA */
+		if (IsKeyDown('Q')) cam_angle+=0.12;
+		if (IsKeyDown('E')) cam_angle-=0.12;
+		camera.position.x = cam_radius * cos(cam_angle);
+		camera.position.z = cam_radius * sin(cam_angle);
 
-            // Triangle shapes and lines
-            DrawTriangle((Vector2){screenWidth/4.0f *3.0f, 80.0f},
-                         (Vector2){screenWidth/4.0f *3.0f - 60.0f, 150.0f},
-                         (Vector2){screenWidth/4.0f *3.0f + 60.0f, 150.0f}, VIOLET);
+		/* UPDATE ANIMATION */
+		
+		if (IsKeyDown(KEY_SPACE))
+		{
+			UpdateModelAnimation(model_test, anims[1], animFrameCounter);
+			animFrameCounter++;
+			if (animFrameCounter >= anims[1].frameCount) animFrameCounter = 0;
+		}
+		
+		if (IsKeyDown(KEY_UP))
+		{
+			UpdateModelAnimation(model_test, anims[0], animFrameCounter);
+			animFrameCounter++;
+			if (animFrameCounter >= anims[0].frameCount) animFrameCounter = 0;
+		}
 
-            DrawTriangleLines((Vector2){screenWidth/4.0f*3.0f, 160.0f},
-                              (Vector2){screenWidth/4.0f*3.0f - 20.0f, 230.0f},
-                              (Vector2){screenWidth/4.0f*3.0f + 20.0f, 230.0f}, DARKBLUE);
+		if (IsKeyDown(KEY_DOWN))
+		{
+			UpdateModelAnimation(model_test, anims[2], animFrameCounter);
+			animFrameCounter++;
+			if (animFrameCounter >= anims[2].frameCount) animFrameCounter = 0;
+		}
+		
+		BeginDrawing();
 
-            // Polygon shapes and lines
-            DrawPoly((Vector2){screenWidth/4.0f*3, 320}, 6, 80, 0, BROWN);
-            DrawPolyLinesEx((Vector2){screenWidth/4.0f*3, 320}, 6, 80, 0, 6, BEIGE);
+			ClearBackground(WHITE);
 
-            // NOTE: We draw all LINES based shapes together to optimize internal drawing,
-            // this way, all LINES are rendered in a single draw pass
-            DrawLine(18, 42, screenWidth - 18, 42, BLACK);
-        EndDrawing();
-        //----------------------------------------------------------------------------------
-    }
+			BeginMode3D(camera);
 
-    // De-Initialization
-    //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
+				DrawModel(model_test, (Vector3){x, 0, y}, 1, WHITE);
 
-    return 0;
+				DrawGrid(15, 1.0);
+				if (IsKeyDown(KEY_LEFT)) x+=0.02;
+				if (IsKeyDown(KEY_RIGHT)) x-=0.02;
+				if (IsKeyDown(KEY_UP)) y+=0.02;
+				if (IsKeyDown(KEY_DOWN)) y-=0.02;
+			EndMode3D();
+
+			DrawFPS(10, 10);
+
+		EndDrawing();
+	}
+
+	// FREE MEMORY !! (important)
+	
+	for (unsigned int i = 0; i < animsCount; i++) UnloadModelAnimation(anims[i]);
+	RL_FREE(anims);
+	
+	UnloadTexture(texture);
+
+	UnloadModel(model_test);
+
+	CloseWindow();
+	return 0;
 }
