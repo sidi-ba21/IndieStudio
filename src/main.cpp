@@ -6,6 +6,7 @@
 */
 
 #include "raylib.h"
+#include <math.h>
 
 int main(void)
 {
@@ -14,60 +15,71 @@ int main(void)
     const int screenWidth = 800;
     const int screenHeight = 450;
 
-    InitWindow(screenWidth, screenHeight, "raylib [shapes] example - basic shapes drawing");
+    InitWindow(screenWidth, screenHeight, "Bomberman");
+    ToggleFullscreen();
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
+    Vector3 cubePosition = {0.0f, .0f, 10.0f};
+    Vector3 cubePosition1 = {0.0f, .0f, -10.0f};
+    Vector3 cubePosition2 = {-10.0f, .0f, 0.0f};
+    Vector3 cubePosition3 = {10.0f, .0f, 0.0f};
+    Vector3 cubePosition4 = {0.0f, .0f, 0.0f};
+
+    Camera3D camera = (Camera3D){(Vector3){-5, 8, -5}, (Vector3){0, 2, 0}, (Vector3){0, 2, 0}, 45, CAMERA_PERSPECTIVE};
+
+    float cam_radius = 15;
+    float cam_angle = 1.57;
+    int size = 20;
+    SetCameraMode(camera, CAMERA_FREE); // Set a free camera mode
+
+    SetTargetFPS(60); // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
     // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    while (!WindowShouldClose()) // Detect window close button or ESC key
     {
         // Update
         //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
-        //----------------------------------------------------------------------------------
+        UpdateCamera(&camera); // Update camera
 
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
 
-            ClearBackground(RAYWHITE);
+        ClearBackground(WHITE);
+        if (IsKeyDown('Q'))
+            cam_angle += 0.12;
+        if (IsKeyDown('E'))
+            cam_angle -= 0.12;
+        camera.position.x = cam_radius * cos(cam_angle);
+        camera.position.z = cam_radius * sin(cam_angle);
+        BeginMode3D(camera);
 
-            DrawText("some basic shapes available on raylib", 20, 20, 20, DARKGRAY);
+        for (float cube = 0.0; cube < size; cube++)
+        {
+            DrawCube(cubePosition, cube, 2.0f, 1.0f, RED);
+               DrawCubeWires(cubePosition, cube, 2, 1, BLACK);
+            DrawCube(cubePosition1, cube, 2.0f, 1.0f, RED);
+         DrawCubeWires(cubePosition1, cube, 2, 1, BLACK);
+            DrawCube(cubePosition2, 1, 2.0f, cube, RED);
+              DrawCubeWires(cubePosition2, 1, 2, cube, BLACK);
+            DrawCube(cubePosition3, 1, 2.0f, cube, RED);
+              DrawCubeWires(cubePosition3, 1, 2, cube, BLACK);
+            DrawCube(cubePosition4, cube, 1.0f, cube, GRAY);
+            //  DrawCubeWires(cubePosition4, cube, 1, cube, BLACK);
+        }
 
-            // Circle shapes and lines
-            DrawCircle(screenWidth/5, 120, 35, DARKBLUE);
-            DrawCircleGradient(screenWidth/5, 220, 60, GREEN, SKYBLUE);
-            DrawCircleLines(screenWidth/5, 340, 80, DARKBLUE);
+        DrawCube(cubePosition4, 1, 3.0f, 1, BLACK);
+        DrawGrid(size, 1.0f);
 
-            // Rectangle shapes and ines
-            DrawRectangle(screenWidth/4*2 - 60, 100, 120, 60, RED);
-            DrawRectangleGradientH(screenWidth/4*2 - 90, 170, 180, 130, MAROON, GOLD);
-            DrawRectangleLines(screenWidth/4*2 - 40, 320, 80, 60, ORANGE);  // NOTE: Uses QUADS internally, not lines
+        EndMode3D();
 
-            // Triangle shapes and lines
-            DrawTriangle((Vector2){screenWidth/4.0f *3.0f, 80.0f},
-                         (Vector2){screenWidth/4.0f *3.0f - 60.0f, 150.0f},
-                         (Vector2){screenWidth/4.0f *3.0f + 60.0f, 150.0f}, VIOLET);
-
-            DrawTriangleLines((Vector2){screenWidth/4.0f*3.0f, 160.0f},
-                              (Vector2){screenWidth/4.0f*3.0f - 20.0f, 230.0f},
-                              (Vector2){screenWidth/4.0f*3.0f + 20.0f, 230.0f}, DARKBLUE);
-
-            // Polygon shapes and lines
-            DrawPoly((Vector2){screenWidth/4.0f*3, 320}, 6, 80, 0, BROWN);
-            DrawPolyLinesEx((Vector2){screenWidth/4.0f*3, 320}, 6, 80, 0, 6, BEIGE);
-
-            // NOTE: We draw all LINES based shapes together to optimize internal drawing,
-            // this way, all LINES are rendered in a single draw pass
-            DrawLine(18, 42, screenWidth - 18, 42, BLACK);
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    CloseWindow(); // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;
