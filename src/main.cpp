@@ -10,8 +10,8 @@
 
 int main(void)
 {
-	int screenWidth = 800;
-	int screenHeight = 600;
+	int screenWidth = 1920;
+	int screenHeight = 1080;
 
 	InitWindow(screenWidth, screenHeight, "3D TEST");
 	SetTargetFPS(60);
@@ -98,7 +98,7 @@ int main(void)
 
 		BeginMode3D(camera);
 
-		DrawModel(model_test, (Vector3){x, 1, y}, 1, WHITE);
+		DrawModel(model_test, (Vector3){x, 0.1, y}, 1, WHITE);
 
 		DrawGrid(size, 1.0f);
 		if (IsKeyDown(KEY_LEFT))
