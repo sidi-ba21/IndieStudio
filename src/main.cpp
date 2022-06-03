@@ -110,15 +110,15 @@ int main(void)
 
 		for (float cube = 0.0; cube < size; cube++)
 		{
-			DrawCube(cubePosition, cube + 2, 2.0f, 1.0f, DARKBROWN);
-			DrawCubeWires(cubePosition, cube + 2, 2, 1, BLACK);
-			DrawCube(cubePosition1, cube + 2, 2.0f, 1.0f, DARKBROWN);
-			DrawCubeWires(cubePosition1, cube + 2, 2, 1, BLACK);
-			DrawCube(cubePosition2, 1, 2.0f, cube, DARKBROWN);
-			DrawCubeWires(cubePosition2, 1, 2, cube, BLACK);
-			DrawCube(cubePosition3, 1, 2.0f, cube, DARKBROWN);
-			DrawCubeWires(cubePosition3, 1, 2, cube, BLACK);
-			DrawCube(cubePosition4, cube, 1.0f, cube, BROWN);
+			DrawCube(cubePosition, cube + 2, 4.0f, 1.0f, DARKBROWN);
+			DrawCubeWires(cubePosition, cube + 2, 4.0f, 1, BLACK);
+			DrawCube(cubePosition1, cube + 2, 4.0f, 1.0f, DARKBROWN);
+			DrawCubeWires(cubePosition1, cube + 2, 4.0f, 1, BLACK);
+			DrawCube(cubePosition2, 1, 4.0f, cube, DARKBROWN);
+			DrawCubeWires(cubePosition2, 1, 4.0f, cube, BLACK);
+			DrawCube(cubePosition3, 1, 4.0f, cube, DARKBROWN);
+			DrawCubeWires(cubePosition3, 1, 4.0f, cube, BLACK);
+			DrawCube(cubePosition4, cube, 0.1f, cube, BROWN);
 		}
 
 		EndMode3D();
