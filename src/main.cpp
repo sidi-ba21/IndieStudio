@@ -34,7 +34,7 @@ int main(void)
     Texture2D player = LoadTexture("../assets/txr.png");
     SetMaterialTexture(&model_test.materials[0], MATERIAL_MAP_DIFFUSE, player);
 
-    Image image = LoadImage("../Png/2.png");          // Load cubicmap image (RAM)
+    Image image = LoadImage("../Png/boarder_map.png");          // Load cubicmap image (RAM)
     Texture2D cubicmap = LoadTextureFromImage(image); // Convert image to texture to display (VRAM)
 
     Mesh mesh = GenMeshCubicmap(image, (Vector3){1.0f, 1.0f, 1.0f});
