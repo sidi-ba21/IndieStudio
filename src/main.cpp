@@ -11,20 +11,39 @@ int main(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 1920;
+    const int screenHeight = 1080;
 
-    InitWindow(screenWidth, screenHeight, "raylib [shapes] example - basic shapes drawing");
+    InitWindow(screenWidth, screenHeight, "raylib [models] example - cubesmap loading and drawing");
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
+    // Define the camera to look into our 3d world
+    Camera camera = { { 16.0f, 14.0f, 16.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, 45.0f, 0 };
+
+    Image image = LoadImage("../Png/2.png");      // Load cubicmap image (RAM)
+    Texture2D cubicmap = LoadTextureFromImage(image);       // Convert image to texture to display (VRAM)
+
+    Mesh mesh = GenMeshCubicmap(image, (Vector3){ 1.0f, 1.0f, 1.0f });
+    Model model = LoadModelFromMesh(mesh);
+
+    // NOTE: By default each cube is mapped to one part of texture atlas
+    Texture2D texture = LoadTexture("../Png/cubicmap_atlas.png");    // Load map texture
+    model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;             // Set map diffuse texture
+
+    Vector3 mapPosition = { -16.0f, 0.0f, -8.0f };          // Set model position
+
+    UnloadImage(image);     // Unload cubesmap image from RAM, already uploaded to VRAM
+
+    SetCameraMode(camera, CAMERA_ORBITAL);  // Set an orbital camera mode
+
+    SetTargetFPS(60);                       // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
     // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    while (!WindowShouldClose())            // Detect window close button or ESC key
     {
         // Update
         //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
+        UpdateCamera(&camera);              // Update camera
         //----------------------------------------------------------------------------------
 
         // Draw
@@ -33,41 +52,31 @@ int main(void)
 
             ClearBackground(RAYWHITE);
 
-            DrawText("some basic shapes available on raylib", 20, 20, 20, DARKGRAY);
+            BeginMode3D(camera);
 
-            // Circle shapes and lines
-            DrawCircle(screenWidth/5, 120, 35, DARKBLUE);
-            DrawCircleGradient(screenWidth/5, 220, 60, GREEN, SKYBLUE);
-            DrawCircleLines(screenWidth/5, 340, 80, DARKBLUE);
+                DrawModel(model, mapPosition, 1.0f, WHITE);
 
-            // Rectangle shapes and ines
-            DrawRectangle(screenWidth/4*2 - 60, 100, 120, 60, RED);
-            DrawRectangleGradientH(screenWidth/4*2 - 90, 170, 180, 130, MAROON, GOLD);
-            DrawRectangleLines(screenWidth/4*2 - 40, 320, 80, 60, ORANGE);  // NOTE: Uses QUADS internally, not lines
+            EndMode3D();
 
-            // Triangle shapes and lines
-            DrawTriangle((Vector2){screenWidth/4.0f *3.0f, 80.0f},
-                         (Vector2){screenWidth/4.0f *3.0f - 60.0f, 150.0f},
-                         (Vector2){screenWidth/4.0f *3.0f + 60.0f, 150.0f}, VIOLET);
+            DrawTextureEx(cubicmap, (Vector2){ screenWidth - cubicmap.width*4.0f - 20, 20.0f }, 0.0f, 4.0f, WHITE);
+            DrawRectangleLines(screenWidth - cubicmap.width*4 - 20, 20, cubicmap.width*4, cubicmap.height*4, GREEN);
 
-            DrawTriangleLines((Vector2){screenWidth/4.0f*3.0f, 160.0f},
-                              (Vector2){screenWidth/4.0f*3.0f - 20.0f, 230.0f},
-                              (Vector2){screenWidth/4.0f*3.0f + 20.0f, 230.0f}, DARKBLUE);
+            DrawText("cubicmap image used to", 658, 90, 10, GRAY);
+            DrawText("generate map 3d model", 658, 104, 10, GRAY);
 
-            // Polygon shapes and lines
-            DrawPoly((Vector2){screenWidth/4.0f*3, 320}, 6, 80, 0, BROWN);
-            DrawPolyLinesEx((Vector2){screenWidth/4.0f*3, 320}, 6, 80, 0, 6, BEIGE);
+            DrawFPS(10, 10);
 
-            // NOTE: We draw all LINES based shapes together to optimize internal drawing,
-            // this way, all LINES are rendered in a single draw pass
-            DrawLine(18, 42, screenWidth - 18, 42, BLACK);
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    UnloadTexture(cubicmap);    // Unload cubicmap texture
+    UnloadTexture(texture);     // Unload map texture
+    UnloadModel(model);         // Unload map model
+
+    CloseWindow();              // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;
