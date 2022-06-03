@@ -19,7 +19,7 @@ int main(void)
 	/* CAMERA VARS */
 	Camera3D camera = (Camera3D){(Vector3){-5, 8, -5}, (Vector3){0, 2, 0}, (Vector3){0, 2, 0}, 45, CAMERA_PERSPECTIVE};
 
-	float cam_radius = 15;
+	float cam_radius = 20;
 	float cam_angle = 1.57;
 	/**/
 
@@ -42,9 +42,11 @@ int main(void)
 	SetCameraMode(camera, CAMERA_FREE);
 
 	//--------------------------------------------------------------------------------------
+	// Coordinates Model
 	float x = 0;
 	float y = 0;
-	int pos = 10;
+	
+	float pos = 10;
 	int size = 20;
 	Vector3 cubePosition = {0.0f, .0f, pos};
 	Vector3 cubePosition1 = {0.0f, .0f, -pos};
@@ -96,7 +98,7 @@ int main(void)
 
 		BeginMode3D(camera);
 
-		DrawModel(model_test, (Vector3){x, 0, y}, 1, WHITE);
+		DrawModel(model_test, (Vector3){x, 1, y}, 1, WHITE);
 
 		DrawGrid(size, 1.0f);
 		if (IsKeyDown(KEY_LEFT))
