@@ -14,8 +14,13 @@ int main(void)
     const int screenWidth = 1920;
     const int screenHeight = 1080;
 
-    float x = 0;
-    float y = 0;
+    float x = -15;
+    float y = -7;
+    float q = 14;
+    float v = 6;
+
+    int score = 0;
+    int hiscore = 0;
 
     InitWindow(screenWidth, screenHeight, "BOOOOOMBERMAAN");
     Camera3D camera = (Camera3D){(Vector3){-5, 8, -5}, (Vector3){0, 2, 0}, (Vector3){0, 2, 0}, 45, CAMERA_PERSPECTIVE};
@@ -34,14 +39,14 @@ int main(void)
     Texture2D player = LoadTexture("../assets/txr.png");
     SetMaterialTexture(&model_test.materials[0], MATERIAL_MAP_DIFFUSE, player);
 
-    Image image = LoadImage("../Png/boarder_map.png");          // Load cubicmap image (RAM)
-    Texture2D cubicmap = LoadTextureFromImage(image); // Convert image to texture to display (VRAM)
+    Image image = LoadImage("../Png/perfect_map.png"); // Load cubicmap image (RAM)
+    Texture2D cubicmap = LoadTextureFromImage(image);  // Convert image to texture to display (VRAM)
 
     Mesh mesh = GenMeshCubicmap(image, (Vector3){1.0f, 1.0f, 1.0f});
     Model model = LoadModelFromMesh(mesh);
 
     // NOTE: By default each cube is mapped to one part of texture atlas
-    Texture2D texture = LoadTexture("../Png/cubicmap_atlas.png");    // Load map texture
+    Texture2D texture = LoadTexture("../Png/grass_cube.png");        // Load map texture
     model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture; // Set map diffuse texture
 
     Vector3 mapPosition = {-16.0f, 0.0f, -8.0f}; // Set model position
@@ -59,9 +64,9 @@ int main(void)
 
         UpdateCamera(&camera); // Update camera
 
-        if (IsKeyDown('Q'))
+        if (IsKeyDown(KEY_ONE))
             cam_angle += 0.12;
-        if (IsKeyDown('E'))
+        if (IsKeyDown(KEY_TWO))
             cam_angle -= 0.12;
         camera.position.x = cam_radius * cos(cam_angle);
         camera.position.z = cam_radius * sin(cam_angle);
@@ -99,6 +104,16 @@ int main(void)
         BeginMode3D(camera);
 
         DrawModel(model_test, (Vector3){x, 0.1, y}, 1, WHITE);
+        DrawModel(model_test, (Vector3){q, 0.1, v}, 1, WHITE);
+
+        if (IsKeyDown(KEY_Q))
+            q += 0.02;
+        if (IsKeyDown(KEY_E))
+            q -= 0.02;
+        if (IsKeyDown(KEY_W))
+            v += 0.02;
+        if (IsKeyDown(KEY_S))
+            v -= 0.02;
 
         if (IsKeyDown(KEY_LEFT))
             x += 0.02;
@@ -115,10 +130,18 @@ int main(void)
         DrawTextureEx(cubicmap, (Vector2){screenWidth - cubicmap.width * 4.0f - 20, 20.0f}, 0.0f, 4.0f, WHITE);
         DrawRectangleLines(screenWidth - cubicmap.width * 4 - 20, 20, cubicmap.width * 4, cubicmap.height * 4, GREEN);
 
-        DrawText("cubicmap image used to", 658, 90, 10, GRAY);
-        DrawText("generate map 3d model", 658, 104, 10, GRAY);
+        DrawText("The map generated is : ", 1410, 20, 30, BLACK);
+        //   DrawText(GetTime, 1410, 20, 30, GREEN);
 
-        DrawFPS(10, 10);
+        DrawFPS(10, 1060);
+
+        if (IsKeyPressed(KEY_SPACE))
+        {
+            score = GetRandomValue(1000, 2000);
+            hiscore = GetRandomValue(2000, 4000);
+        }
+        DrawText(TextFormat("SCORE: %i", score), 860, 110, 40, BLACK);
+        DrawText(TextFormat("HI-SCORE: %i", hiscore), 800, 50, 40, RED);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
