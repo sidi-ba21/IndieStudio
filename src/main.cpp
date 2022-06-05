@@ -46,7 +46,7 @@ int main(void)
     Model model = LoadModelFromMesh(mesh);
 
     // NOTE: By default each cube is mapped to one part of texture atlas
-    Texture2D texture = LoadTexture("../Png/grass_cube.png");        // Load map texture
+    Texture2D texture = LoadTexture("../Png/grassbrick_cube.png");        // Load map texture
     model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture; // Set map diffuse texture
 
     Vector3 mapPosition = {-16.0f, 0.0f, -8.0f}; // Set model position
@@ -142,6 +142,8 @@ int main(void)
         }
         DrawText(TextFormat("SCORE: %i", score), 860, 110, 40, BLACK);
         DrawText(TextFormat("HI-SCORE: %i", hiscore), 800, 50, 40, RED);
+
+
 
         EndDrawing();
         //----------------------------------------------------------------------------------
