@@ -10,7 +10,6 @@
 
 int main(void)
 {
-
     const int screenWidth = 1920;
     const int screenHeight = 1080;
 
@@ -143,8 +142,6 @@ int main(void)
         DrawText(TextFormat("SCORE: %i", score), 860, 110, 40, BLACK);
         DrawText(TextFormat("HI-SCORE: %i", hiscore), 800, 50, 40, RED);
 
-
-
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
@@ -160,7 +157,6 @@ int main(void)
     RL_FREE(anims);
 
     UnloadModel(model_test);
-
     CloseWindow(); // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
