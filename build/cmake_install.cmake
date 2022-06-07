@@ -1,4 +1,4 @@
-# Install script for directory: /home/aganem/2022/B-YEP-400-PAR-4-1-indiestudio-bill.on
+# Install script for directory: /home/Grisou/delivery/2-TEK/INDIE/B-YEP-400-PAR-4-1-indiestudio-bill.on
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -37,6 +37,12 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for each subdirectory.
+  include("/home/Grisou/delivery/2-TEK/INDIE/B-YEP-400-PAR-4-1-indiestudio-bill.on/build/_deps/raylib-build/cmake_install.cmake")
+
+endif()
+
 if(CMAKE_INSTALL_COMPONENT)
   set(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")
 else()
@@ -45,5 +51,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/aganem/2022/B-YEP-400-PAR-4-1-indiestudio-bill.on/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/Grisou/delivery/2-TEK/INDIE/B-YEP-400-PAR-4-1-indiestudio-bill.on/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
