@@ -19,14 +19,14 @@ Bomberman::Raylib::~Raylib()
     CloseWindow();
 }
 
-void Bomberman::Raylib::draw()
-{
-}
-
-void Bomberman::Raylib::update()
-{
-    UpdateWindow();
-}
+//void Bomberman::Raylib::draw()
+//{
+//}
+//
+//void Bomberman::Raylib::update()
+//{
+//    UpdateWindow();
+//}
 
 void Bomberman::Raylib::clear()
 {

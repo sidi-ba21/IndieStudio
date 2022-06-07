@@ -1,66 +1,68 @@
 /*
 ** EPITECH PROJECT, 2022
-** B-YEP-400-PAR-4-1-indiestudio-bill.on
+** Core
 ** File description:
-** main
+** Core
 */
 
-#include "raylib.h"
-#include <math.h>
+#include "Core.hpp"
 
-int main(void)
+Bomberman::Core::Core()
 {
-    const int screenWidth = 1920;
-    const int screenHeight = 1080;
+    init();
+}
 
-    float x = -15;
-    float y = -7;
-    float q = 14;
-    float v = 6;
-
-    int score = 0;
-    int hiscore = 0;
-
+void Bomberman::Core::init(void)
+{
     InitWindow(screenWidth, screenHeight, "BOOOOOMBERMAAN");
-    Camera3D camera = (Camera3D){(Vector3){-5, 8, -5}, (Vector3){0, 2, 0}, (Vector3){0, 2, 0}, 45, CAMERA_PERSPECTIVE};
-    float cam_radius = 20;
-    float cam_angle = 1.57;
     ToggleFullscreen();
-    SetCameraMode(camera, CAMERA_FREE);
 
-    Model model_test = LoadModel("../assets/robo6.iqm");
-    unsigned int animsCount = 2;
-    ModelAnimation *anims = LoadModelAnimations("../assets/robo6.iqm", &animsCount);
-    int animFrameCounter = 0;
+    this->model_test = LoadModel("assets/robo6.iqm");
+    this->anims = LoadModelAnimations("assets/robo6.iqm", &animsCount);
+    this->player = LoadTexture("assets/txr.png");
+    this->image = LoadImage("Png/perfect_map.png");   // Load cubicmap image (RAM)
+    this->cubicmap = LoadTextureFromImage(image); // Convert image to texture to display (VRAM)
+    this->mesh = GenMeshCubicmap(image, (Vector3){1.0f, 1.0f, 1.0f});
+    this->model = LoadModelFromMesh(mesh);
+    //// NOTE: By default each cube is mapped to one part of texture atlas
+    this->texture = LoadTexture("Png/grassbrick_cube.png"); // Load map texture
+
+    SetCameraMode(camera, CAMERA_FREE);
 
     // Load model texture
 
-    Texture2D player = LoadTexture("../assets/txr.png");
     SetMaterialTexture(&model_test.materials[0], MATERIAL_MAP_DIFFUSE, player);
 
-    Image image = LoadImage("../Png/perfect_map.png"); // Load cubicmap image (RAM)
-    Texture2D cubicmap = LoadTextureFromImage(image);  // Convert image to texture to display (VRAM)
-
-    Mesh mesh = GenMeshCubicmap(image, (Vector3){1.0f, 1.0f, 1.0f});
-    Model model = LoadModelFromMesh(mesh);
-
-    // NOTE: By default each cube is mapped to one part of texture atlas
-    Texture2D texture = LoadTexture("../Png/grassbrick_cube.png");        // Load map texture
     model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture; // Set map diffuse texture
-
-    Vector3 mapPosition = {-16.0f, 0.0f, -8.0f}; // Set model position
-
+//
     UnloadImage(image); // Unload cubesmap image from RAM, already uploaded to VRAM
-
+//
     SetCameraMode(camera, CAMERA_ORBITAL); // Set an orbital camera mode
-
+//
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
+    game_loop();
 
-    // Main game loop
+    //De-Initialization
+    //--------------------------------------------------------------------------------------
+    UnloadTexture(cubicmap); // Unload cubicmap texture
+    UnloadTexture(texture);  // Unload map texture
+    UnloadModel(model);      // Unload map model
+
+    for (unsigned int i = 0; i < animsCount; i++)
+       UnloadModelAnimation(anims[i]);
+    RL_FREE(anims);
+
+    UnloadModel(model_test);
+    CloseWindow(); // Close window and OpenGL context
+    //--------------------------------------------------------------------------------------
+}
+
+
+void Bomberman::Core::game_loop()
+{
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
-
         UpdateCamera(&camera); // Update camera
 
         if (IsKeyDown(KEY_ONE))
@@ -70,7 +72,7 @@ int main(void)
         camera.position.x = cam_radius * cos(cam_angle);
         camera.position.z = cam_radius * sin(cam_angle);
 
-        /* UPDATE ANIMATION */
+        //UPDATE ANIMATION
 
         if (IsKeyDown(KEY_SPACE))
         {
@@ -144,21 +146,9 @@ int main(void)
 
         EndDrawing();
         //----------------------------------------------------------------------------------
-    }
+    }// Update
+}
 
-    // De-Initialization
-    //--------------------------------------------------------------------------------------
-    UnloadTexture(cubicmap); // Unload cubicmap texture
-    UnloadTexture(texture);  // Unload map texture
-    UnloadModel(model);      // Unload map model
-
-    for (unsigned int i = 0; i < animsCount; i++)
-        UnloadModelAnimation(anims[i]);
-    RL_FREE(anims);
-
-    UnloadModel(model_test);
-    CloseWindow(); // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
-
-    return 0;
+Bomberman::Core::~Core()
+{
 }
