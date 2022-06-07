@@ -8,6 +8,7 @@
 #include <utility>
 #include <iostream>
 #include <string>
+#include <vector>
 #include "raylib.h"
 
 /* Circle shapes and lines
@@ -53,6 +54,7 @@ static void options()
 static void adios()
 {
     std::cout << "tocard" << std::endl;
+    CloseAudioDevice();
     CloseWindow();
     exit(0);
 }
@@ -66,19 +68,32 @@ static const lt tab[3] =
 
 int main(void)
 {
+    bool is_paused = false;
     const int screenWidth = 1920;
     const int screenHeight = 1080;
     Vector2 mousepos = { -100.0f, -100.0f };
     bool is_title = true;
     int i = -1;
+    float timeplayed = 0;
 
     InitWindow(screenWidth, screenHeight, "INDIE STUDIO");
+    InitAudioDevice();
+    Music menu = LoadMusicStream("./ressources/menu.mp3");
+    Music sfx = LoadMusicStream("./ressources/explosion8bit.wav");
+    PlayMusicStream(menu);
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
+        UpdateMusicStream(menu);
+        UpdateMusicStream(sfx);
         mousepos = GetMousePosition();
+        SetMusicVolume(menu, 10);
+        SetMusicVolume(sfx, 5);
+        timeplayed = GetMusicTimePlayed(sfx)/GetMusicTimeLength(sfx)*400;
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            StopMusicStream(sfx);
+            PlayMusicStream(sfx);
             for (i = 0; i < 3; i++)
                 if ((mousepos.x > tab[i].coords.first &&
                 mousepos.x < tab[i].coords.first + 100) &&
@@ -87,14 +102,15 @@ int main(void)
                     is_title = false;
                     break;
                 }
-            if (i == 3)
-                is_title = true;
+            (i == 3) ? is_title = true : i;
+        }
+        if (IsKeyPressed(KEY_SPACE)) {
+            is_paused = !is_paused;
+            (is_paused == false) ? PauseMusicStream(menu) : ResumeMusicStream(menu);
         }
         if (is_title == true) {
             BeginDrawing();
                 ClearBackground(RAYWHITE);
-                DrawText("some basic shapes available on raylib", 20, 20, 20, DARKGRAY);
-
                 DrawRectangle(screenWidth/2, 100, 100, 100, RED);
                 DrawText("GAME", screenWidth/2, 100, 20, BLACK);
                 DrawRectangle(screenWidth/4, 700, 100, 100, GREEN);
@@ -109,6 +125,9 @@ int main(void)
         } else 
             tab[i].lt2();
     }
-    CloseWindow();        // Close window and OpenGL context
+    UnloadMusicStream(menu);
+    //UnloadMusicStream(sfx);
+    CloseAudioDevice();
+    CloseWindow();
     return 0;
 }
