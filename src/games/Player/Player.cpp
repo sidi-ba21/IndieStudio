@@ -6,10 +6,6 @@
 */
 
 #include "Player.hpp"
-//#include "Core.hpp"
-//Bomberman::Player::Player()
-//{
-//}
 
 void Bomberman::Player::init()
 {

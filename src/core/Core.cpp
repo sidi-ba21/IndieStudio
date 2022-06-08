@@ -88,8 +88,6 @@ void Bomberman::Core::Draw2d()
 void Bomberman::Core::Draw3d()
 {
     BeginMode3D(camera);
-
-  //  DrawModel(_player.get_Model(), _player.get_position(1), 1, WHITE);
     DrawModelEx(_player.get_Model(), _player.get_position(1), (Vector3){ 0, 1, 0 }, r, (Vector3){1, 1, 1}, WHITE);
     DrawModel(_player.get_Model(), _player.get_position(2), 1, WHITE);
     DrawModel(model, mapPosition, 1.0f, WHITE);
