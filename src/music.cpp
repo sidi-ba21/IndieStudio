@@ -10,9 +10,9 @@
 ost::ost(std::string name, size_t vol, bool paus)
 {
     _music_name = name;
-    _is_paused = false;
+    _is_paused = paus;
     _mp3 = LoadMusicStream(_music_name.c_str());
-    _volume = 10;
+    _volume = vol;
     SetMusicVolume(_mp3, _volume);
 }
 
@@ -34,11 +34,11 @@ size_t ost::get_volume()
 
 void ost::set_pause()
 {
-    _is_paused = !_is_paused;
     if (_is_paused == true)
         ResumeMusicStream(_mp3);
     else
         PauseMusicStream(_mp3);
+    _is_paused = !_is_paused;
 }
 
 bool ost::get_pause()

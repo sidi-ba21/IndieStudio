@@ -23,7 +23,8 @@ IF (WIN32)
 project(bomberman)
 
 add_executable(${PROJECT_NAME}
-  src/main.cpp)
+  src/main.cpp
+  src/music.cpp)
 
 
 ELSE()
@@ -32,7 +33,8 @@ set(CMAKE_CXX_STANDARD 20)
 add_compile_options(-Wall -Wextra -g3)
 
 add_executable(${PROJECT_NAME}
-  src/main.cpp)
+  src/main.cpp
+  src/music.cpp)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib GL m pthread dl)
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
