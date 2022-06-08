@@ -10,10 +10,13 @@
 void Bomberman::Player::init()
 {
     _model = LoadModel("assets/robo6.iqm");
+    _model2 = LoadModel("assets/robo6.iqm");
     _anim = LoadModelAnimations("assets/robo6.iqm", &_animCount);
     _texture = LoadTexture("assets/cubex.png");
+    _texture2 = LoadTexture("assets/meme_player.png");
 
     SetMaterialTexture(&_model.materials[0], MATERIAL_MAP_DIFFUSE, _texture);
+    SetMaterialTexture(&_model2.materials[0], MATERIAL_MAP_DIFFUSE, _texture2);
 }
 
 Bomberman::Player::~Player()
@@ -59,24 +62,54 @@ float Bomberman::Player::Player_animation()
         _pos1.x += 0.09;
         rotation = 90;
     }
+    if (IsKeyDown(KEY_W)) {
+        UpdateModelAnimation(_model2, _anim[0],_animFrameCounter);
+       _animFrameCounter++;
+        if (_animFrameCounter >= _anim[0].frameCount)
+           _animFrameCounter = 0;
+        _pos2.z -= 0.09;
+        rotation = 180;
+    }
+    if (IsKeyDown(KEY_S)) {
+        UpdateModelAnimation(_model2, _anim[0],_animFrameCounter);
+       _animFrameCounter++;
+        if (_animFrameCounter >= _anim[0].frameCount)
+           _animFrameCounter = 0;
+        _pos2.z += 0.09;
+        rotation = 0;
+    }
+    if (IsKeyDown(KEY_Q)) {
+        UpdateModelAnimation(_model2, _anim[0],_animFrameCounter);
+       _animFrameCounter++;
+        if (_animFrameCounter >= _anim[0].frameCount)
+           _animFrameCounter = 0;
+        _pos2.x -= 0.09;
+        rotation = -90;
+    }
+    if (IsKeyDown(KEY_E)) {
+        UpdateModelAnimation(_model2, _anim[0],_animFrameCounter);
+       _animFrameCounter++;
+        if (_animFrameCounter >= _anim[0].frameCount)
+           _animFrameCounter = 0;
+        _pos2.x += 0.09;
+        rotation = 90;
+    }
     return rotation;
 }
 
 void Bomberman::Player::Player_move()
 {
-    if (IsKeyDown(KEY_Q))
-        _pos2.x += 0.2;
-    if (IsKeyDown(KEY_E))
-        _pos2.x -= 0.2;
-    if (IsKeyDown(KEY_W))
-        _pos2.z += 0.2;
-    if (IsKeyDown(KEY_S))
-        _pos2.z -= 0.2;
+
 }
 
 Model Bomberman::Player::get_Model()
 {
     return _model;
+}
+
+Model Bomberman::Player::get_Model2()
+{
+    return _model2;
 }
 
 Vector3 Bomberman::Player::get_position(int player)

@@ -21,6 +21,7 @@ namespace Bomberman {
             float Player_animation();
             void Player_move();
             Model get_Model();
+            Model get_Model2();
             Vector3 get_position(int player = 1);
 
         protected:
@@ -32,8 +33,10 @@ namespace Bomberman {
             Vector3 _pos1{14, 0.1, 6};
             Vector3 _pos2{-15, 0.1, -7};
             Model _model;
+            Model _model2;
             ModelAnimation *_anim;
             Texture2D _texture;
+            Texture2D _texture2;
     };
 }
 
