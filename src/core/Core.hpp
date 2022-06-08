@@ -54,6 +54,7 @@ namespace Bomberman
             Mesh mesh;
             Model model;
             Texture2D texture;
+            Texture2D background;
     };
 }
 
