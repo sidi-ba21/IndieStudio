@@ -18,7 +18,7 @@ namespace Bomberman {
             Player() = default;
             ~Player();
             void init();
-            void Player_animation();
+            float Player_animation();
             void Player_move();
             Model get_Model();
             Vector3 get_position(int player = 1);
@@ -27,6 +27,7 @@ namespace Bomberman {
         private:
             unsigned int _animCount{2};
             int _animFrameCounter{0};
+            float rotation{0};
 
             Vector3 _pos1{14, 0.1, 6};
             Vector3 _pos2{-15, 0.1, -7};

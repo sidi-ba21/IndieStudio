@@ -34,7 +34,7 @@ namespace Bomberman
             Core &operator=(const Core &) = delete;
             Core(Core &&) = delete;
             Core &operator=(Core &&) = delete;
-
+            float r{0};
         protected:
         private:
             const int screenWidth{1920};
