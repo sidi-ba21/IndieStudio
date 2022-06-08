@@ -6,6 +6,7 @@
 */
 
 #include "Core.hpp"
+#include <unistd.h>
 
 Bomberman::Core::Core()
 {
@@ -18,18 +19,17 @@ Bomberman::Core::Core()
 void Bomberman::Core::init(void)
 {
     _player.init();
-    this->image = LoadImage("Png/perfect_map.png");   // Load cubicmap image (RAM)
-    this->cubicmap = LoadTextureFromImage(image); // Convert image to texture to display (VRAM)
+    this->image = LoadImage("Png/perfect_map.png"); // Load cubicmap image (RAM)
+    this->cubicmap = LoadTextureFromImage(image);   // Convert image to texture to display (VRAM)
     this->mesh = GenMeshCubicmap(image, (Vector3){1.0f, 1.0f, 1.0f});
     this->model = LoadModelFromMesh(mesh);
     this->texture = LoadTexture("Png/grassbrick_cube.png"); // Load map texture
 
     SetCameraMode(camera, CAMERA_FREE);
     SetCameraMode(camera, CAMERA_ORBITAL); // Set an orbital camera mode
-    SetTargetFPS(60); // Set our game to run at 60 frames-per-second
+    SetTargetFPS(60);                      // Set our game to run at 60 frames-per-second
 
     model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture; // Set map diffuse texture
-
 }
 
 void Bomberman::Core::game_loop()
@@ -58,14 +58,15 @@ void Bomberman::Core::Camera()
 
 void Bomberman::Core::Score()
 {
-    if (IsKeyPressed(KEY_SPACE)) {
+    if (IsKeyPressed(KEY_SPACE))
+    {
         score = GetRandomValue(1000, 2000);
         hiscore = GetRandomValue(2000, 4000);
     }
 }
 
 void Bomberman::Core::Draw()
-{        
+{
     BeginDrawing();
 
     ClearBackground(RAYWHITE);
@@ -88,17 +89,25 @@ void Bomberman::Core::Draw2d()
 void Bomberman::Core::Draw3d()
 {
     BeginMode3D(camera);
-    DrawModelEx(_player.get_Model(), _player.get_position(1), (Vector3){ 0, 1, 0 }, r, (Vector3){1, 1, 1}, WHITE);
-    DrawModelEx(_player.get_Model2(), _player.get_position(2), (Vector3){ 0, 1, 0 }, rt, (Vector3){1, 1, 1}, WHITE);
+    DrawModelEx(_player.get_Model(), _player.get_position(1), (Vector3){0, 1, 0}, r, (Vector3){1, 1, 1}, WHITE);
+    DrawModelEx(_player.get_Model2(), _player.get_position(2), (Vector3){0, 1, 0}, rt, (Vector3){1, 1, 1}, WHITE);
     DrawModel(model, mapPosition, 1.0f, WHITE);
-
+    if (IsKeyPressed(KEY_KP_0))
+    {
+        _bomb_pos = _player.get_position(1);
+        pressed = 1;
+    }
+    if (pressed == 1)
+    {
+        DrawSphere(Vector3{_bomb_pos}, 0.3, BLACK);
+        DrawSphereWires(Vector3{_bomb_pos}, 0.3, 10, 10, BROWN);
+    }
     EndMode3D();
 }
 
-
 Bomberman::Core::~Core()
 {
-    UnloadImage(image); // Unload cubesmap image from RAM, already uploaded to VRAM
+    UnloadImage(image);      // Unload cubesmap image from RAM, already uploaded to VRAM
     UnloadTexture(cubicmap); // Unload cubicmap texture
     UnloadTexture(texture);  // Unload map texture
     UnloadModel(model);      // Unload map model

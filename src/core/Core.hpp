@@ -40,14 +40,15 @@ namespace Bomberman
         private:
             const int screenWidth{1920};
             const int screenHeight{1080};
-
+            int pressed = 0;
             int score{0};
             int hiscore{0};
             float cam_radius{20};
             float cam_angle{1.57};
 
             Camera3D camera = (Camera3D){(Vector3){-5, 8, -5}, (Vector3){0, 2, 0}, (Vector3){0, 2, 0}, 45, CAMERA_PERSPECTIVE};
-            Vector3 mapPosition = {-16.0f, 0.0f, -8.0f};                // Set model position
+            Vector3 mapPosition = {-16.0f, 0.0f, -8.0f};
+            Vector3 _bomb_pos = {0,0,0};              // Set model position
             Player _player;
             Image image;
             Texture2D cubicmap;
