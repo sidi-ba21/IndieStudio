@@ -7,14 +7,17 @@
 
 #include "raylib.h"
 #include "Error.hpp"
+//#include "../graphicals/Raylib.hpp"
 #include "../games/Player/Player.hpp"
+#include "../games/Camera/Camera.hpp"
+#include "../games/Score/Score.hpp"
+#include "../games/Map/Map.hpp"
 #include <iostream>
 #include <string>
-//#include "../graphicals/Raylib.hpp"
 #include <cmath>
 
 #ifndef CORE_HPP_
-#define CORE_HPP_
+    #define CORE_HPP_
 
 namespace Bomberman
 {
@@ -25,8 +28,6 @@ namespace Bomberman
             ~Core();
             void init();
             void game_loop();
-            void Camera();
-            void Score();
             void Draw();
             void Draw2d();
             void Draw3d();
@@ -40,19 +41,10 @@ namespace Bomberman
             const int screenWidth{1920};
             const int screenHeight{1080};
 
-            int score{0};
-            int hiscore{0};
-            float cam_radius{20};
-            float cam_angle{1.57};
-
-            Camera3D camera = (Camera3D){(Vector3){-5, 8, -5}, (Vector3){0, 2, 0}, (Vector3){0, 2, 0}, 45, CAMERA_PERSPECTIVE};
-            Vector3 mapPosition = {-16.0f, 0.0f, -8.0f};                // Set model position
             Player _player;
-            Image image;
-            Texture2D cubicmap;
-            Mesh mesh;
-            Model model;
-            Texture2D texture;
+            Camera _camera;
+            Score _score;
+            Map _map;
     };
 }
 

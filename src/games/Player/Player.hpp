@@ -21,7 +21,7 @@ namespace Bomberman {
             void Player_animation();
             void Player_move();
             Model get_Model();
-            Vector3 get_position(int player = 1);
+            Vector3 get_pos(int player = 1);
 
         protected:
         private:

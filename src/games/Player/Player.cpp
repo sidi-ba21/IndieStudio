@@ -77,7 +77,7 @@ Model Bomberman::Player::get_Model()
     return _model;
 }
 
-Vector3 Bomberman::Player::get_position(int player)
+Vector3 Bomberman::Player::get_pos(int player)
 {
     if (player == 1)
         return _pos1;
