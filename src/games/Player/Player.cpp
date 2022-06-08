@@ -12,6 +12,7 @@ void Bomberman::Player::init()
     _model = LoadModel("assets/robo6.iqm");
     _model2 = LoadModel("assets/robo6.iqm");
     _anim = LoadModelAnimations("assets/robo6.iqm", &_animCount);
+    _anim2 = LoadModelAnimations("assets/robo6.iqm", &_animCount);
     _texture = LoadTexture("assets/cubex.png");
     _texture2 = LoadTexture("assets/meme_player.png");
 
@@ -62,44 +63,44 @@ float Bomberman::Player::Player_animation()
         _pos1.x += 0.09;
         rotation = 90;
     }
-    if (IsKeyDown(KEY_W)) {
-        UpdateModelAnimation(_model2, _anim[0],_animFrameCounter);
-       _animFrameCounter++;
-        if (_animFrameCounter >= _anim[0].frameCount)
-           _animFrameCounter = 0;
-        _pos2.z -= 0.09;
-        rotation = 180;
-    }
-    if (IsKeyDown(KEY_S)) {
-        UpdateModelAnimation(_model2, _anim[0],_animFrameCounter);
-       _animFrameCounter++;
-        if (_animFrameCounter >= _anim[0].frameCount)
-           _animFrameCounter = 0;
-        _pos2.z += 0.09;
-        rotation = 0;
-    }
-    if (IsKeyDown(KEY_Q)) {
-        UpdateModelAnimation(_model2, _anim[0],_animFrameCounter);
-       _animFrameCounter++;
-        if (_animFrameCounter >= _anim[0].frameCount)
-           _animFrameCounter = 0;
-        _pos2.x -= 0.09;
-        rotation = -90;
-    }
-    if (IsKeyDown(KEY_E)) {
-        UpdateModelAnimation(_model2, _anim[0],_animFrameCounter);
-       _animFrameCounter++;
-        if (_animFrameCounter >= _anim[0].frameCount)
-           _animFrameCounter = 0;
-        _pos2.x += 0.09;
-        rotation = 90;
-    }
     return rotation;
 }
 
-void Bomberman::Player::Player_move()
+float Bomberman::Player::Player_move()
 {
-
+    if (IsKeyDown(KEY_W)) {
+        UpdateModelAnimation(_model2, _anim2[0],_animFrameCounter);
+       _animFrameCounter++;
+        if (_animFrameCounter >= _anim2[0].frameCount)
+           _animFrameCounter = 0;
+        _pos2.z -= 0.09;
+        rotation2 = 180;
+    }
+    if (IsKeyDown(KEY_S)) {
+        UpdateModelAnimation(_model2, _anim2[0],_animFrameCounter);
+       _animFrameCounter++;
+        if (_animFrameCounter >= _anim2[0].frameCount)
+           _animFrameCounter = 0;
+        _pos2.z += 0.09;
+        rotation2 = 0;
+    }
+    if (IsKeyDown(KEY_Q)) {
+        UpdateModelAnimation(_model2, _anim2[0],_animFrameCounter);
+       _animFrameCounter++;
+        if (_animFrameCounter >= _anim2[0].frameCount)
+           _animFrameCounter = 0;
+        _pos2.x -= 0.09;
+        rotation2 = -90;
+    }
+    if (IsKeyDown(KEY_E)) {
+        UpdateModelAnimation(_model2, _anim2[0],_animFrameCounter);
+       _animFrameCounter++;
+        if (_animFrameCounter >= _anim2[0].frameCount)
+           _animFrameCounter = 0;
+        _pos2.x += 0.09;
+        rotation2 = 90;
+    }
+    return rotation2;
 }
 
 Model Bomberman::Player::get_Model()

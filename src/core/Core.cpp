@@ -37,7 +37,7 @@ void Bomberman::Core::game_loop()
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
         Camera();
-        _player.Player_move();
+        this->rt = _player.Player_move();
         this->r = _player.Player_animation();
         Score();
         Draw();
@@ -89,7 +89,7 @@ void Bomberman::Core::Draw3d()
 {
     BeginMode3D(camera);
     DrawModelEx(_player.get_Model(), _player.get_position(1), (Vector3){ 0, 1, 0 }, r, (Vector3){1, 1, 1}, WHITE);
-    DrawModelEx(_player.get_Model2(), _player.get_position(2), (Vector3){ 0, 1, 0 }, r, (Vector3){1, 1, 1}, WHITE);
+    DrawModelEx(_player.get_Model2(), _player.get_position(2), (Vector3){ 0, 1, 0 }, rt, (Vector3){1, 1, 1}, WHITE);
     DrawModel(model, mapPosition, 1.0f, WHITE);
 
     EndMode3D();
