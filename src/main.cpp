@@ -5,12 +5,6 @@
 ** main
 */
 
-#include <utility>
-#include <iostream>
-#include <string>
-#include <vector>
-#include "raylib.h"
-
 /* Circle shapes and lines
 DrawCircle(screenWidth/5, 120, 35, DARKBLUE);
 DrawCircleGradient(screenWidth/5, 220, 60, GREEN, SKYBLUE);
@@ -29,70 +23,80 @@ DrawPoly((Vector2){screenWidth/4.0f*3, 320}, 6, 80, 0, BROWN);
 DrawPolyLinesEx((Vector2){screenWidth/4.0f*3, 320}, 6, 80, 0, 6, BEIGE);
 */
 
-typedef struct lt
-{
-    std::pair <float, float>coords;
-    void (*lt2)(void);
-}lt;
+#include "menu.hpp"
 
-static void game()
+void game(ost &obj, Vector2 mousepos)
 {
+    (void)obj;
+    (void)mousepos;
     BeginDrawing();
         ClearBackground(RAYWHITE);
         DrawText("GAME THINGY", 100, 100, 100, BLACK);
     EndDrawing();
 }
 
-static void options()
+void options(ost &obj, Vector2 mousepos)
 {
+
+    for (int i = 3; i < 7; i++)
+        if ((mousepos.x > tab[i].coords.first &&
+        mousepos.x < tab[i].coords.first + 100) &&
+        (mousepos.y > tab[i].coords.second &&
+        mousepos.y < tab[i].coords.second + 100)) {
+            tab[i].lt2(obj, mousepos);
+            break;
+    }
     BeginDrawing();
         ClearBackground(BLACK);
-        DrawText("OPTIONS", 100, 100, 100, WHITE);
+        DrawText("OPTIONS", 0, 0, 100, WHITE);
     EndDrawing();   
 }
 
-static void adios()
+void adios(ost &obj, Vector2 mousepos)
 {
-    std::cout << "tocard" << std::endl;
+    (void)mousepos;
+    (void)obj;
     CloseAudioDevice();
     CloseWindow();
     exit(0);
 }
 
-static const lt tab[3] =
+void minus(ost &obj, Vector2 mousepos)
 {
-    {{960, 100}, &game},
-    {{480, 700}, &options},
-    {{320, 400}, &adios}
-};
+    (void)mousepos;
+    obj.set_volume(obj.get_volume() - 2);
+}
+
+void plus(ost &obj, Vector2 mousepos)
+{
+    (void)mousepos;
+    obj.set_volume(obj.get_volume() + 2);
+}
+
 
 int main(void)
 {
-    bool is_paused = false;
     const int screenWidth = 1920;
     const int screenHeight = 1080;
     Vector2 mousepos = { -100.0f, -100.0f };
     bool is_title = true;
     int i = -1;
-    Music menu;
-    Music sfx;
+
+    InitAudioDevice();
+    ost menu("./ressources/menu.mp3", 10, false);
+    ost sfx("./ressources/explosion8bit.wav", 5, false);
 
     InitWindow(screenWidth, screenHeight, "INDIE STUDIO");
-    InitAudioDevice();
-    menu = LoadMusicStream("./ressources/menu.mp3");
-    sfx = LoadMusicStream("./ressources/explosion8bit.wav");
-    PlayMusicStream(menu);
+    PlayMusicStream(menu.get_ost());
 
     SetTargetFPS(60);
     while (!WindowShouldClose()) {
-        UpdateMusicStream(menu);
-        UpdateMusicStream(sfx);
+        UpdateMusicStream(menu.get_ost());
+        UpdateMusicStream(sfx.get_ost());
         mousepos = GetMousePosition();
-        SetMusicVolume(menu, 10);
-        SetMusicVolume(sfx, 5);
-        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-            StopMusicStream(sfx);
-            PlayMusicStream(sfx);
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && is_title == true) {
+            StopMusicStream(sfx.get_ost());
+            PlayMusicStream(sfx.get_ost());
             for (i = 0; i < 3; i++)
                 if ((mousepos.x > tab[i].coords.first &&
                 mousepos.x < tab[i].coords.first + 100) &&
@@ -103,9 +107,9 @@ int main(void)
                 }
             (i == 3) ? is_title = true : i;
         }
+        (IsKeyPressed(KEY_ESCAPE)) ? (is_title = true) : is_title;
         if (IsKeyPressed(KEY_SPACE)) {
-            is_paused = !is_paused;
-            (is_paused == false) ? PauseMusicStream(menu) : ResumeMusicStream(menu);
+            menu.set_pause();
         }
         if (is_title == true) {
             BeginDrawing();
@@ -122,10 +126,8 @@ int main(void)
                 DrawLine(18, 42, screenWidth - 18, 42, BLACK);
             EndDrawing();
         } else 
-            tab[i].lt2();
+            tab[i].lt2(menu, mousepos);
     }
-    UnloadMusicStream(menu);
-    //UnloadMusicStream(sfx);
     CloseAudioDevice();
     CloseWindow();
     return 0;
