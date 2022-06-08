@@ -74,23 +74,22 @@ int main(void)
     Vector2 mousepos = { -100.0f, -100.0f };
     bool is_title = true;
     int i = -1;
-    float timeplayed = 0;
+    Music menu;
+    Music sfx;
 
     InitWindow(screenWidth, screenHeight, "INDIE STUDIO");
     InitAudioDevice();
-    Music menu = LoadMusicStream("./ressources/menu.mp3");
-    Music sfx = LoadMusicStream("./ressources/explosion8bit.wav");
+    menu = LoadMusicStream("./ressources/menu.mp3");
+    sfx = LoadMusicStream("./ressources/explosion8bit.wav");
     PlayMusicStream(menu);
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
-    while (!WindowShouldClose())    // Detect window close button or ESC key
-    {
+    SetTargetFPS(60);
+    while (!WindowShouldClose()) {
         UpdateMusicStream(menu);
         UpdateMusicStream(sfx);
         mousepos = GetMousePosition();
         SetMusicVolume(menu, 10);
         SetMusicVolume(sfx, 5);
-        timeplayed = GetMusicTimePlayed(sfx)/GetMusicTimeLength(sfx)*400;
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             StopMusicStream(sfx);
             PlayMusicStream(sfx);
