@@ -23,7 +23,6 @@ int basic_error(int ac, char **av)
 int main(int ac, char **av)
 {
     basic_error(ac, av);
-    std::cout << "pass0" << std::endl;
     Bomberman::Core core;
     return 0;
 }
