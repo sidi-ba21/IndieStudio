@@ -24,6 +24,14 @@ namespace Bomberman
             ~Core();
             void init();
             void game_loop();
+            void Camera();
+            void Player();
+            void Player_animation();
+            void Player_move();
+            void Score();
+            void Draw();
+            void Draw2d();
+            void Draw3d();
             Core(const Core &) = delete;
             Core &operator=(const Core &) = delete;
             Core(Core &&) = delete;
