@@ -13,8 +13,8 @@ void Bomberman::Player::init()
     _model2 = LoadModel("assets/robo6.iqm");
     _anim = LoadModelAnimations("assets/robo6.iqm", &_animCount);
     _anim2 = LoadModelAnimations("assets/robo6.iqm", &_animCount);
-    _texture = LoadTexture("assets/cubex.png");
-    _texture2 = LoadTexture("assets/stone_cube.png");
+    _texture = LoadTexture("Png/meme_player.png");
+    _texture2 = LoadTexture("Png/meme_player.png");
 
     SetMaterialTexture(&_model.materials[0], MATERIAL_MAP_DIFFUSE, _texture);
     SetMaterialTexture(&_model2.materials[0], MATERIAL_MAP_DIFFUSE, _texture2);
