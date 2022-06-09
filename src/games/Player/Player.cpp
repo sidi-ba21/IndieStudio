@@ -13,8 +13,8 @@ void Bomberman::Player::init()
     _model2 = LoadModel("assets/robo6.iqm");
     _anim = LoadModelAnimations("assets/robo6.iqm", &_animCount);
     _anim2 = LoadModelAnimations("assets/robo6.iqm", &_animCount);
-    _texture = LoadTexture("Png/meme_player.png");
-    _texture2 = LoadTexture("Png/meme_player.png");
+    _texture = LoadTexture("Png/cubex.png");
+    _texture2 = LoadTexture("Png/cubex.png");
 
     SetMaterialTexture(&_model.materials[0], MATERIAL_MAP_DIFFUSE, _texture);
     SetMaterialTexture(&_model2.materials[0], MATERIAL_MAP_DIFFUSE, _texture2);
@@ -70,6 +70,7 @@ float Bomberman::Player::Player_animation()
     return rotation;
 }
 
+
 float Bomberman::Player::Player_move()
 {
     if (IsKeyDown(KEY_W)) {
@@ -117,7 +118,7 @@ Model Bomberman::Player::get_Model2()
     return _model2;
 }
 
-Vector3 Bomberman::Player::get_position(int player)
+Vector3 Bomberman::Player::get_pos(int player)
 {
     if (player == 1)
         return _pos1;

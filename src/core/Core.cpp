@@ -62,8 +62,8 @@ void Bomberman::Core::Draw3d()
 {
     BeginMode3D(_camera.get_Camera());
 
-    DrawModelEx(_player.get_Model(), _player.get_position(1), (Vector3){ 0, 1, 0 }, r, (Vector3){1, 1, 1}, WHITE);
-    DrawModelEx(_player.get_Model2(), _player.get_position(2), (Vector3){ 0, 1, 0 }, rt, (Vector3){1, 1, 1}, WHITE);
+    DrawModelEx(_player.get_Model(), _player.get_pos(1), (Vector3){ 0, 1, 0 }, r, (Vector3){1, 1, 1}, WHITE);
+    DrawModelEx(_player.get_Model2(), _player.get_pos(2), (Vector3){ 0, 1, 0 }, rt, (Vector3){1, 1, 1}, WHITE);
     DrawModel(_map.get_model(), _map.get_pos(), 1.0f, WHITE);
 
     EndMode3D();
