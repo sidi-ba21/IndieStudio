@@ -23,7 +23,7 @@ void Bomberman::Core::init(void)
     this->mesh = GenMeshCubicmap(image, (Vector3){1.0f, 1.0f, 1.0f});
     this->model = LoadModelFromMesh(mesh);
     this->texture = LoadTexture("Png/grassbrick_cube.png"); // Load map texture
-    this->background = LoadTexture("Png/game_background.png"); // Load map texture
+    this->background = LoadTexture("Png/menu_background.png"); // Load map texture
 
     SetCameraMode(camera, CAMERA_FREE);
     SetCameraMode(camera, CAMERA_ORBITAL); // Set an orbital camera mode
