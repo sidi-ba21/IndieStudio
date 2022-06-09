@@ -61,4 +61,11 @@ class GraphicsError : public Error
         : Error(message, component) {};
 };
 
+class AIError : public Error
+{
+    public:
+        AIError(std::string const &message, std::string const &component = "Unknown")
+        : Error(message, component) {};
+};
+
 #endif /* !ERROR_HPP_ */
