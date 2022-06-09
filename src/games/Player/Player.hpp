@@ -22,7 +22,7 @@ namespace Bomberman {
             float Player_move();
             Model get_Model();
             Model get_Model2();
-            Vector3 get_position(int player = 1);
+            Vector3 get_pos(int player = 1);
 
         protected:
         private:
