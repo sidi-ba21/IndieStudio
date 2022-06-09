@@ -55,6 +55,7 @@ namespace Bomberman
             Model model;
             Texture2D texture;
             Texture2D background;
+            Color *mapPixels;
     };
 }
 

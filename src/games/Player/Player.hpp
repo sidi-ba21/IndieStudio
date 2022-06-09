@@ -18,11 +18,12 @@ namespace Bomberman {
             Player() = default;
             ~Player();
             void init();
-            float Player_animation();
-            float Player_move();
+            float Player_animation(Color *, Texture2D cubicmap);
+            float Player_move(Color *, Texture2D cubicmap);
             Model get_Model();
             Model get_Model2();
             Vector3 get_position(int player = 1);
+            bool Check_collision(Vector3, int direction, Color *mapPixels, Texture2D cubicmap);
 
         protected:
         private:
