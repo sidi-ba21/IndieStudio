@@ -16,7 +16,7 @@ namespace Bomberman {
     class Camera {
         public:
             Camera() = default;
-            ~Camera();
+            ~Camera() = default;
             void init();
             void Camera_move();
             Camera3D get_Camera();

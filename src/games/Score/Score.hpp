@@ -15,8 +15,8 @@ namespace Bomberman {
 
     class Score {
         public:
-            Score();
-            ~Score();
+            Score() = default;
+            ~Score() = default;
             void init();
             void update();
             int get_score();

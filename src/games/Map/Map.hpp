@@ -15,7 +15,7 @@ namespace Bomberman {
 
     class Map {
         public:
-            Map();
+            Map() = default;
             ~Map();
             void init();
             void update();
