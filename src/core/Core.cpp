@@ -30,7 +30,7 @@ void Bomberman::Core::init(void)
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
     model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture; // Set map diffuse texture
-    this->mapPixels = LoadImageColors(image);
+
 }
 
 void Bomberman::Core::game_loop()
@@ -39,8 +39,8 @@ void Bomberman::Core::game_loop()
     {
         DrawTextureV(background, Vector2 {0, 0}, WHITE);
         Camera();
-        this->rt = _player.Player_move(this->mapPixels, this->cubicmap);
-        this->r = _player.Player_animation(this->mapPixels, this->cubicmap);
+        this->rt = _player.Player_move();
+        this->r = _player.Player_animation();
         Score();
         Draw();
     }
