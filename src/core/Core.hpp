@@ -35,11 +35,12 @@ namespace Bomberman
             Core &operator=(const Core &) = delete;
             Core(Core &&) = delete;
             Core &operator=(Core &&) = delete;
-
         protected:
         private:
             const int screenWidth{1920};
             const int screenHeight{1080};
+            float r{0};
+            float rt{0};
 
             Player _player;
             Camera _camera;
