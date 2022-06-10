@@ -29,7 +29,12 @@ add_compile_options(-Wall -Wextra -g3)
 add_executable(${PROJECT_NAME}
   src/core/main.cpp
   src/core/Core.cpp
-  src/games/Player/Player.cpp)
+  src/games/Player/Player.cpp
+  src/games/Camera/Camera.cpp
+  src/games/Map/Map.cpp
+  src/games/Score/Score.cpp
+  src/games/Bomb/Bomb.cpp
+  src/graphicals/Draw/Draw.cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib GL m pthread dl)
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND mv ${PROJECT_NAME} ${PROJECT_SOURCE_DIR})

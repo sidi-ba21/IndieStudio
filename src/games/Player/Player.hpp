@@ -8,6 +8,15 @@
 #include "raylib.h"
 #include "cmath"
 
+#define XBOX360_LEGACY_NAME_ID  "Xbox Controller"
+#if defined(PLATFORM_RPI)
+    #define XBOX360_NAME_ID     "Microsoft X-Box 360 pad"
+    #define PS3_NAME_ID         "PLAYSTATION(R)3 Controller"
+#else
+    #define XBOX360_NAME_ID     "Xbox 360 Controller"
+    #define PS3_NAME_ID         "PLAYSTATION(R)3 Controller"
+#endif
+
 #ifndef PLAYER_HPP_
 #define PLAYER_HPP_
 
@@ -22,7 +31,7 @@ namespace Bomberman {
             float Player_move();
             Model get_Model();
             Model get_Model2();
-            Vector3 get_position(int player = 1);
+            Vector3 get_pos(int player = 1);
 
         protected:
         private:
