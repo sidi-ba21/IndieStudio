@@ -58,7 +58,7 @@ namespace Bomberman
         Model model;
         Image image;
         Texture2D texture;
-        double time = GetTime();
+         std::time_t time1;
     };
 }
 
