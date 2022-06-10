@@ -1,0 +1,7 @@
+bomberman
+*.o
+\#*
+*.gcno
+vgcore*
+build/*
+*.cmake
