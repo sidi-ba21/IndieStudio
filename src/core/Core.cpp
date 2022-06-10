@@ -73,6 +73,11 @@ void Bomberman::Core::Draw3d()
         _bomb_pos = _player.get_pos(1);
         pressed = 1;
     }
+    if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN))
+    {
+        _bomb_pos = _player.get_pos(2);
+        pressed = 2;
+    }
     if (pressed == 1)
     {
         using namespace std::chrono;
