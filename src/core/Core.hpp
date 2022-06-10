@@ -19,39 +19,43 @@
 #include <chrono>
 
 #ifndef CORE_HPP_
-    #define CORE_HPP_
+#define CORE_HPP_
 
 namespace Bomberman
 {
     class Core
     {
-        public:
-            Core();
-            ~Core();
-            void init();
-            void game_loop();
-            void Draw();
-            void Draw2d();
-            void Draw3d();
-            Core(const Core &) = delete;
-            Core &operator=(const Core &) = delete;
-            Core(Core &&) = delete;
-            Core &operator=(Core &&) = delete;
-        protected:
-        private:
-            const int screenWidth{1920};
-            const int screenHeight{1080};
-            float r{0};
-            float rt{0};
-            Vector3 _bomb_pos;
-            int pressed{0};
-            Player _player;
-            Camera _camera;
-            Score _score;
-            Map _map;
-            Texture2D background;
-            Menu _menu;
-            
+    public:
+        Core();
+        ~Core();
+        void init();
+        void game_loop();
+        void Draw();
+        void Draw2d();
+        void Draw3d();
+        Core(const Core &) = delete;
+        Core &operator=(const Core &) = delete;
+        Core(Core &&) = delete;
+        Core &operator=(Core &&) = delete;
+
+    protected:
+    private:
+        const int screenWidth{1920};
+        const int screenHeight{1080};
+        float r{0};
+        float rt{0};
+        Vector3 _bomb_pos;
+        int pressed{0};
+        Player _player;
+        Camera _camera;
+        Score _score;
+        Map _map;
+        Texture2D background;
+        Menu _menu;
+        Color *mapPixels;
+        Model model;
+        Image image;
+        Texture2D texture;
     };
 }
 

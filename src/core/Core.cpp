@@ -24,6 +24,7 @@ void Bomberman::Core::init(void)
     _map.init();
     _menu.init();
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
+    this->mapPixels = LoadImageColors(_map.get_image());
 }
 
 void Bomberman::Core::game_loop()
@@ -32,7 +33,7 @@ void Bomberman::Core::game_loop()
     {
         DrawTextureV(background, Vector2{0, 0}, WHITE);
         this->rt = _player.Player_move();
-        this->r = _player.Player_animation();
+        this->r = _player.Player_animation(this->mapPixels, this->_map.get_cubicTexture());
         _map.update();
         _camera.Camera_move();
         _score.update();
@@ -46,10 +47,12 @@ void Bomberman::Core::Draw()
     BeginDrawing();
 
     ClearBackground(RAYWHITE);
-    if (_menu.get_game() == true) {
+    if (_menu.get_game() == true)
+    {
         Draw3d();
         Draw2d();
-    } else
+    }
+    else
         _menu.loop();
     EndDrawing();
 }

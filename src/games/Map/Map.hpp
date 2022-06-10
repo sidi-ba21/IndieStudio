@@ -22,6 +22,7 @@ namespace Bomberman {
             Model get_model();
             Vector3 get_pos();
             Texture2D get_cubicTexture();
+            Image get_image();
 
         protected:
         private:
@@ -31,6 +32,7 @@ namespace Bomberman {
             Texture2D _texture;
             Mesh _mesh;
             Model _model;
+            
     };
 
 }

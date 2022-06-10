@@ -31,6 +31,11 @@ Model Bomberman::Map::get_model()
     return _model;
 }
 
+Image Bomberman::Map::get_image()
+{
+    return _image;
+}
+
 Vector3 Bomberman::Map::get_pos()
 {
     return _pos;
