@@ -46,6 +46,7 @@ namespace Bomberman
             Camera _camera;
             Score _score;
             Map _map;
+            Texture2D background;
     };
 }
 

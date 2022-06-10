@@ -17,6 +17,7 @@ Bomberman::Core::Core()
 
 void Bomberman::Core::init(void)
 {
+    this->background = LoadTexture("Png/game_background.png"); // Load map texture
     _player.init();
     _camera.init();
     _map.init();
@@ -28,6 +29,7 @@ void Bomberman::Core::game_loop()
 {
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
+        DrawTextureV(background, Vector2 {0, 0}, WHITE);
         this->rt = _player.Player_move();
         this->r =  _player.Player_animation();
         _map.update();

@@ -13,8 +13,8 @@ void Bomberman::Player::init()
     _model2 = LoadModel("assets/robo6.iqm");
     _anim = LoadModelAnimations("assets/robo6.iqm", &_animCount);
     _anim2 = LoadModelAnimations("assets/robo6.iqm", &_animCount);
-    _texture = LoadTexture("Png/cubex.png");
-    _texture2 = LoadTexture("Png/cubex.png");
+    _texture = LoadTexture("Png/meme_player.png");
+    _texture2 = LoadTexture("Png/meme_player.png");
 
     SetMaterialTexture(&_model.materials[0], MATERIAL_MAP_DIFFUSE, _texture);
     SetMaterialTexture(&_model2.materials[0], MATERIAL_MAP_DIFFUSE, _texture2);
@@ -40,7 +40,7 @@ float Bomberman::Player::Player_animation()
        _animFrameCounter++;
         if (_animFrameCounter >= _anim[0].frameCount)
            _animFrameCounter = 0;
-        _pos1.z -= 0.09;
+        _pos1.z -= 0.05;
         rotation = 180;
     }
     if (IsKeyDown(KEY_DOWN)) {
@@ -48,7 +48,7 @@ float Bomberman::Player::Player_animation()
        _animFrameCounter++;
         if (_animFrameCounter >= _anim[0].frameCount)
            _animFrameCounter = 0;
-        _pos1.z += 0.09;
+        _pos1.z += 0.05;
         rotation = 0;
     }
     if (IsKeyDown(KEY_LEFT)) {
@@ -56,7 +56,7 @@ float Bomberman::Player::Player_animation()
        _animFrameCounter++;
         if (_animFrameCounter >= _anim[0].frameCount)
            _animFrameCounter = 0;
-        _pos1.x -= 0.09;
+        _pos1.x -= 0.05;
         rotation = -90;
     }
     if (IsKeyDown(KEY_RIGHT)) {
@@ -64,7 +64,7 @@ float Bomberman::Player::Player_animation()
        _animFrameCounter++;
         if (_animFrameCounter >= _anim[0].frameCount)
            _animFrameCounter = 0;
-        _pos1.x += 0.09;
+        _pos1.x += 0.05;
         rotation = 90;
     }
     return rotation;
@@ -78,7 +78,7 @@ float Bomberman::Player::Player_move()
        _animFrameCounter++;
         if (_animFrameCounter >= _anim2[0].frameCount)
            _animFrameCounter = 0;
-        _pos2.z -= 0.09;
+        _pos2.z -= 0.05;
         rotation2 = 180;
     }
     if (IsKeyDown(KEY_S)) {
@@ -86,7 +86,7 @@ float Bomberman::Player::Player_move()
        _animFrameCounter++;
         if (_animFrameCounter >= _anim2[0].frameCount)
            _animFrameCounter = 0;
-        _pos2.z += 0.09;
+        _pos2.z += 0.05;
         rotation2 = 0;
     }
     if (IsKeyDown(KEY_Q)) {
@@ -94,7 +94,7 @@ float Bomberman::Player::Player_move()
        _animFrameCounter++;
         if (_animFrameCounter >= _anim2[0].frameCount)
            _animFrameCounter = 0;
-        _pos2.x -= 0.09;
+        _pos2.x -= 0.05;
         rotation2 = -90;
     }
     if (IsKeyDown(KEY_E)) {
@@ -102,7 +102,7 @@ float Bomberman::Player::Player_move()
        _animFrameCounter++;
         if (_animFrameCounter >= _anim2[0].frameCount)
            _animFrameCounter = 0;
-        _pos2.x += 0.09;
+        _pos2.x += 0.05;
         rotation2 = 90;
     }
     return rotation2;
