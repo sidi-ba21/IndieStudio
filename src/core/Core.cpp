@@ -32,6 +32,7 @@ void Bomberman::Core::game_loop()
         DrawTextureV(background, Vector2 {0, 0}, WHITE);
         this->rt = _player.Player_move();
         this->r =  _player.Player_animation();
+        //this->pos_ai =_ai.move_AI();
         _map.update();
         _camera.Camera_move();
         _score.update();
