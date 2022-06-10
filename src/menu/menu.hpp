@@ -13,24 +13,14 @@
 #include <iostream>
 #include <raylib.h>
 
-static const lt tab[7] =
-{
-    {{960, 100}, &game},
-    {{480, 700}, &options},
-    {{320, 400}, &adios},
-    {{480, 270}, &minus},
-    {{480, 810}, &minus},
-    {{1440, 270}, &plus},
-    {{1440, 810}, &plus}
-};
-
 namespace Bomberman {
         class ost {
         public:
+            ost();
             ost(std::string, size_t, bool);
-            ~ost() { CloseAudioDevice(); };
+            ~ost();
             void init(std::string, size_t, bool);
-            void operator=(const ost &) = delete;
+            void operator=(const ost &);
             void set_volume(size_t);
             size_t get_volume();
             void set_pause();
@@ -58,24 +48,25 @@ namespace Bomberman {
             bool get_title() { return is_title;}
             int get_cmt() { return i;}
             void set_cmt(int p) {i = p;}
+            bool get_game() { return is_game; }
+            void set_gamebool(bool obj) { is_game = obj; }
+
+            void game();
+            void options();
+            void adios();
+            void minus();
+            void plus();
+            void game_options();
 
         private:
             Vector2 mousepos = { -100.0f, -100.0f };
             bool is_title = true;
+            bool is_game = false;
             int i = -1;
             ost musiic;
             ost sfx;
+            int screenWidth = 480;
+            int screenHeight = 1080;
+
     };
 }
-
-typedef struct lt
-{
-    std::pair <float, float>coords;
-    void (*lt2)(Bomberman::ost &obj, Vector2 mousepos);
-}lt;
-
-void game(Bomberman::ost &obj, Vector2 mousepos);
-void options(Bomberman::ost &obj, Vector2 mousepos);
-void adios(Bomberman::ost &obj, Vector2 mousepos);
-void minus(Bomberman::ost &obj, Vector2 mousepos);
-void plus(Bomberman::ost &obj, Vector2 mousepos);
