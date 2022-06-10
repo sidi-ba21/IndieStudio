@@ -1,34 +1,38 @@
 /*
 ** EPITECH PROJECT, 2022
-** Bomb
+** Map
 ** File description:
-** Bomb
+** Map
 */
 
 #include "raylib.h"
+#include <cmath>
 
-#ifndef BOMB_HPP_
-#define BOMB_HPP_
+#ifndef MAP_HPP_
+    #define MAP_HPP_
 
 namespace Bomberman {
 
-    class Bomb {
+    class Map {
         public:
-            Bomb();
-            ~Bomb();
+            Map() = default;
+            ~Map();
             void init();
             void update();
+            Model get_model();
             Vector3 get_pos();
+            Texture2D get_cubicTexture();
 
         protected:
         private:
             Vector3 _pos = {-16.0f, 0.0f, -8.0f}; //set model position
             Image _image;
+            Texture2D _cubicTexture;
             Texture2D _texture;
-            //Mesh _mesh;
-            //Model _model;
+            Mesh _mesh;
+            Model _model;
     };
 
 }
 
-#endif /* !BOMB_HPP_ */
+#endif /* !MAP_HPP_ */
