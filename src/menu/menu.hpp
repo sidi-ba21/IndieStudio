@@ -65,7 +65,7 @@ namespace Bomberman {
             int i = -1;
             ost musiic;
             ost sfx;
-            int screenWidth = 480;
+            int screenWidth = 1920;
             int screenHeight = 1080;
 
     };

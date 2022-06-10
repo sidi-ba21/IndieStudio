@@ -87,17 +87,18 @@ void Bomberman::Menu::update()
     if ((GetMusicTimePlayed(sfx.get_ost())/GetMusicTimeLength(sfx.get_ost())) > 1)
         StopMusicStream(sfx.get_ost());
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && is_title == true) {
+        printf("click title\n");
         StopMusicStream(sfx.get_ost());
         PlayMusicStream(sfx.get_ost());
-        if  ((temp.x > screenWidth/2 && temp.x < screenWidth/2 + 50) && (temp.y > 100 && temp.y < 100 + 50))
+        if  ((temp.x > screenWidth/2 - 50 && temp.x < screenWidth/2 + 50) && (temp.y > 100 -50  && temp.y < 100 + 50))
             i = 0;
-        else if  ((temp.x > screenHeight/4 && temp.x < screenHeight/4 + 50) && (temp.y > 700 && temp.y < 700 + 50))
+        else if  ((temp.x > screenWidth/4 -50 && temp.x < screenWidth/4 + 50) && (temp.y > screenHeight*0.75 -50 && temp.y < screenHeight*0.75 + 50))
             i = 1;
-        else if  ((temp.x > 320 && temp.x < 320 + 50) && (temp.y > 400 && temp.y < 400 + 50))
+        else if  ((temp.x > screenWidth/6 -50 && temp.x < screenWidth/6 + 50) && (temp.y > screenHeight/4 -50 && temp.y < screenHeight/4 + 50))
             i = 2;
         else
             i = 3;
-        (i == 3) ? is_title = true : i;
+        (i == 3) ? is_title = true : is_title = false;
     }
     (IsKeyPressed(KEY_T)) ? (is_title = true) : true;
     (IsKeyPressed(KEY_SPACE)) ? musiic.set_pause() : (void)1;
@@ -107,12 +108,13 @@ void Bomberman::Menu::game_options()
 {
     Vector2 temp = this->get_mousepos();
 
-    if  (i == 0)
+    if  (i == 0) {
         game();
-    else if  (i == 1)
+    } else if  (i == 1) {
         options();
-    else if  (i == 2)
+    } else if  (i == 2) {
         adios();
+    }
 }
 
 void Bomberman::Menu::loop()
@@ -120,13 +122,12 @@ void Bomberman::Menu::loop()
     if (is_title == true) {
         BeginDrawing();
             ClearBackground(RAYWHITE);
-            DrawRectangle(screenWidth/2, 100, 100, 100, RED);
-            DrawText("GAME", screenWidth/2, 100, 20, BLACK);
-            DrawRectangle(screenWidth/4, 700, 100, 100, GREEN);
-            DrawText("OPTIONS", screenWidth/4, 700, 20, BLACK);
-            DrawRectangle(screenWidth/6, 400, 100, 100, BLUE);
-            DrawText("EXIt", screenWidth/6, 400, 20, BLACK);
-            DrawRectangleLines(screenWidth/4*2 - 40, 320, 80, 60, GREEN);
+            DrawRectangle(screenWidth/2, 75, 100, 100, RED);
+            DrawText("GAME", screenWidth/2 + 20, 100, 20, BLACK);
+            DrawRectangle(screenWidth/4 -50, screenHeight*0.75 - 50, 100, 100, GREEN);
+            DrawText("OPTIONS", screenWidth/4 -50, screenHeight*0.75, 20, BLACK);
+            DrawRectangle(screenWidth/6, screenHeight/4, 100, 100, BLUE);
+            DrawText("EXIt", screenWidth/6 + 20, screenHeight/4 + 50, 20, BLACK);
             DrawLine(18, 42, screenWidth - 18, 42, BLACK);
         //EndDrawing();
     } else 
