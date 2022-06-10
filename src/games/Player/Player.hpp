@@ -23,6 +23,18 @@ namespace Bomberman {
             Model get_Model();
             Model get_Model2();
             Vector3 get_pos(int player = 1);
+            void setPos(Vector3 chk_pos)
+            {
+                _pos2 = chk_pos;
+            }
+            ModelAnimation *get_anim2()
+            {
+                return _anim2;
+            }
+            int get_anifram()
+            {
+                return _animFrameCounter;
+            }
 
         protected:
         private:
