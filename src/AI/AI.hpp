@@ -13,27 +13,24 @@
 #include <vector>
 #include "../Player/Player.hpp"
 #include "Object.hpp"
+#include "operator.hpp"
+#include <iostream>
 
 class AI: public Bomberman::Player {
     public:
+        //AI(std::function<void (const size_t pos, const std::string action)> playerActionsFunc, const std::vector<AI> &AIs, std::vector<std::shared_ptr<Bomberman::Object>> entities, const std::vector<std::string> &map, const size_t &level);
         AI();
         ~AI() = default;
+        void run(void) const;
     protected:
     private:
-};
-
-struct coords
-{
-    coords(float f = 0, float s = 0, float t = 0) : first(f), second(s), third(t) {};
-    coords &operator+=(coords const &rhs) {
-        first += rhs.first;
-        second += rhs.second;
-        third += rhs.third;
-        return *this;
-    }
-    float first;
-    float second;
-    float third;
+    std::vector<AI> _AIs;
+        std::vector<std::shared_ptr<Bomberman::Object>> _entities;
+        std::vector<std::string> _map;
+        size_t _level;
+        std::function<void (const size_t pos, const std::string action)> _playerActionsFunc;
+        float calculateDistance(const Point &start, const Point &end) const;
+        std::string convertPointIntoAction(const std::pair<int, int> &point) const;
 };
 
 #endif /* !AI_HPP_ */
