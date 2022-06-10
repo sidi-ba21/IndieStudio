@@ -49,7 +49,6 @@ bool Bomberman::Player::Check_collision(Vector3 pos, int direction,
         return (true);
     float tmpz = newPos.z + 8.f;
     float tmpx = newPos.x + 16.f;
-    printf("_________ %.3f, %.3f____________________\n", tmpx, tmpz);
     auto x = abs(tmpx + 0.6);
     auto y = abs(tmpz + 0.4);
     auto prex = abs(tmpx);

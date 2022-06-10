@@ -74,29 +74,40 @@ void Bomberman::Core::Draw3d()
     DrawModelEx(_player.get_Model(), _player.get_pos(1), (Vector3){0, 1, 0}, r, (Vector3){1, 1, 1}, WHITE);
     DrawModelEx(_player.get_Model2(), _player.get_pos(2), (Vector3){0, 1, 0}, rt, (Vector3){1, 1, 1}, WHITE);
     DrawModel(_map.get_model(), _map.get_pos(), 1.0f, WHITE);
-    if (IsKeyPressed(KEY_KP_0))
+    if (IsKeyPressed(KEY_RIGHT_SHIFT))
     {
         _bomb_pos = _player.get_pos(1);
         pressed = 1;
     }
-    if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN))
+    if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN) || IsKeyPressed(KEY_LEFT_SHIFT))
     {
-        _bomb_pos = _player.get_pos(2);
-        pressed = 2;
+        _bomb_pos2 = _player.get_pos(2);
+        pressed2 = 1;
     }
     if (pressed == 1)
     {
-        using namespace std::chrono;
-        auto start = high_resolution_clock::now();
-        auto end = high_resolution_clock::now();
-        auto duration = duration_cast<microseconds>(end - start);
         DrawSphere(Vector3{_bomb_pos}, 0.3, BLACK);
         DrawSphereWires(Vector3{_bomb_pos}, 0.3, 10, 10, BROWN);
-        if (duration.count() > 1)
+    }
+    if (pressed2 == 1)
+    {
+        DrawSphere(Vector3{_bomb_pos2}, 0.3, BLACK);
+        DrawSphereWires(Vector3{_bomb_pos2}, 0.3, 10, 10, BROWN);
+    }
+    if (IsKeyReleased(KEY_RIGHT_SHIFT))
+    {
+        for (time = 0; time < 3; time++)
         {
-            DrawSphere(Vector3{_bomb_pos}, 0.3, YELLOW);
-            DrawSphereWires(Vector3{_bomb_pos}, 0.3, 10, 10, BROWN);
+            if (time == 3) {
+            DrawRectangleLines(_bomb_pos.x, _bomb_pos.y, _bomb_pos.x + 1, _bomb_pos.y + 1, RED);
+            pressed = 4;
+            time = 0;
         }
+        }
+    }
+    if (IsGamepadButtonReleased(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN) || IsKeyReleased(KEY_LEFT_SHIFT))
+    {
+        pressed2 = 4;
     }
     EndMode3D();
 }

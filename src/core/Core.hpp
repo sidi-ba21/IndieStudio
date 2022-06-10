@@ -45,7 +45,9 @@ namespace Bomberman
         float r{0};
         float rt{0};
         Vector3 _bomb_pos;
+        Vector3 _bomb_pos2;
         int pressed{0};
+        int pressed2{0};
         Player _player;
         Camera _camera;
         Score _score;
@@ -56,6 +58,7 @@ namespace Bomberman
         Model model;
         Image image;
         Texture2D texture;
+        double time = GetTime();
     };
 }
 
