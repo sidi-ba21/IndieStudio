@@ -22,7 +22,7 @@ void Bomberman::Core::init(void)
     _player.init();
     _camera.init();
     _map.init();
-
+    _menu.init();
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 }
 
@@ -36,6 +36,7 @@ void Bomberman::Core::game_loop()
         _map.update();
         _camera.Camera_move();
         _score.update();
+        _menu.update();
         Draw();
     }
 }
@@ -45,9 +46,11 @@ void Bomberman::Core::Draw()
     BeginDrawing();
 
     ClearBackground(RAYWHITE);
-    Draw3d();
-    Draw2d();
-
+    if (_menu.get_game() == true) {
+        Draw3d();
+        Draw2d();
+    } else
+        _menu.loop();
     EndDrawing();
 }
 

@@ -7,65 +7,64 @@
 
 #include "menu.hpp"
 
-int screenWidth = 480;
-int screenHeight = 1080;
-
-void game(Bomberman::ost &obj, Vector2 mousepos)
+void Bomberman::Menu::game()
 {
-    (void)obj;
     (void)mousepos;
     BeginDrawing();
         ClearBackground(RAYWHITE);
         DrawText("GAME THINGY", 100, 100, 100, BLACK);
-    EndDrawing();
+    //EndDrawing();
 }
 
-void options(Bomberman::ost &obj, Vector2 mousepos)
+void Bomberman::Menu::options()
 {
+    Vector2 temp = this->get_mousepos();
+
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-        for (int i = 3; i < 7; i++)
-            if ((mousepos.x > tab[i].coords.first &&
-            mousepos.x < tab[i].coords.first + 50) &&
-            (mousepos.y > tab[i].coords.second &&
-            mousepos.y < tab[i].coords.second + 50)) {
-                tab[i].lt2(obj, mousepos);
-                break;
-        }
+        if  ((temp.x > screenHeight/4 && temp.x < screenHeight/4 + 50) && (temp.y > 270 && temp.y < 270 + 50))
+            minus();
+        else if  ((temp.x > screenHeight/4 && temp.x < screenHeight/4 + 50) && (temp.y > 810 && temp.y < 810 + 50))
+            minus();
+        else if  ((temp.x > 1440 && temp.x < 1440 + 50) && (temp.y > 270 && temp.y < 270 + 50))
+            plus();
+        else if  ((temp.x > 1440 && temp.x < 1440 + 50) && (temp.y > 810 && temp.y < 810 + 50))
+            plus();
     }
     BeginDrawing();
         ClearBackground(BLACK);
         DrawText("OPTIONS", 0, 0, 100, WHITE);
         DrawRectangle(455, 270, 100, 100, RED);
-        DrawText("-", 480, 270, 100, WHITE);
+        DrawText("-", screenHeight/4, 270, 100, WHITE);
         DrawRectangle(455, 810, 100, 100, RED);
-        DrawText("-", 480, 810, 100, WHITE);
+        DrawText("-", screenHeight/4, 810, 100, WHITE);
         DrawRectangle(1415, 270, 100, 100, RED);
         DrawText("+", 1440, 270, 100, WHITE);
         DrawRectangle(1415, 810, 100, 100, RED);
         DrawText("+", 1440, 810, 100, WHITE);
-    EndDrawing();   
+    //EndDrawing();   
 }
 
-void adios(Bomberman::ost &obj, Vector2 mousepos)
+void Bomberman::Menu::adios()
 {
     (void)mousepos;
-    (void)obj;
     CloseAudioDevice();
     CloseWindow();
     exit(0);
 }
 
-void minus(Bomberman::ost &obj, Vector2 mousepos)
+void Bomberman::Menu::minus()
 {
     (void)mousepos;
-    obj.set_volume(obj.get_volume() - 2);
+    musiic.set_volume(musiic.get_volume() - 2);
 }
 
-void plus(Bomberman::ost &obj, Vector2 mousepos)
+void Bomberman::Menu::plus()
 {
     (void)mousepos;
-    obj.set_volume(obj.get_volume() + 2);
+    musiic.set_volume(musiic.get_volume() + 2);
 }
+
+Bomberman::Menu::Menu() {}
 
 void Bomberman::Menu::init()
 {
@@ -78,26 +77,42 @@ void Bomberman::Menu::init()
 
 void Bomberman::Menu::update()
 {
+    Vector2 temp = this->get_mousepos();
+
     UpdateMusicStream(musiic.get_ost());
     UpdateMusicStream(sfx.get_ost());
+    screenWidth = GetScreenWidth();
+    screenHeight = GetScreenHeight();
     mousepos = GetMousePosition();
     if ((GetMusicTimePlayed(sfx.get_ost())/GetMusicTimeLength(sfx.get_ost())) > 1)
         StopMusicStream(sfx.get_ost());
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && is_title == true) {
         StopMusicStream(sfx.get_ost());
         PlayMusicStream(sfx.get_ost());
-        for (i = 0; i < 3; i++)
-            if ((mousepos.x > tab[i].coords.first &&
-            mousepos.x < tab[i].coords.first + 100) &&
-            (mousepos.y > tab[i].coords.second &&
-            mousepos.y < tab[i].coords.second + 100)) {
-                is_title = false;
-                break;
-            }
+        if  ((temp.x > screenWidth/2 && temp.x < screenWidth/2 + 50) && (temp.y > 100 && temp.y < 100 + 50))
+            i = 0;
+        else if  ((temp.x > screenHeight/4 && temp.x < screenHeight/4 + 50) && (temp.y > 700 && temp.y < 700 + 50))
+            i = 1;
+        else if  ((temp.x > 320 && temp.x < 320 + 50) && (temp.y > 400 && temp.y < 400 + 50))
+            i = 2;
+        else
+            i = 3;
         (i == 3) ? is_title = true : i;
     }
     (IsKeyPressed(KEY_T)) ? (is_title = true) : true;
     (IsKeyPressed(KEY_SPACE)) ? musiic.set_pause() : (void)1;
+}
+
+void Bomberman::Menu::game_options()
+{
+    Vector2 temp = this->get_mousepos();
+
+    if  (i == 0)
+        game();
+    else if  (i == 1)
+        options();
+    else if  (i == 2)
+        adios();
 }
 
 void Bomberman::Menu::loop()
@@ -113,10 +128,15 @@ void Bomberman::Menu::loop()
             DrawText("EXIt", screenWidth/6, 400, 20, BLACK);
             DrawRectangleLines(screenWidth/4*2 - 40, 320, 80, 60, GREEN);
             DrawLine(18, 42, screenWidth - 18, 42, BLACK);
-        EndDrawing();
+        //EndDrawing();
     } else 
-        tab[i].lt2(musiic, mousepos);
+        game_options();
 }
+
+Bomberman::Menu::~Menu()
+{
+}
+
 /*
 int main(void)
 {
@@ -135,7 +155,7 @@ int main(void)
     SetTargetFPS(60);
     while (!WindowShouldClose()) {
         screenWidth = GetScreenWidth();
-        screenHeight = GetScreenHeight();
+        screenHeight = GetscreenHeight();
         UpdateMusicStream(menu.get_ost());
         UpdateMusicStream(sfx.get_ost());
         mousepos = GetMousePosition();

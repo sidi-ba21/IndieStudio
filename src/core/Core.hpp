@@ -12,6 +12,7 @@
 #include "../games/Camera/Camera.hpp"
 #include "../games/Score/Score.hpp"
 #include "../games/Map/Map.hpp"
+#include "../menu/menu.hpp"
 #include <iostream>
 #include <string>
 #include <cmath>
@@ -49,6 +50,7 @@ namespace Bomberman
             Score _score;
             Map _map;
             Texture2D background;
+            Menu _menu;
             
     };
 }
