@@ -15,6 +15,7 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+#include <chrono>
 
 #ifndef CORE_HPP_
     #define CORE_HPP_
@@ -41,12 +42,14 @@ namespace Bomberman
             const int screenHeight{1080};
             float r{0};
             float rt{0};
-
+            Vector3 _bomb_pos;
+            int pressed{0};
             Player _player;
             Camera _camera;
             Score _score;
             Map _map;
             Texture2D background;
+            
     };
 }
 

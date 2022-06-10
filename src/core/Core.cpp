@@ -30,9 +30,9 @@ void Bomberman::Core::game_loop()
 {
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
-        DrawTextureV(background, Vector2 {0, 0}, WHITE);
+        DrawTextureV(background, Vector2{0, 0}, WHITE);
         this->rt = _player.Player_move();
-        this->r =  _player.Player_animation();
+        this->r = _player.Player_animation();
         _map.update();
         _camera.Camera_move();
         _score.update();
@@ -65,10 +65,28 @@ void Bomberman::Core::Draw3d()
 {
     BeginMode3D(_camera.get_Camera());
 
-    DrawModelEx(_player.get_Model(), _player.get_pos(1), (Vector3){ 0, 1, 0 }, r, (Vector3){1, 1, 1}, WHITE);
-    DrawModelEx(_player.get_Model2(), _player.get_pos(2), (Vector3){ 0, 1, 0 }, rt, (Vector3){1, 1, 1}, WHITE);
+    DrawModelEx(_player.get_Model(), _player.get_pos(1), (Vector3){0, 1, 0}, r, (Vector3){1, 1, 1}, WHITE);
+    DrawModelEx(_player.get_Model2(), _player.get_pos(2), (Vector3){0, 1, 0}, rt, (Vector3){1, 1, 1}, WHITE);
     DrawModel(_map.get_model(), _map.get_pos(), 1.0f, WHITE);
-
+    if (IsKeyPressed(KEY_KP_0))
+    {
+        _bomb_pos = _player.get_pos(1);
+        pressed = 1;
+    }
+    if (pressed == 1)
+    {
+        using namespace std::chrono;
+        auto start = high_resolution_clock::now();
+        auto end = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(end - start);
+        DrawSphere(Vector3{_bomb_pos}, 0.3, BLACK);
+        DrawSphereWires(Vector3{_bomb_pos}, 0.3, 10, 10, BROWN);
+        if (duration.count() > 1)
+        {
+            DrawSphere(Vector3{_bomb_pos}, 0.3, YELLOW);
+            DrawSphereWires(Vector3{_bomb_pos}, 0.3, 10, 10, BROWN);
+        }
+    }
     EndMode3D();
 }
 
