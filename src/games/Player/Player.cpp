@@ -73,7 +73,7 @@ float Bomberman::Player::Player_animation()
 
 float Bomberman::Player::Player_move()
 {
-    if (IsKeyDown(KEY_W)) {
+    if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_UP)) {
         UpdateModelAnimation(_model2, _anim2[0],_animFrameCounter);
        _animFrameCounter++;
         if (_animFrameCounter >= _anim2[0].frameCount)
@@ -81,7 +81,7 @@ float Bomberman::Player::Player_move()
         _pos2.z -= 0.05;
         rotation2 = 180;
     }
-    if (IsKeyDown(KEY_S)) {
+    if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_DOWN)) {
         UpdateModelAnimation(_model2, _anim2[0],_animFrameCounter);
        _animFrameCounter++;
         if (_animFrameCounter >= _anim2[0].frameCount)
@@ -89,7 +89,7 @@ float Bomberman::Player::Player_move()
         _pos2.z += 0.05;
         rotation2 = 0;
     }
-    if (IsKeyDown(KEY_Q)) {
+    if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_LEFT)) {
         UpdateModelAnimation(_model2, _anim2[0],_animFrameCounter);
        _animFrameCounter++;
         if (_animFrameCounter >= _anim2[0].frameCount)
@@ -97,7 +97,7 @@ float Bomberman::Player::Player_move()
         _pos2.x -= 0.05;
         rotation2 = -90;
     }
-    if (IsKeyDown(KEY_E)) {
+    if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_RIGHT)) {
         UpdateModelAnimation(_model2, _anim2[0],_animFrameCounter);
        _animFrameCounter++;
         if (_animFrameCounter >= _anim2[0].frameCount)
