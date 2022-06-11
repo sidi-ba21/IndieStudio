@@ -80,41 +80,58 @@ void Bomberman::Core::Draw3d()
         pressed = 1;
         this->time1 = std::time(nullptr);
     }
-    if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN) || IsKeyPressed(KEY_LEFT_SHIFT))
-    {
-        _bomb_pos2 = _player.get_pos(2);
-        pressed2 = 1;
-    }
     if (pressed > 0 && pressed < 3)
     {
         DrawSphere(Vector3{_bomb_pos}, 0.3, BLACK);
         DrawSphereWires(Vector3{_bomb_pos}, 0.3, 10, 10, BROWN);
+    }
+        if (IsKeyReleased(KEY_RIGHT_SHIFT))
+    {
+        pressed = 2;
+    }
+    if (pressed == 2 || pressed == 3)
+    {
+        printf("%li\n", std::time(nullptr) - this->time1);
+        std::time_t now = std::time(nullptr);
+        if (now - time1 > 6)
+            pressed = 4;
+        else if (now - time1 > 3)
+        {
+            printf("%.2f, %.2f, %.2f\n", (float)(int)(_bomb_pos.x - 1), (float)(int)_bomb_pos.y, (float)(int)_bomb_pos.z);
+            DrawCube(Vector3{(float)(int)(_bomb_pos.x - 1), _bomb_pos.y, (float)(int)_bomb_pos.z}, 3, 1, 1, RED);
+            DrawCube(Vector3{(float)(int)(_bomb_pos.x - 1), _bomb_pos.y, (float)(int)(_bomb_pos.z)}, 1, 1, 3, RED);
+            pressed = 3;
+        }
+    }
+
+    if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN) || IsKeyPressed(KEY_LEFT_SHIFT))
+    {
+        _bomb_pos2 = _player.get_pos(2);
+        pressed2 = 1;
+        this->time2 = std::time(nullptr);
     }
     if (pressed2 > 0 && pressed2 < 3)
     {
         DrawSphere(Vector3{_bomb_pos2}, 0.3, BLACK);
         DrawSphereWires(Vector3{_bomb_pos2}, 0.3, 10, 10, BROWN);
     }
-    if (IsKeyReleased(KEY_RIGHT_SHIFT))
-    {
-        pressed = 2;
-    }
-    if (pressed == 2 || pressed == 3) {
-        printf("%li\n", std::time(nullptr) - this->time1);
-        std::time_t now = std::time(nullptr);
-        if (now - time1 > 6)
-            pressed = 4;
-        else if (now - time1 > 3) {
-            printf ("%.2f, %.2f, %.2f\n", (float)(int)(_bomb_pos.x - 1), (float)(int)_bomb_pos.y, (float)(int)_bomb_pos.z);
-            DrawCube(Vector3 {(float)(int)(_bomb_pos.x - 1), _bomb_pos.y, (float)(int)_bomb_pos.z}, 3, 1, 1, RED);
-            DrawCube(Vector3 {(float)(int)(_bomb_pos.x - 1), _bomb_pos.y, (float)(int)(_bomb_pos.z)}, 1, 1, 3, RED);
-            pressed = 3;
-        }
-    }
-
     if (IsGamepadButtonReleased(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN) || IsKeyReleased(KEY_LEFT_SHIFT))
     {
         pressed2 = 2;
+    }
+    if (pressed2 == 2 || pressed2 == 3)
+    {
+        printf("%li\n", std::time(nullptr) - this->time2);
+        std::time_t now2 = std::time(nullptr);
+        if (now2 - time2 > 6)
+            pressed2 = 4;
+        else if (now2 - time2 > 3)
+        {
+            printf("%.2f, %.2f, %.2f\n", (float)(int)(_bomb_pos2.x - 1), (float)(int)_bomb_pos2.y, (float)(int)_bomb_pos2.z);
+            DrawCube(Vector3{(float)(int)(_bomb_pos2.x - 1), _bomb_pos2.y, (float)(int)_bomb_pos2.z}, 3, 1, 1, RED);
+            DrawCube(Vector3{(float)(int)(_bomb_pos2.x - 1), _bomb_pos2.y, (float)(int)(_bomb_pos2.z)}, 1, 1, 3, RED);
+            pressed2 = 3;
+        }
     }
     EndMode3D();
 }
