@@ -29,7 +29,7 @@ namespace Bomberman {
             ~Player();
             void init();
             float Player_animation(Color *, Texture2D _cubicTexture);
-            float Player_move();
+            float Player_move(Color *, Texture2D _cubicTexture);
             Model get_Model();
             Model get_Model2();
             Vector3 get_pos(int player = 1);
