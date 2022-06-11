@@ -32,7 +32,6 @@ namespace Bomberman {
             Texture2D _texture;
             Mesh _mesh;
             Model _model;
-            
     };
 
 }

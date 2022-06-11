@@ -25,6 +25,13 @@ void Bomberman::Core::init(void)
     _menu.init();
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
     this->mapPixels = LoadImageColors(_map.get_image());
+//    this->mapPixels[7 * this->_map.get_cubicTexture().width + 15] = YELLOW;
+    for (int y = 0; y < 16; y++)
+        for (int x = 0; x < 32; x++)
+        printf ("color %d, %d, %d, %d\n", this->mapPixels[y* this->_map.get_cubicTexture().width + x].r,
+        this->mapPixels[y* this->_map.get_cubicTexture().width + x].g, this->mapPixels[y* this->_map.get_cubicTexture().width + x].b, this->mapPixels[y* this->_map.get_cubicTexture().width + x].a);
+    auto red = RED;
+    printf ("Red Color %d, %d, %d, %d\n", red.r, red.g, red.b, red.a);
 }
 
 void Bomberman::Core::game_loop()
@@ -74,6 +81,14 @@ void Bomberman::Core::Draw3d()
     DrawModelEx(_player.get_Model(), _player.get_pos(1), (Vector3){0, 1, 0}, r, (Vector3){1, 1, 1}, WHITE);
     DrawModelEx(_player.get_Model2(), _player.get_pos(2), (Vector3){0, 1, 0}, rt, (Vector3){1, 1, 1}, WHITE);
     DrawModel(_map.get_model(), _map.get_pos(), 1.0f, WHITE);
+    auto texture = LoadTexture("Png/woodx_brick.png");
+    for (int y = 0; y < 16; y++) {
+        for (int x = 0; x < 32; x++) {
+            if (COLOR_EQUAL(mapPixels[y* this->_map.get_cubicTexture().width + x], RED))
+                DrawCubeTexture(texture, Vector3 {x - 16.0f, 0.5, y - 8.f},
+                1,1,1, WHITE);
+        }
+    }
     if (IsKeyPressed(KEY_RIGHT_SHIFT))
     {
         _bomb_pos = _player.get_pos(1);

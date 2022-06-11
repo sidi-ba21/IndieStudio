@@ -13,13 +13,14 @@
 
 void Bomberman::Map::init()
 {
-    _image = LoadImage("Png/perfect_map.png");   // Load cubicmap image (RAM)
+    _image = LoadImage("Png/test_map.png");   // Load cubicmap image (RAM)
     _cubicTexture = LoadTextureFromImage(_image); // Convert image to texture to display (VRAM)
     _mesh = GenMeshCubicmap(_image, (Vector3){1.0f, 1.0f, 1.0f});
     _model = LoadModelFromMesh(_mesh);
     _texture = LoadTexture("Png/grassbrick_cube.png"); // Load map texture
 
     _model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = _texture; // Set map diffuse texture
+
 }
 
 void Bomberman::Map::update()
