@@ -89,7 +89,7 @@ void Bomberman::Core::Draw3d()
                 1,1,1, WHITE);
         }
     }
-    if (IsKeyPressed(KEY_RIGHT_SHIFT))
+    if (IsKeyPressed(KEY_RIGHT_SHIFT) && pressed < 1)
     {
         _bomb_pos = _player.get_pos(1);
         pressed = 1;
@@ -109,7 +109,7 @@ void Bomberman::Core::Draw3d()
         printf("%li\n", std::time(nullptr) - this->time1);
         std::time_t now = std::time(nullptr);
         if (now - time1 > 6)
-            pressed = 4;
+            pressed = 0;
         else if (now - time1 > 3)
         {
             printf("%.2f, %.2f, %.2f\n", (float)(int)(_bomb_pos.x - 1), (float)(int)_bomb_pos.y, (float)(int)_bomb_pos.z);
@@ -119,7 +119,7 @@ void Bomberman::Core::Draw3d()
         }
     }
 
-    if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN) || IsKeyPressed(KEY_LEFT_SHIFT))
+    if ((IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN) || IsKeyPressed(KEY_LEFT_SHIFT)) && pressed2 < 1)
     {
         _bomb_pos2 = _player.get_pos(2);
         pressed2 = 1;
@@ -139,7 +139,7 @@ void Bomberman::Core::Draw3d()
         printf("%li\n", std::time(nullptr) - this->time2);
         std::time_t now2 = std::time(nullptr);
         if (now2 - time2 > 6)
-            pressed2 = 4;
+            pressed2 = 0;
         else if (now2 - time2 > 3)
         {
             printf("%.2f, %.2f, %.2f\n", (float)(int)(_bomb_pos2.x - 1), (float)(int)_bomb_pos2.y, (float)(int)_bomb_pos2.z);
