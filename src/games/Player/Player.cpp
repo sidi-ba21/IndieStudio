@@ -105,7 +105,7 @@ float Bomberman::Player::Player_animation(Color *mapPixels, Texture2D _cubicText
 
 float Bomberman::Player::Player_move(Color *mapPixels, Texture2D _cubicTexture)
 {
-    if (/*IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_UP) || */IsKeyDown(KEY_W) && !Check_collision(_pos2, 1, mapPixels, _cubicTexture)) {
+    if (/*IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_UP) || */IsKeyDown(KEY_W) && !Check_collision(_pos2, 2, mapPixels, _cubicTexture)) {
         UpdateModelAnimation(_model2, _anim2[0],_animFrameCounter);
        _animFrameCounter++;
         if (_animFrameCounter >= _anim2[0].frameCount)
