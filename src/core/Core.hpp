@@ -35,6 +35,8 @@ namespace Bomberman
         void Draw();
         void Draw2d();
         void Draw3d();
+        void Draw_breakabke();
+        void Remove_breakable(Vector3 pos);
         Core(const Core &) = delete;
         Core &operator=(const Core &) = delete;
         Core(Core &&) = delete;
@@ -60,6 +62,9 @@ namespace Bomberman
         Model model;
         Image image;
         Texture2D texture;
+        Texture2D breakable_texture;
+        Texture2D grass_texture;
+        Rectangle _rectGrass;
         std::time_t time1;
         std::time_t time2;
     };
