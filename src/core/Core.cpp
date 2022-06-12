@@ -32,7 +32,7 @@ void Bomberman::Core::game_loop()
         DrawTextureV(background, Vector2 {0, 0}, WHITE);
         this->rt = _player.Player_move();
         this->r =  _player.Player_animation();
-        //this->pos_ai =_ai.move_AI();
+        _ai.move_AI();
         _map.update();
         _camera.Camera_move();
         _score.update();
@@ -66,7 +66,8 @@ void Bomberman::Core::Draw3d()
     BeginMode3D(_camera.get_Camera());
 
     DrawModelEx(_player.get_Model(), _player.get_pos(1), (Vector3){ 0, 1, 0 }, r, (Vector3){1, 1, 1}, WHITE);
-    DrawModelEx(_player.get_Model2(), _player.get_pos(2), (Vector3){ 0, 1, 0 }, rt, (Vector3){1, 1, 1}, WHITE);
+    //DrawModelEx(_player.get_Model2(), _player.get_pos(2), (Vector3){ 0, 1, 0 }, rt, (Vector3){1, 1, 1}, WHITE);
+    DrawModelEx(_ai.get_Model(), _ai.get_pos(), (Vector3){ 0, 1, 0 }, rt, (Vector3){1, 1, 1}, WHITE);
     DrawModel(_map.get_model(), _map.get_pos(), 1.0f, WHITE);
 
     EndMode3D();

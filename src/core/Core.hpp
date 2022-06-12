@@ -49,7 +49,7 @@ namespace Bomberman
             Score _score;
             Map _map;
             Texture2D background;
-            //AI _ai;
+            AI _ai;
     };
 }
 

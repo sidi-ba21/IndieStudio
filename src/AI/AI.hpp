@@ -16,19 +16,43 @@
 
 namespace Bomberman
 {
-    class AI: public Bomberman::Player {
+    class AI {
         public:
             AI();
-            ~AI() = default;
+            ~AI();
             float move_AI();
+            Model get_Model()
+            {
+                return _Model_AI;
+            }
+            void setPos(Vector3 chk_pos)
+            {
+                _Pos_AI = chk_pos;
+            }
+            ModelAnimation *get_anim2()
+            {
+                return _Anim_AI;
+            }
+            int get_anifram()
+            {
+                return _AnimFrameCounter_AI;
+            }
+            Vector3 get_pos()
+            {
+                    return _Pos_AI;
+            }
         protected:
         private:
-            Vector3 _Pos2;
+            unsigned int _animCount_AI{2};
+            int _AnimFrameCounter_AI{0};
+            float Rotation_AI{0};
+
+            Vector3 _Pos_AI{-15, 0.1, -7};
+            Model _Model_AI;
+            ModelAnimation *_Anim_AI;
+            Texture2D _texture_AI;
             Vector3 _Chk_pos;
-            Model _Model2;
-            ModelAnimation *_Anim2;
-            float Rotation2{0};
-            int _AnimFrameCounter{0};
+
             std::chrono::seconds _time;
     };
 }
