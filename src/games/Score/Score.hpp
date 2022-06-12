@@ -36,11 +36,11 @@ namespace Bomberman {
             }
             file.close();
         }
-        void writeScore(std::string score, std::string name) {
+        void writeScore(std::string score) {
             std::fstream file;
             std::string line;
             std::string tmp;
-            (void) name;
+
             if (_highscore.compare("NOT AVAILABLE") == 0 || std::stoi(_highscore) < std::stoi(score)) {
                 file.open("Score.txt",  std::ios::trunc | std::ios::in | std::ios::out);
                 file << score << std::endl;
