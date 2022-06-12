@@ -69,7 +69,9 @@ void Bomberman::Core::Draw2d()
     DrawFPS(10, 1060);
     DrawText(TextFormat("SCORE: %i", _score.get_score1()), 1400, 200, 40, GRAY);
     DrawText(TextFormat("SCORE: %i", _score.get_score2()), 300, 200, 40, GRAY);
-   // DrawText(TextFormat("HI-SCORE: %i", _score.get_highscore()), 800, 50, 40, RED);
+    _score.writeScore(std::to_string(_score.get_score1()), NULL);
+    _score.writeScore(std::to_string(_score.get_score2()), NULL);
+    DrawText(TextFormat("HI-SCORE: %s", _score.getHightScore().c_str()), 800, 50, 40, RED);
 }
 
 void Bomberman::Core::Draw_breakabke()
