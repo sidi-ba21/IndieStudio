@@ -69,7 +69,7 @@ Bomberman::Menu::Menu() {}
 
 void Bomberman::Menu::init()
 {
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
+//    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
     InitAudioDevice();
     this->musiic.init("./ressources/menu.mp3", 10, false);
     this->sfx.init("./ressources/explosion8bit.wav", 5, false);
@@ -123,12 +123,12 @@ void Bomberman::Menu::loop()
     if (is_title == true) {
         BeginDrawing();
             ClearBackground(RAYWHITE);
-            DrawRectangle(screenWidth/2, 75, 100, 100, RED);
-            DrawText("GAME", screenWidth/2 + 20, 100, 20, BLACK);
+            DrawRectangle(screenWidth/2 - 50, 75, 100, 100, RED);
+            DrawText("GAME", screenWidth/2 - 30, 100, 20, BLACK);
             DrawRectangle(screenWidth/4 -50, screenHeight*0.75 - 50, 100, 100, GREEN);
             DrawText("OPTIONS", screenWidth/4 -50, screenHeight*0.75, 20, BLACK);
-            DrawRectangle(screenWidth/6, screenHeight/4, 100, 100, BLUE);
-            DrawText("EXIt", screenWidth/6 + 20, screenHeight/4 + 50, 20, BLACK);
+            DrawRectangle(screenWidth/6 - 50, screenHeight/4, 100, 100, BLUE);
+            DrawText("EXIT", screenWidth/6 - 30, screenHeight/4 + 50, 20, BLACK);
             DrawLine(18, 42, screenWidth - 18, 42, BLACK);
         //EndDrawing();
     } else 

@@ -7,6 +7,7 @@
 
 #include "raylib.h"
 #include "cmath"
+#include <stdio.h>
 
 #define XBOX360_LEGACY_NAME_ID  "Xbox Controller"
 #if defined(PLATFORM_RPI)
@@ -15,6 +16,10 @@
 #else
     #define XBOX360_NAME_ID     "Xbox 360 Controller"
     #define PS3_NAME_ID         "PLAYSTATION(R)3 Controller"
+#endif
+
+#ifndef COLOR_EQUAL
+    #define COLOR_EQUAL(col1, col2) ((col1.r == col2.r)&&(col1.g == col2.g)&&(col1.b == col2.b)&&(col1.a == col2.a))
 #endif
 
 #ifndef PLAYER_HPP_
@@ -27,11 +32,13 @@ namespace Bomberman {
             Player() = default;
             ~Player();
             void init();
-            float Player_animation();
-            float Player_move();
+            float Player_animation(Color *, Texture2D _cubicTexture);
+            float Player_move(Color *, Texture2D _cubicTexture);
             Model get_Model();
             Model get_Model2();
             Vector3 get_pos(int player = 1);
+            bool Check_collision(Vector3, int direction, Color *mapPixels, Texture2D _cubicTexture);
+
 
         protected:
         private:
