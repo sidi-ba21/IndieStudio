@@ -13,7 +13,7 @@ void Bomberman::Menu::game()
     this->is_title = false;
     //BeginDrawing();
     //    ClearBackground(RAYWHITE);
-    //    DrawText("GAME THINGY", 100, 100, 100, BLACK);
+    //    DrawText("GAME THINGY", 100.0, 100.0, 100.0, BLACK);
     //EndDrawing();
 }
 
@@ -33,21 +33,20 @@ void Bomberman::Menu::options()
     }
     BeginDrawing();
         ClearBackground(BLACK);
-        DrawText("OPTIONS", 0, 0, 100, WHITE);
-        DrawRectangle(455, 270, 100, 100, RED);
-        DrawText("-", screenHeight/4, 270, 100, WHITE);
-        DrawRectangle(455, 810, 100, 100, RED);
-        DrawText("-", screenHeight/4, 810, 100, WHITE);
-        DrawRectangle(1415, 270, 100, 100, RED);
-        DrawText("+", 1440, 270, 100, WHITE);
-        DrawRectangle(1415, 810, 100, 100, RED);
-        DrawText("+", 1440, 810, 100, WHITE);
+        DrawText("OPTIONS", 0, 0, 100.0, WHITE);
+        DrawRectangle(455, 270, 100.0, 100.0, RED);
+        DrawText("-", screenHeight/4, 270, 100.0, WHITE);
+        DrawRectangle(455, 810, 100.0, 100.0, RED);
+        DrawText("-", screenHeight/4, 810, 100.0, WHITE);
+        DrawRectangle(1415, 270, 100.0, 100.0, RED);
+        DrawText("+", 1440, 270, 100.0, WHITE);
+        DrawRectangle(1415, 810, 100.0, 100.0, RED);
+        DrawText("+", 1440, 810, 100.0, WHITE);
     //EndDrawing();   
 }
 
 void Bomberman::Menu::adios()
 {
-    (void)mousepos;
     CloseAudioDevice();
     CloseWindow();
     exit(0);
@@ -67,48 +66,50 @@ void Bomberman::Menu::plus()
 
 Bomberman::Menu::Menu() {}
 
+void Bomberman::Button::init()
+{
+    button = LoadTexture(filename.c_str());
+}
+
 void Bomberman::Menu::init()
 {
 //    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
     InitAudioDevice();
-    this->musiic.init("./ressources/menu.mp3", 10, false);
-    this->sfx.init("./ressources/explosion8bit.wav", 5, false);
+    this->musiic.init("./sounds/menu.mp3", 2, false);
+    this->sfx = LoadSound("./sounds/explosion8bit.wav");
+
+    this->btns.push_back(Bomberman::Button("Png/play.png", (Rectangle){(float)(screenWidth/2.0), 100.0, 100.0, 100.0}, (Rectangle){(float)(screenWidth/2.0), 100.0, 100.0, 100.0}));
+    this->btns.push_back(Bomberman::Button("Png/options.png", (Rectangle){(float)(screenWidth/4.0), (float)(screenHeight*0.75), 100.0, 100.0}, (Rectangle){(float)(screenWidth/4.0), (float)(screenHeight*0.75), 100.0, 100.0}));
+    this->btns.push_back(Bomberman::Button("Png/exit.png", (Rectangle){(float)(screenWidth/6.0), (float)(screenHeight/4.0), 100.0, 100.0}, (Rectangle){(float)(screenWidth/6.0), (float)(screenHeight/4.0), 100.0, 100.0}));
+    for (size_t i = 0; i < this->btns.size(); i++)
+        this->btns[i].init();
     PlayMusicStream(musiic.get_ost());
 }
 
 void Bomberman::Menu::update()
 {
-    Vector2 temp = this->get_mousepos();
-
     UpdateMusicStream(musiic.get_ost());
-    UpdateMusicStream(sfx.get_ost());
     screenWidth = GetScreenWidth();
     screenHeight = GetScreenHeight();
     mousepos = GetMousePosition();
-    if ((GetMusicTimePlayed(sfx.get_ost())/GetMusicTimeLength(sfx.get_ost())) > 1)
-        StopMusicStream(sfx.get_ost());
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && is_title == true) {
-        printf("click title\n");
-        StopMusicStream(sfx.get_ost());
-        PlayMusicStream(sfx.get_ost());
-        if  ((temp.x > screenWidth/2 - 50 && temp.x < screenWidth/2 + 50) && (temp.y > 100 -50  && temp.y < 100 + 50))
-            i = 0;
-        else if  ((temp.x > screenWidth/4 -50 && temp.x < screenWidth/4 + 50) && (temp.y > screenHeight*0.75 -50 && temp.y < screenHeight*0.75 + 50))
-            i = 1;
-        else if  ((temp.x > screenWidth/6 -50 && temp.x < screenWidth/6 + 50) && (temp.y > screenHeight/4 -50 && temp.y < screenHeight/4 + 50))
-            i = 2;
-        else
-            i = 3;
-        (i == 3) ? is_title = true : is_title = false;
+    for (i = 0; i < this->btns.size(); i++) {
+        if (CheckCollisionPointRec(mousepos, btns[i].btnBounds)) {
+            if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+                btns[i].sourceRec.x = 200;
+                break;
+            } else
+                btns[i].sourceRec.x = 100.0;
+        } else
+            btns[i].sourceRec.x = 0;
     }
+    (i == this->btns.size()) ? is_title = true : is_title = false;
+    (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) ? PlaySound(this->sfx) : (void)1;
     (IsKeyPressed(KEY_T)) ? (is_title = true) : true;
     (IsKeyPressed(KEY_SPACE)) ? musiic.set_pause() : (void)1;
 }
 
 void Bomberman::Menu::game_options()
 {
-    Vector2 temp = this->get_mousepos();
-
     if  (i == 0) {
         game();
     } else if  (i == 1) {
@@ -123,13 +124,8 @@ void Bomberman::Menu::loop()
     if (is_title == true) {
         BeginDrawing();
             ClearBackground(RAYWHITE);
-            DrawRectangle(screenWidth/2 - 50, 75, 100, 100, RED);
-            DrawText("GAME", screenWidth/2 - 30, 100, 20, BLACK);
-            DrawRectangle(screenWidth/4 -50, screenHeight*0.75 - 50, 100, 100, GREEN);
-            DrawText("OPTIONS", screenWidth/4 -50, screenHeight*0.75, 20, BLACK);
-            DrawRectangle(screenWidth/6 - 50, screenHeight/4, 100, 100, BLUE);
-            DrawText("EXIT", screenWidth/6 - 30, screenHeight/4 + 50, 20, BLACK);
-            DrawLine(18, 42, screenWidth - 18, 42, BLACK);
+            for (size_t i = 0; i < btns.size(); i++)
+                DrawTextureRec(btns[i].button, btns[i].sourceRec, (Vector2){ btns[i].btnBounds.x, btns[i].btnBounds.y }, GREEN);
         //EndDrawing();
     } else 
         game_options();
@@ -137,4 +133,9 @@ void Bomberman::Menu::loop()
 
 Bomberman::Menu::~Menu()
 {
+
+    UnloadSound(this->sfx);
+    CloseAudioDevice();
+    //for (size_t i = 0; i < this->btns.size(); i++)
+    //    UnloadTexture(this->btns[i].button);
 }
