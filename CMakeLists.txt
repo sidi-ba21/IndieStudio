@@ -36,6 +36,8 @@ add_executable(${PROJECT_NAME}
   src/games/Bomb/Bomb.cpp
   src/graphicals/Draw/Draw.cpp
   src/AI/AI.cpp)
+  src/menu/menu.cpp
+  src/menu/music.cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib GL m pthread dl)
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND mv ${PROJECT_NAME} ${PROJECT_SOURCE_DIR})

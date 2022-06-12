@@ -18,14 +18,17 @@ namespace Bomberman {
             Score() = default;
             ~Score() = default;
             void init();
-            void update();
-            int get_score();
+            void update1();
+            void update2();
+            int get_score1();
+            int get_score2();
             int get_highscore();
 
         protected:
         private:
-            int _score{0};
-            int _highscore{0};
+            int _score1{0};
+            int _highscore1{0};
+            int _score2{0};
     };
 
 }

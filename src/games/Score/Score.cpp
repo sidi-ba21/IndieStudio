@@ -11,20 +11,30 @@ void Bomberman::Score::init()
 {
 }
 
-void Bomberman::Score::update()
+void Bomberman::Score::update1()
 {
-    if (IsKeyPressed(KEY_SPACE)) {
-        _score = GetRandomValue(1000, 2000);
-        _highscore = GetRandomValue(2000, 4000);
-    }
+    int x = GetRandomValue(1, 2);
+    _score1 = _score1 + x;
 }
 
-int Bomberman::Score::get_score()
+void Bomberman::Score::update2()
 {
-    return _score;
+    int x = GetRandomValue(1, 2);
+    _score2 = _score2 + x;
+    _highscore1 = GetRandomValue(200, 400);
+}
+
+int Bomberman::Score::get_score1()
+{
+    return _score1;
+}
+
+int Bomberman::Score::get_score2()
+{
+    return _score2;
 }
 
 int Bomberman::Score::get_highscore()
 {
-    return _highscore;
+    return _highscore1;
 }
