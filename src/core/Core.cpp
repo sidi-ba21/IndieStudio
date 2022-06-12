@@ -88,6 +88,11 @@ void Bomberman::Core::Draw_breakabke()
                 DrawCubeTextureRec(grass_texture, _rectGrass, {x - 16.0f, 0.1, y - 8.f},
                 1, 0, 1, WHITE);
             }
+            if (COLOR_EQUAL(mapPixels[y * this->_map.get_cubicTexture().width + x], WHITE))
+            {
+                DrawCubeTexture(brick_texture, {x - 16.0f, 0.5, y - 8.f},
+                1, 1, 1, WHITE);
+            }
         }
     }
 }
