@@ -18,7 +18,7 @@ Bomberman::Core::Core()
 
 void Bomberman::Core::init(void)
 {
-    this->background = LoadTexture("Png/game_background.png"); // Load map texture
+    this->background = LoadTexture("Png/space_background.png"); // Load map texture
     _player.init();
     _camera.init();
     _map.init();
