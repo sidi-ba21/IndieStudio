@@ -26,7 +26,8 @@ void Bomberman::Core::init(void)
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
     this->mapPixels = LoadImageColors(_map.get_image());
     this->breakable_texture = LoadTexture("Png/woodx_brick.png");
-    this->grass_texture = LoadTexture("Png/grassbrick_cube.png");
+    this->grass_texture = LoadTexture("Png/grass_cube.png");
+    this->brick_texture = LoadTexture("Png/brick_cube.png");
     _rectGrass = Rectangle{(float)grass_texture.width / 2, (float)grass_texture.height / 2,
                            (float)grass_texture.width / 2, (float)grass_texture.height / 2};
 }
@@ -79,10 +80,13 @@ void Bomberman::Core::Draw_breakabke()
         {
             if (COLOR_EQUAL(mapPixels[y * this->_map.get_cubicTexture().width + x], RED))
             {
-                // DrawCubeTextureRec(grass_texture, _rectGrass, {x - 16.0f, 0.5, y - 8.f},
-                // 1, 1, 0, WHITE);
                 DrawCubeTexture(breakable_texture, Vector3{x - 16.0f, 0.5, y - 8.f},
                                 1, 1, 1, WHITE);
+            }
+            if (COLOR_EQUAL(mapPixels[y * this->_map.get_cubicTexture().width + x], BLACK))
+            {
+                DrawCubeTextureRec(grass_texture, _rectGrass, {x - 16.0f, 0.1, y - 8.f},
+                1, 0, 1, WHITE);
             }
         }
     }
@@ -147,7 +151,7 @@ void Bomberman::Core::Draw3d()
 
     DrawModelEx(_player.get_Model(), _player.get_pos(1), (Vector3){0, 1, 0}, r, (Vector3){1, 1, 1}, WHITE);
     DrawModelEx(_player.get_Model2(), _player.get_pos(2), (Vector3){0, 1, 0}, rt, (Vector3){1, 1, 1}, WHITE);
-    DrawModel(_map.get_model(), _map.get_pos(), 1.0f, WHITE);
+   // DrawModel(_map.get_model(), _map.get_pos(), 1.0f, WHITE);
     Draw_breakabke();
     if (IsKeyPressed(KEY_RIGHT_SHIFT) && pressed < 1)
     {
