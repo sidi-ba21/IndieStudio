@@ -40,7 +40,6 @@ void Bomberman::Core::game_loop()
         this->r = _player.Player_animation(this->mapPixels, this->_map.get_cubicTexture());
         _map.update();
         _camera.Camera_move();
-        _score.update();
         _menu.update();
         Draw();
     }
@@ -67,7 +66,8 @@ void Bomberman::Core::Draw2d()
     DrawRectangleLines(screenWidth - _map.get_cubicTexture().width * 4 - 20, 20, _map.get_cubicTexture().width * 4, _map.get_cubicTexture().height * 4, GREEN);
     DrawText("The map generated is : ", 1410, 20, 30, GRAY);
     DrawFPS(10, 1060);
-    DrawText(TextFormat("SCORE: %i", _score.get_score()), 860, 110, 40, GRAY);
+    DrawText(TextFormat("SCORE: %i", _score.get_score1()), 1400, 200, 40, GRAY);
+    DrawText(TextFormat("SCORE: %i", _score.get_score2()), 300, 200, 40, GRAY);
     DrawText(TextFormat("HI-SCORE: %i", _score.get_highscore()), 800, 50, 40, RED);
 }
 
@@ -173,6 +173,7 @@ void Bomberman::Core::Draw3d()
         else if (now - time1 > 3)
         {
             Remove_breakable(_bomb_pos);
+            _score.update1();
             pressed = 3;
         }
     }
@@ -200,6 +201,7 @@ void Bomberman::Core::Draw3d()
         else if (now2 - time2 > 3)
         {
             Remove_breakable(_bomb_pos2);
+            _score.update2();
             pressed2 = 3;
         }
     }
