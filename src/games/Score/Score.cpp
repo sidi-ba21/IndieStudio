@@ -13,13 +13,13 @@ void Bomberman::Score::init()
 
 void Bomberman::Score::update1()
 {
-    int x = GetRandomValue(1, 2);
+    int x = 1;
     _score1 = _score1 + x;
 }
 
 void Bomberman::Score::update2()
 {
-    int x = GetRandomValue(1, 2);
+    int x = 1;
     _score2 = _score2 + x;
 }
 
