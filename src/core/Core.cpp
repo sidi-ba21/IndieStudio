@@ -18,7 +18,7 @@ Bomberman::Core::Core()
 
 void Bomberman::Core::init(void)
 {
-    this->background = LoadTexture("Png/game_background.png"); // Load map texture
+    this->background = LoadTexture("Png/space_background.png"); // Load map texture
     _player.init();
     _camera.init();
     _map.init();
@@ -65,9 +65,9 @@ void Bomberman::Core::Draw2d()
 {
     DrawTextureEx(_map.get_cubicTexture(), (Vector2){screenWidth - _map.get_cubicTexture().width * 4.0f - 20, 20.0f}, 0.0f, 4.0f, WHITE);
     DrawRectangleLines(screenWidth - _map.get_cubicTexture().width * 4 - 20, 20, _map.get_cubicTexture().width * 4, _map.get_cubicTexture().height * 4, GREEN);
-    DrawText("The map generated is : ", 1410, 20, 30, BLACK);
+    DrawText("The map generated is : ", 1410, 20, 30, GRAY);
     DrawFPS(10, 1060);
-    DrawText(TextFormat("SCORE: %i", _score.get_score()), 860, 110, 40, BLACK);
+    DrawText(TextFormat("SCORE: %i", _score.get_score()), 860, 110, 40, GRAY);
     DrawText(TextFormat("HI-SCORE: %i", _score.get_highscore()), 800, 50, 40, RED);
 }
 
