@@ -25,7 +25,7 @@ namespace Bomberman {
         private:
             float _radius{20};
             float _angle{1.57};
-            Vector3 _position{-5, 8, -5};
+            Vector3 _position{-5, 20, -5};
             Vector3 _target{0, 2, 0};
             Vector3 _up{0, 2, 0};
             float _fovy{45};
