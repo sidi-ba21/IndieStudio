@@ -46,6 +46,7 @@ namespace Bomberman
         const int screenWidth{1920};
         const int screenHeight{1080};
         float r{0};
+        float _rotate_ai{0};
         float rt{0};
         Vector3 _bomb_pos;
         Vector3 _bomb_pos2;

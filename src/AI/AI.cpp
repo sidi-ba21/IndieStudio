@@ -29,36 +29,53 @@ Bomberman::AI::~AI()
 
 float Bomberman::AI::move_AI()
 {
-    
-    _time = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch());
-    UpdateModelAnimation(_Model_AI, _Anim_AI[0], _AnimFrameCounter_AI);
-    _AnimFrameCounter_AI++;
-    if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
-        _AnimFrameCounter_AI = 0;
-    //_Pos_AI.z -= 0.05;
-    //Rotation2 = 180;
-    //setPos(_Pos_AI);
+    auto now = std::time(nullptr);
 
-    UpdateModelAnimation(_Model_AI, _Anim_AI[0],_AnimFrameCounter_AI);
-    _AnimFrameCounter_AI++;
-    if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
-       _AnimFrameCounter_AI = 0;
-    //_Pos_AI.z += 0.05;
-    //Rotation2 = 0;
+    if (now - _time > 6) {
+        printf("reset\n");
+        _check = GetRandomValue(0, 3);
+        _time = std::time(nullptr);
+    }
 
-    UpdateModelAnimation(_Model_AI, _Anim_AI[0],_AnimFrameCounter_AI);
-    _AnimFrameCounter_AI++;
-    if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
-       _AnimFrameCounter_AI = 0;
-   // _Pos_AI.x -= 0.05;
-    //Rotation2 = -90;
+    if (_check == 0 && (now - _time) <= GetRandomValue(2, 6)) {
+        printf("ok1\n");
+        UpdateModelAnimation(_Model_AI, _Anim_AI[0], _AnimFrameCounter_AI);
+        _AnimFrameCounter_AI++;
+        if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
+            _AnimFrameCounter_AI = 0;
+        _Pos_AI.z -= 0.05;
+        Rotation_AI = 180;
+        setPos(_Pos_AI);
+    }
 
-    UpdateModelAnimation(_Model_AI, _Anim_AI[0],_AnimFrameCounter_AI);
-   _AnimFrameCounter_AI++;
-    if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
-       _AnimFrameCounter_AI = 0;
-    _Pos_AI.x += 0.05;
-    //Rotation2 = 90;
+    if (_check == 1 && (now - _time) <= GetRandomValue(2, 6)) {
+        printf("ok2\n");
+        UpdateModelAnimation(_Model_AI, _Anim_AI[0],_AnimFrameCounter_AI);
+        _AnimFrameCounter_AI++;
+        if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
+           _AnimFrameCounter_AI = 0;
+        _Pos_AI.z += 0.05;
+        Rotation_AI = 0;
+    }
 
-    return (0);
+    if (_check == 2 && (now - _time) <= GetRandomValue(2, 6)) {
+        printf("ok3\n");
+        UpdateModelAnimation(_Model_AI, _Anim_AI[0],_AnimFrameCounter_AI);
+        _AnimFrameCounter_AI++;
+        if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
+           _AnimFrameCounter_AI = 0;
+        _Pos_AI.x -= 0.05;
+        Rotation_AI = -90;
+    }
+
+    if (_check == 3 && (now - _time) <= GetRandomValue(2, 6)) {
+        printf("ok4\n");
+        UpdateModelAnimation(_Model_AI, _Anim_AI[0],_AnimFrameCounter_AI);
+        _AnimFrameCounter_AI++;
+        if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
+           _AnimFrameCounter_AI = 0;
+        _Pos_AI.x += 0.05;
+        Rotation_AI = 90;
+    }
+    return (Rotation_AI);
 }

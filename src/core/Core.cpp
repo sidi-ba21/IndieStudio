@@ -37,7 +37,7 @@ void Bomberman::Core::game_loop()
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
         DrawTextureV(background, Vector2 {0, 0}, WHITE);
-        _ai.move_AI();
+        this->_rotate_ai = _ai.move_AI();
         this->rt = _player.Player_move(this->mapPixels, this->_map.get_cubicTexture());
         this->r = _player.Player_animation(this->mapPixels, this->_map.get_cubicTexture());
         _map.update();
@@ -146,7 +146,7 @@ void Bomberman::Core::Remove_breakable(Vector3 pos)
 void Bomberman::Core::Draw3d()
 {
     BeginMode3D(_camera.get_Camera());
-    DrawModelEx(_ai.get_Model(), _ai.get_pos(), (Vector3){ 0, 1, 0 }, rt, (Vector3){1, 1, 1}, WHITE);
+    DrawModelEx(_ai.get_Model(), _ai.get_pos(), (Vector3){ 0, 1, 0 }, _rotate_ai, (Vector3){1, 1, 1}, WHITE);
     DrawModelEx(_player.get_Model(), _player.get_pos(1), (Vector3){0, 1, 0}, r, (Vector3){1, 1, 1}, WHITE);
     DrawModelEx(_player.get_Model2(), _player.get_pos(2), (Vector3){0, 1, 0}, rt, (Vector3){1, 1, 1}, WHITE);
     DrawModel(_map.get_model(), _map.get_pos(), 1.0f, WHITE);

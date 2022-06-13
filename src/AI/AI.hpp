@@ -54,7 +54,8 @@ namespace Bomberman
             Texture2D _texture_AI;
             Vector3 _Chk_pos;
 
-            std::chrono::seconds _time;
+            int _check;
+            std::time_t _time;
     };
 }
 
