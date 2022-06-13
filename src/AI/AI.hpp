@@ -6,7 +6,7 @@
 */
 
 #ifndef AI_HPP_
-#define AI_HPP_
+    #define AI_HPP_
 
 #include <chrono>
 #include <functional>
@@ -18,8 +18,9 @@ namespace Bomberman
 {
     class AI {
         public:
-            AI();
+            AI() = default;
             ~AI();
+            void init_AI();
             float move_AI();
             Model get_Model()
             {
@@ -47,7 +48,7 @@ namespace Bomberman
             int _AnimFrameCounter_AI{0};
             float Rotation_AI{0};
 
-            Vector3 _Pos_AI{-15, 0.1, -7};
+            Vector3 _Pos_AI{-15, 0.1, 6};
             Model _Model_AI;
             ModelAnimation *_Anim_AI;
             Texture2D _texture_AI;

@@ -9,7 +9,7 @@
 #include <memory>
 #include <list>
 
-Bomberman::AI::AI()
+void Bomberman::AI::init_AI()
 {
     _Model_AI = LoadModel("assets/robo6.iqm");
     _Anim_AI = LoadModelAnimations("assets/robo6.iqm", &_animCount_AI);
