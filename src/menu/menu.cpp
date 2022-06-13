@@ -21,7 +21,13 @@ void Bomberman::Menu::options()
     is_options = true;
     BeginDrawing();
         ClearBackground(RAYWHITE);
-        DrawText("OPTIONS", 0, 0, 100.0, WHITE);
+        DrawText("OPTIONS", 0, 0, 80.0, WHITE);
+
+        DrawRectangleGradientH(720, 380, 350, 110, PURPLE, SKYBLUE);
+        DrawText("MUSIC", 770, 400, 80.0, WHITE);
+
+        DrawRectangleGradientH(560, 680, 680, 110, PURPLE, SKYBLUE);
+        DrawText("SOUND EFFECTS", 600, 700, 70.0, WHITE);
         for (size_t i = 4; i < 8; i++)
             DrawTextureRec(btns[i].button, btns[i].sourceRec, (Vector2){ btns[i].btnBounds.x, btns[i].btnBounds.y }, RAYWHITE);
 }
@@ -47,19 +53,18 @@ void Bomberman::Menu::init()
     this->musiic.init("./sounds/menu.mp3", 2, false);
     this->sfx = LoadSound("./sounds/explosion8bit.wav");
 
-    this->btns.push_back(Bomberman::Button("Png/play.png", (Rectangle){900.0, 300.0, 100.0, 100.0}, (Rectangle){900.0, 300.0, 100.0, 100.0}));
-    this->btns.push_back(Bomberman::Button("Png/options.png", (Rectangle){200.0, 700.0, 100.0, 100.0}, (Rectangle){200.0, 700.0, 100.0, 100.0}));
-    this->btns.push_back(Bomberman::Button("Png/exit.png", (Rectangle){900.0, 700.0, 100.0, 100.0}, (Rectangle){900.0, 700.0, 100.0, 100.0}));
-    this->btns.push_back(Bomberman::Button("Png/tutorial.png",(Rectangle){1200.0, 700.0, 100.0, 100.0}, (Rectangle){1200.0, 700.0, 100.0, 100.0}));
+    this->btns.push_back(Bomberman::Button("Png/play.png", (Rectangle){0, 0, 100, 100}, (Rectangle){900.0, 300.0, 100.0, 100.0}));
+    this->btns.push_back(Bomberman::Button("Png/options.png", (Rectangle){0, 0, 100, 100}, (Rectangle){900.0, 450.0, 100.0, 100.0}));
+    this->btns.push_back(Bomberman::Button("Png/exit.png", (Rectangle){0, 0, 100, 100}, (Rectangle){900.0, 650.0, 100.0, 100.0}));
+    this->btns.push_back(Bomberman::Button("Png/tutorial.png",(Rectangle){0, 0, 100, 100}, (Rectangle){900.0, 850.0, 100.0, 100.0}));
 
     this->btns.push_back(Bomberman::Button("Png/+.png",(Rectangle){1300.0, 400.0, 100.0, 100.0}, (Rectangle){1300.0, 400.0, 100.0, 100.0}));
     this->btns.push_back(Bomberman::Button("Png/+.png",(Rectangle){1300.0, 700.0, 100.0, 100.0}, (Rectangle){1300.0, 700.0, 100.0, 100.0}));
     this->btns.push_back(Bomberman::Button("Png/-.png",(Rectangle){400.0, 400.0, 100.0, 100.0}, (Rectangle){400.0, 400.0, 100.0, 100.0}));
     this->btns.push_back(Bomberman::Button("Png/-.png",(Rectangle){400.0, 700.0, 100.0, 100.0}, (Rectangle){400.0, 700.0, 100.0, 100.0}));
 
-    /*PAUSE
-    this->btns.push_back(Bomberman::Button("",(Rectangle){}, (Rectangle){}));
-    this->btns.push_back(Bomberman::Button("",(Rectangle){}, (Rectangle){}));
+    this->btns.push_back(Bomberman::Button("Png/play.png",(Rectangle){0.0, 0.0, 100.0, 100.0}, (Rectangle){1800.0, 0.0, 100.0, 100.0}));
+    /*this->btns.push_back(Bomberman::Button("",(Rectangle){}, (Rectangle){}));
     this->btns.push_back(Bomberman::Button("",(Rectangle){}, (Rectangle){}));
     this->btns.push_back(Bomberman::Button("",(Rectangle){}, (Rectangle){}));
     this->btns.push_back(Bomberman::Button("",(Rectangle){}, (Rectangle){}));
@@ -84,7 +89,7 @@ void Bomberman::Menu::update()
         limit = 8; 
     } else if (is_pause == true) {
         i = 8;
-        limit = 12;
+        limit = 9;
     }
     if (is_game || is_options || is_title || is_pause) {
         for (; i < limit; i++) {
@@ -104,6 +109,7 @@ void Bomberman::Menu::update()
     (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) ? PlaySound(this->sfx) : (void)1;
     (IsKeyPressed(KEY_T)) ? (is_title = true) : true;
     (IsKeyPressed(KEY_SPACE)) ? musiic.set_pause() : (void)1;
+    if (i == 8) (is_pause = !is_pause);
 }
 
 void Bomberman::Menu::game_options()
@@ -134,7 +140,7 @@ void Bomberman::Menu::loop()
         BeginDrawing();
             ClearBackground(RAYWHITE);
             for (size_t i = 0; i < 4; i++)
-                DrawTextureRec(btns[i].button, btns[i].sourceRec, (Vector2){ btns[i].btnBounds.x, btns[i].btnBounds.y }, RAYWHITE);
+               DrawTextureRec(btns[i].button, btns[i].sourceRec, (Vector2){ btns[i].btnBounds.x, btns[i].btnBounds.y }, RAYWHITE);
     } else {
         game_options();
     }
