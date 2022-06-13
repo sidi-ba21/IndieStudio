@@ -64,6 +64,7 @@ namespace Bomberman
         Texture2D texture;
         Texture2D breakable_texture;
         Texture2D grass_texture;
+        Texture2D brick_texture;
         Rectangle _rectGrass;
         std::time_t time1;
         std::time_t time2;
