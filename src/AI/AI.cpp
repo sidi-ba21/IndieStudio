@@ -27,18 +27,50 @@ Bomberman::AI::~AI()
     RL_FREE(_Anim_AI);
 }
 
-float Bomberman::AI::move_AI()
+bool Bomberman::AI::Check_collision_AI(Vector3 pos, int direction,
+    Color *mapPixels, Texture2D _cubicTexture)
+{
+    Vector3 newPos = pos;
+
+    if (direction == 1)
+        newPos.z += 0.05;
+    else if (direction == 2)
+        newPos.z -= 0.05;
+    else if (direction == 3)
+        newPos.x -= 0.05;
+    else if (direction == 4)
+        newPos.x += 0.05;
+    if (newPos.x < -15 || newPos.z < -7 || newPos.x > 14 || newPos.z > 6)
+        return (true);
+    float tmpz = newPos.z + 8.f;
+    float tmpx = newPos.x + 16.f;
+    auto x = abs(tmpx + 0.6);
+    auto y = abs(tmpz + 0.4);
+    auto prex = abs(tmpx);
+    auto prey = abs(tmpz + 0.4);
+    if (fabs(tmpz) - (float) abs(tmpz) < 0.3)
+        y = abs(tmpz);
+    if (fabs(tmpx) - (float) abs(tmpx) < 0.2)
+        x = abs(tmpx);
+ //   printf("x = %d, z =%d, posx = %.3f, posz = %.3f\n", x, y, newPos.x, newPos.z);
+    if (COLOR_EQUAL(mapPixels[y*_cubicTexture.width + x], WHITE) || COLOR_EQUAL(mapPixels[prey*_cubicTexture.width + prex], WHITE)
+    || COLOR_EQUAL(mapPixels[y*_cubicTexture.width + x], RED) || COLOR_EQUAL(mapPixels[prey*_cubicTexture.width + prex], RED)) {
+   //     printf("collision: %.3f, %.3f\n", pos.x, pos.z);
+        return (true);
+    }
+    return false;
+}
+
+float Bomberman::AI::move_AI(Color *mapPixels, Texture2D _cubicTexture)
 {
     auto now = std::time(nullptr);
 
-    if (now - _time > 6) {
-        printf("reset\n");
+    if (now - _time > 3) {
         _check = GetRandomValue(0, 3);
         _time = std::time(nullptr);
     }
 
-    if (_check == 0 && (now - _time) <= GetRandomValue(2, 6)) {
-        printf("ok1\n");
+    if (_check == 0 && (now - _time) <= GetRandomValue(0, 2) && !Check_collision_AI(_Pos_AI, 2, mapPixels, _cubicTexture)) {
         UpdateModelAnimation(_Model_AI, _Anim_AI[0], _AnimFrameCounter_AI);
         _AnimFrameCounter_AI++;
         if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
@@ -48,8 +80,7 @@ float Bomberman::AI::move_AI()
         setPos(_Pos_AI);
     }
 
-    if (_check == 1 && (now - _time) <= GetRandomValue(2, 6)) {
-        printf("ok2\n");
+    if (_check == 1 && (now - _time) <= GetRandomValue(0, 2) && !Check_collision_AI(_Pos_AI, 1, mapPixels, _cubicTexture)) {
         UpdateModelAnimation(_Model_AI, _Anim_AI[0],_AnimFrameCounter_AI);
         _AnimFrameCounter_AI++;
         if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
@@ -58,8 +89,7 @@ float Bomberman::AI::move_AI()
         Rotation_AI = 0;
     }
 
-    if (_check == 2 && (now - _time) <= GetRandomValue(2, 6)) {
-        printf("ok3\n");
+    if (_check == 2 && (now - _time) <= GetRandomValue(0, 2) && !Check_collision_AI(_Pos_AI, 3, mapPixels, _cubicTexture)) {
         UpdateModelAnimation(_Model_AI, _Anim_AI[0],_AnimFrameCounter_AI);
         _AnimFrameCounter_AI++;
         if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
@@ -68,8 +98,7 @@ float Bomberman::AI::move_AI()
         Rotation_AI = -90;
     }
 
-    if (_check == 3 && (now - _time) <= GetRandomValue(2, 6)) {
-        printf("ok4\n");
+    if (_check == 3 && (now - _time) <= GetRandomValue(0, 2) && !Check_collision_AI(_Pos_AI, 4, mapPixels, _cubicTexture)) {
         UpdateModelAnimation(_Model_AI, _Anim_AI[0],_AnimFrameCounter_AI);
         _AnimFrameCounter_AI++;
         if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)

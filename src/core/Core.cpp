@@ -38,7 +38,7 @@ void Bomberman::Core::game_loop()
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
         DrawTextureV(background, Vector2 {0, 0}, WHITE);
-        this->_rotate_ai = _ai.move_AI();
+        this->_rotate_ai = _ai.move_AI(this->mapPixels, this->_map.get_cubicTexture());
         this->rt = _player.Player_move(this->mapPixels, this->_map.get_cubicTexture());
         this->r = _player.Player_animation(this->mapPixels, this->_map.get_cubicTexture());
         _map.update();

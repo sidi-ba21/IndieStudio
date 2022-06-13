@@ -21,7 +21,7 @@ namespace Bomberman
             AI() = default;
             ~AI();
             void init_AI();
-            float move_AI();
+            float move_AI(Color *mapPixels, Texture2D _cubicTexture);
             Model get_Model()
             {
                 return _Model_AI;
@@ -42,6 +42,7 @@ namespace Bomberman
             {
                     return _Pos_AI;
             }
+            bool Check_collision_AI(Vector3, int direction, Color *mapPixels, Texture2D _cubicTexture);
         protected:
         private:
             unsigned int _animCount_AI{2};
