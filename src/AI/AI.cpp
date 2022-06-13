@@ -29,7 +29,8 @@ Bomberman::AI::~AI()
 
 float Bomberman::AI::move_AI()
 {
-    //_time = ;
+    
+    _time = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch());
     UpdateModelAnimation(_Model_AI, _Anim_AI[0], _AnimFrameCounter_AI);
     _AnimFrameCounter_AI++;
     if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)

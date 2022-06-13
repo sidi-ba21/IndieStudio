@@ -20,6 +20,7 @@ void Bomberman::Core::init(void)
 {
     this->background = LoadTexture("Png/space_background.png"); // Load map texture
     _player.init();
+    _ai.init_AI();
     _camera.init();
     _map.init();
     _menu.init();

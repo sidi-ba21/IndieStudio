@@ -6,7 +6,7 @@
 */
 
 #ifndef AI_HPP_
-    #define AI_HPP_
+#define AI_HPP_
 
 #include <chrono>
 #include <functional>
