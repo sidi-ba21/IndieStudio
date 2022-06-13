@@ -44,4 +44,20 @@ float Bomberman::AI::move_AI()
        _AnimFrameCounter_AI = 0;
     //_Pos_AI.z += 0.05;
     //Rotation2 = 0;
+
+    UpdateModelAnimation(_Model_AI, _Anim_AI[0],_AnimFrameCounter_AI);
+    _AnimFrameCounter_AI++;
+    if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
+       _AnimFrameCounter_AI = 0;
+   // _Pos_AI.x -= 0.05;
+    //Rotation2 = -90;
+
+    UpdateModelAnimation(_Model_AI, _Anim_AI[0],_AnimFrameCounter_AI);
+   _AnimFrameCounter_AI++;
+    if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
+       _AnimFrameCounter_AI = 0;
+    _Pos_AI.x += 0.05;
+    //Rotation2 = 90;
+
+    return (0);
 }
