@@ -76,7 +76,12 @@ void Bomberman::Core::Draw2d()
     DrawText(TextFormat("SCORE: %i", _score.get_score2()), 300, 200, 40, GRAY);
     _score.writeScore(std::to_string(_score.get_score1()));
     _score.writeScore(std::to_string(_score.get_score2()));
-    DrawText(TextFormat("HI-SCORE: %s", _score.getHightScore().c_str()), 800, 50, 40, RED);
+    DrawText(TextFormat("HI-SCORE: %s", _score.getHightScore().c_str()), 10, 20, 40, RED);
+    // DrawText in format convert second to minutes and seconds
+    auto tmp = GetTime();
+    auto minutes = (float)(int)tmp / 60;
+    auto seconds = (float)((int)tmp % 60);
+    DrawText(TextFormat("Elapsed Time: %02.0f : %02.0f", minutes, seconds), 800, 100, 40, MAGENTA);
 }
 
 void Bomberman::Core::Draw_breakabke()

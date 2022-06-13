@@ -48,7 +48,7 @@ void Bomberman::Button::init()
 
 void Bomberman::Menu::init()
 {
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
+//    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
     InitAudioDevice();
     this->musiic.init("./sounds/menu.mp3", 2, false);
     this->sfx = LoadSound("./sounds/explosion8bit.wav");
@@ -158,7 +158,6 @@ void Bomberman::Menu::loop()
 
 Bomberman::Menu::~Menu()
 {
-
     UnloadSound(this->sfx);
     CloseAudioDevice();
     for (size_t i = 0; i < this->btns.size(); i++)
