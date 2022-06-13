@@ -70,10 +70,10 @@ void Bomberman::Core::Draw2d()
 {
     DrawTextureEx(_map.get_cubicTexture(), (Vector2){screenWidth - _map.get_cubicTexture().width * 4.0f - 20, 20.0f}, 0.0f, 4.0f, WHITE);
     DrawRectangleLines(screenWidth - _map.get_cubicTexture().width * 4 - 20, 20, _map.get_cubicTexture().width * 4, _map.get_cubicTexture().height * 4, GREEN);
-    DrawText("The map generated is : ", 1410, 20, 30, GRAY);
+    DrawText("The map generated is : ", 1410, 20, 30, MAGENTA);
     DrawFPS(10, 1060);
-    DrawText(TextFormat("SCORE: %i", _score.get_score1()), 1400, 200, 40, GRAY);
-    DrawText(TextFormat("SCORE: %i", _score.get_score2()), 300, 200, 40, GRAY);
+    DrawText(TextFormat("SCORE: %i", _score.get_score1()), 1400, 200, 40, MAGENTA);
+    DrawText(TextFormat("SCORE: %i", _score.get_score2()), 300, 200, 40, MAGENTA);
     _score.writeScore(std::to_string(_score.get_score1()));
     _score.writeScore(std::to_string(_score.get_score2()));
     DrawText(TextFormat("HI-SCORE: %s", _score.getHightScore().c_str()), 10, 20, 40, RED);
