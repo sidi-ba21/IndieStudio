@@ -30,34 +30,18 @@ Bomberman::AI::~AI()
 float Bomberman::AI::move_AI()
 {
     //_time = ;
-    //UpdateModelAnimation(_Model_AI, _Anim2[0], _AnimFrameCounter_AI);
-    //_AnimFrameCounter_AI++;
-    //if (_AnimFrameCounter_AI >= _Anim2[0].frameCount)
-    //    _AnimFrameCounter_AI = 0;
+    UpdateModelAnimation(_Model_AI, _Anim_AI[0], _AnimFrameCounter_AI);
+    _AnimFrameCounter_AI++;
+    if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
+        _AnimFrameCounter_AI = 0;
     //_Pos_AI.z -= 0.05;
     //Rotation2 = 180;
-    setPos(_Pos_AI);
+    //setPos(_Pos_AI);
 
-    /*UpdateModelAnimation(_Model_AI, _Anim2[0],_AnimFrameCounter_AI);
+    UpdateModelAnimation(_Model_AI, _Anim_AI[0],_AnimFrameCounter_AI);
     _AnimFrameCounter_AI++;
-    if (_AnimFrameCounter_AI >= _Anim2[0].frameCount)
+    if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
        _AnimFrameCounter_AI = 0;
-    _Pos_AI.z += 0.05;
-    Rotation2 = 0;
-
-    UpdateModelAnimation(_Model_AI, _Anim2[0],_AnimFrameCounter_AI);
-    _AnimFrameCounter_AI++;
-    if (_AnimFrameCounter_AI >= _Anim2[0].frameCount)
-       _AnimFrameCounter_AI = 0;
-    _Pos_AI.x -= 0.05;
-    Rotation2 = -90;
-
-    UpdateModelAnimation(_Model_AI, _Anim2[0],_AnimFrameCounter_AI);
-   _AnimFrameCounter_AI++;
-    if (_AnimFrameCounter_AI >= _Anim2[0].frameCount)
-       _AnimFrameCounter_AI = 0;
-    _Pos_AI.x += 0.05;
-    Rotation2 = 90;
-
-    return Rotation2;*/
+    //_Pos_AI.z += 0.05;
+    //Rotation2 = 0;
 }
