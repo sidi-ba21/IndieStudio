@@ -5,3 +5,4 @@ bomberman
 vgcore*
 build/*
 *.cmake
+Score.txt

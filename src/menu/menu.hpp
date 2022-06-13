@@ -34,6 +34,18 @@ namespace Bomberman {
             size_t _volume;
             bool _is_paused;
     };
+    class Button {
+        public:
+            Button();
+            Button(std::string str, Rectangle src, Rectangle bounds) : filename(str), sourceRec(src), btnBounds(bounds) {}
+            ~Button() { UnloadTexture(button);}
+            void init();
+            std::string filename = "Png/exit.png";
+            Texture2D button;
+            Rectangle sourceRec = { 0, 0, 100, 100 };
+            Rectangle btnBounds = {0, 0, 100, 100};
+            
+    };
     class Menu {
         public:
             Menu();
@@ -50,23 +62,26 @@ namespace Bomberman {
             void set_cmt(int p) {i = p;}
             bool get_game() { return is_game; }
             void set_gamebool(bool obj) { is_game = obj; }
+            void set_pause(bool obj) { is_pause = obj; }
+            bool get_pause() { return is_pause; }
 
             void game();
             void options();
             void adios();
-            void minus();
-            void plus();
+            void pause();
             void game_options();
 
         private:
             Vector2 mousepos = { -100.0f, -100.0f };
             bool is_title = true;
             bool is_game = false;
-            int i = -1;
+            bool is_options = false;
+            bool is_pause = false;
+            size_t i = 4;
             ost musiic;
-            ost sfx;
+            Sound sfx;
             int screenWidth = 1920;
             int screenHeight = 1080;
-
+            std::vector<Button> btns;
     };
 }
