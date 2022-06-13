@@ -37,10 +37,12 @@ void Bomberman::Core::game_loop()
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
         DrawTextureV(background, Vector2{0, 0}, WHITE);
-        this->rt = _player.Player_move(this->mapPixels, this->_map.get_cubicTexture());
-        this->r = _player.Player_animation(this->mapPixels, this->_map.get_cubicTexture());
-        _map.update();
-        _camera.Camera_move();
+        if (_menu.get_pause() == false) {
+            this->rt = _player.Player_move(this->mapPixels, this->_map.get_cubicTexture());
+            this->r = _player.Player_animation(this->mapPixels, this->_map.get_cubicTexture());
+            _map.update();
+            _camera.Camera_move();
+        }
         _menu.update();
         Draw();
     }
@@ -55,9 +57,12 @@ void Bomberman::Core::Draw()
     {
         Draw3d();
         Draw2d();
+        if (_menu.get_pause() == true)
+            _menu.pause();
     }
     else
         _menu.loop();
+    
     EndDrawing();
 }
 

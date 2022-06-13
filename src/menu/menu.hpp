@@ -62,10 +62,13 @@ namespace Bomberman {
             void set_cmt(int p) {i = p;}
             bool get_game() { return is_game; }
             void set_gamebool(bool obj) { is_game = obj; }
+            void set_pause(bool obj) { is_pause = obj; }
+            bool get_pause() { return is_pause; }
 
             void game();
             void options();
             void adios();
+            void pause();
             void game_options();
 
         private:

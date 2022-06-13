@@ -58,8 +58,8 @@ void Bomberman::Menu::init()
     this->btns.push_back(Bomberman::Button("Png/exit.png", (Rectangle){0, 0, 100, 100}, (Rectangle){900.0, 650.0, 100.0, 100.0}));
     this->btns.push_back(Bomberman::Button("Png/tutorial.png",(Rectangle){0, 0, 100, 100}, (Rectangle){900.0, 850.0, 100.0, 100.0}));
 
-    this->btns.push_back(Bomberman::Button("Png/+.png",(Rectangle){1300.0, 400.0, 100.0, 100.0}, (Rectangle){1300.0, 400.0, 100.0, 100.0}));
-    this->btns.push_back(Bomberman::Button("Png/+.png",(Rectangle){1300.0, 700.0, 100.0, 100.0}, (Rectangle){1300.0, 700.0, 100.0, 100.0}));
+    this->btns.push_back(Bomberman::Button("Png/+.png",(Rectangle){0, 0, 100.0, 100.0}, (Rectangle){1300.0, 400.0, 100.0, 100.0}));
+    this->btns.push_back(Bomberman::Button("Png/+.png",(Rectangle){0, 0, 100.0, 100.0}, (Rectangle){1300.0, 700.0, 100.0, 100.0}));
     this->btns.push_back(Bomberman::Button("Png/-.png",(Rectangle){400.0, 400.0, 100.0, 100.0}, (Rectangle){400.0, 400.0, 100.0, 100.0}));
     this->btns.push_back(Bomberman::Button("Png/-.png",(Rectangle){400.0, 700.0, 100.0, 100.0}, (Rectangle){400.0, 700.0, 100.0, 100.0}));
 
@@ -94,7 +94,7 @@ void Bomberman::Menu::update()
     if (is_game || is_options || is_title || is_pause) {
         for (; i < limit; i++) {
             if (CheckCollisionPointRec(mousepos, btns[i].btnBounds)) {
-                if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+                if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
                     (btns[i].sourceRec.x = 200);
                 else
                     btns[i].sourceRec.x = 100.0;
@@ -106,16 +106,25 @@ void Bomberman::Menu::update()
         }
     }
     if (i != limit) (is_title = false);
-    (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) ? PlaySound(this->sfx) : (void)1;
-    (IsKeyPressed(KEY_T)) ? (is_title = true) : true;
-    (IsKeyPressed(KEY_SPACE)) ? musiic.set_pause() : (void)1;
-    if (i == 8) (is_pause = !is_pause);
+    if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) (PlaySound(this->sfx));
+    if (IsKeyPressed(KEY_T)) (is_title = true);
+    if (IsKeyPressed(KEY_SPACE)) (musiic.set_pause());
+    if (IsKeyPressed(KEY_P)) (is_pause = !is_pause);
+    //if (i == 8) (is_pause = !is_pause);
+}
+
+void Bomberman::Menu::pause()
+{
+    BeginDrawing();
+        for (size_t i = 8; i < btns.size(); i++)
+            DrawTextureRec(btns[i].button, btns[i].sourceRec, (Vector2){ btns[i].btnBounds.x, btns[i].btnBounds.y }, RAYWHITE);
+        DrawRectangleGradientH(560, 680, 680, 110, PURPLE, SKYBLUE);
+        DrawText("SOUND EFFECTS", 600, 700, 70.0, WHITE);
 }
 
 void Bomberman::Menu::game_options()
 {
     static float volumesfx = 1;
-
 
     if (i == 0 || is_game) {
         game();
@@ -132,6 +141,7 @@ void Bomberman::Menu::game_options()
     if (volumesfx < 0)
         volumesfx = 0;
     SetSoundVolume(this->sfx, volumesfx);
+    if (is_pause) (pause());
 }
 
 void Bomberman::Menu::loop()
