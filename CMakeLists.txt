@@ -18,7 +18,7 @@ if (NOT raylib_FOUND)
     endif()
 endif()
 
-include_directories(bomberman include)
+include_directories(include)
 
 add_executable(bomberman   src/core/main.cpp
 src/core/Core.cpp
