@@ -20,6 +20,7 @@ void Bomberman::Core::init(void)
 {
     this->background = LoadTexture("Png/space_background.png"); // Load map texture
     _player.init();
+    _ai.init_AI();
     _camera.init();
     _map.init();
     _menu.init();
@@ -38,6 +39,7 @@ void Bomberman::Core::game_loop()
     {
         DrawTextureV(background, Vector2{0, 0}, WHITE);
         if (_menu.get_pause() == false) {
+            this->_rotate_ai = _ai.move_AI(this->mapPixels, this->_map.get_cubicTexture());
             this->rt = _player.Player_move(this->mapPixels, this->_map.get_cubicTexture());
             this->r = _player.Player_animation(this->mapPixels, this->_map.get_cubicTexture());
             _map.update();
@@ -163,14 +165,47 @@ void Bomberman::Core::Remove_breakable(Vector3 pos)
     }
 }
 
+void Bomberman::Core::set_Bomb_AI()
+{
+    if (pressed_AI < 1)
+    {
+        _bomb_pos_AI = _ai.get_pos();
+        printf("%2.f, %2.f\n", _bomb_pos_AI.x, _bomb_pos_AI.z);
+        pressed_AI = 1;
+        this->time1 = std::time(nullptr);
+    }
+    if (pressed_AI > 0 && pressed_AI < 3)
+    {
+        DrawSphere(Vector3{_bomb_pos_AI}, 0.3, BLACK);
+        DrawSphereWires(Vector3{_bomb_pos_AI}, 0.3, 10, 10, BROWN);
+    }
+    pressed_AI = 2;
+    if (pressed_AI == 2 || pressed_AI == 3)
+    {
+        std::time_t now = std::time(nullptr);
+        if (now - time1 > 6)
+            pressed_AI = 0;
+        else if (now - time1 > 3)
+        {
+            Remove_breakable(_bomb_pos_AI);
+            _score.update_AI();
+            pressed_AI = 3;
+        }
+    }
+}
+
+
 void Bomberman::Core::Draw3d()
 {
     BeginMode3D(_camera.get_Camera());
-
+    DrawModelEx(_ai.get_Model(), _ai.get_pos(), (Vector3){ 0, 1, 0 }, _rotate_ai, (Vector3){1, 1, 1}, WHITE);
     DrawModelEx(_player.get_Model(), _player.get_pos(1), (Vector3){0, 1, 0}, r, (Vector3){1, 1, 1}, WHITE);
     DrawModelEx(_player.get_Model2(), _player.get_pos(2), (Vector3){0, 1, 0}, rt, (Vector3){1, 1, 1}, WHITE);
    // DrawModel(_map.get_model(), _map.get_pos(), 1.0f, WHITE);
     Draw_breakabke();
+    _chk_AI = GetRandomValue(0, 1);
+    if (_chk_AI == 1)
+        set_Bomb_AI();
     if (IsKeyPressed(KEY_RIGHT_SHIFT) && pressed < 1)
     {
         _bomb_pos = _player.get_pos(1);

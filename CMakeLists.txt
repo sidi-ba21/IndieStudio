@@ -35,6 +35,7 @@ add_executable(${PROJECT_NAME}
   src/games/Score/Score.cpp
   src/games/Bomb/Bomb.cpp
   src/graphicals/Draw/Draw.cpp
+  src/AI/AI.cpp
   src/menu/menu.cpp
   src/menu/music.cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib GL m pthread dl)
