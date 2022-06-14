@@ -76,10 +76,12 @@ void Bomberman::Core::Draw2d()
     DrawText("The map generated is : ", 1410, 20, 30, MAGENTA);
     DrawFPS(10, 1060);
 
-    DrawText(TextFormat("SCORE: %i", _score.get_score1()), 10, 80, 40, MAGENTA);
-    DrawText(TextFormat("SCORE: %i", _score.get_score2()), 10, 120, 40, MAGENTA);
+    DrawText(TextFormat("SCORE PLAYER1: %i", _score.get_score1()), 20, 80, 40, MAGENTA);
+    DrawText(TextFormat("SCORE PLAYER2: %i", _score.get_score2()), 20, 160, 40, MAGENTA);
+    DrawText(TextFormat("SCORE AI: %i", _score.get_score_AI()), 20, 240, 40, MAGENTA);
     _score.writeScore(std::to_string(_score.get_score1()));
     _score.writeScore(std::to_string(_score.get_score2()));
+    _score.writeScore(std::to_string(_score.get_score_AI()));
     DrawText(TextFormat("HI-SCORE: %s", _score.getHightScore().c_str()), 10, 20, 40, RED);
     // DrawText in format convert second to minutes and seconds
     auto tmp = GetTime();
