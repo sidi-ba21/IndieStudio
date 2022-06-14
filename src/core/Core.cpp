@@ -19,10 +19,10 @@ Bomberman::Core::Core()
 void Bomberman::Core::init(void)
 {
     this->background = LoadTexture("Png/space_background.png"); // Load map texture
+    _map.init();
     _player.init();
     _ai.init_AI();
     _camera.init();
-    _map.init();
     _menu.init();
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
     this->mapPixels = LoadImageColors(_map.get_image());
