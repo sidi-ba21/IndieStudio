@@ -64,11 +64,12 @@ bool Bomberman::AI::Check_collision_AI(Vector3 pos, int direction,
 float Bomberman::AI::move_AI(Color *mapPixels, Texture2D _cubicTexture)
 {
     auto now = std::time(nullptr);
-
+    std::cout << _time << ";;1" << std::endl;
     if (now - _time > 3) {
         _check = GetRandomValue(0, 3);
         _time = std::time(nullptr);
     }
+    std::cout << _time << ";;2" << std::endl;
 
     if (_check == 0 && (now - _time) <= GetRandomValue(0, 2) && !Check_collision_AI(_Pos_AI, 2, mapPixels, _cubicTexture)) {
         UpdateModelAnimation(_Model_AI, _Anim_AI[0], _AnimFrameCounter_AI);

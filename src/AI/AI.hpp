@@ -48,6 +48,7 @@ namespace Bomberman
             unsigned int _animCount_AI{2};
             int _AnimFrameCounter_AI{0};
             float Rotation_AI{0};
+            int _check;
 
             Vector3 _Pos_AI{-15, 0.1, 6};
             Model _Model_AI;
@@ -55,7 +56,6 @@ namespace Bomberman
             Texture2D _texture_AI;
             Vector3 _Chk_pos;
 
-            int _check;
             std::time_t _time;
     };
 }
