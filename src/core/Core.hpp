@@ -36,6 +36,7 @@ namespace Bomberman
         void Draw3d();
         void Draw_breakabke();
         void Remove_breakable(Vector3 pos);
+        void set_Bomb_AI();
         Core(const Core &) = delete;
         Core &operator=(const Core &) = delete;
         Core(Core &&) = delete;
@@ -45,13 +46,16 @@ namespace Bomberman
     private:
         const int screenWidth{1920};
         const int screenHeight{1080};
+        int _chk_AI;
         float r{0};
         float _rotate_ai{0};
         float rt{0};
         Vector3 _bomb_pos;
         Vector3 _bomb_pos2;
+        Vector3 _bomb_pos_AI;
         int pressed{0};
         int pressed2{0};
+        int pressed_AI{0};
         Player _player;
         Camera _camera;
         Score _score;
