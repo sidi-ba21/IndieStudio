@@ -38,7 +38,8 @@ void Bomberman::Core::game_loop()
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
         DrawTextureV(background, Vector2{0, 0}, WHITE);
-        if (_menu.get_pause() == false) {
+        if (_menu.get_pause() == false)
+        {
             this->_rotate_ai = _ai.move_AI(this->mapPixels, this->_map.get_cubicTexture());
             this->rt = _player.Player_move(this->mapPixels, this->_map.get_cubicTexture());
             this->r = _player.Player_animation(this->mapPixels, this->_map.get_cubicTexture());
@@ -64,7 +65,7 @@ void Bomberman::Core::Draw()
     }
     else
         _menu.loop();
-    
+
     EndDrawing();
 }
 
@@ -74,7 +75,7 @@ void Bomberman::Core::Draw2d()
     DrawRectangleLines(screenWidth - _map.get_cubicTexture().width * 4 - 20, 20, _map.get_cubicTexture().width * 4, _map.get_cubicTexture().height * 4, GREEN);
     DrawText("The map generated is : ", 1410, 20, 30, MAGENTA);
     DrawFPS(10, 1060);
-    
+
     DrawText(TextFormat("SCORE: %i", _score.get_score1()), 10, 80, 40, MAGENTA);
     DrawText(TextFormat("SCORE: %i", _score.get_score2()), 10, 120, 40, MAGENTA);
     _score.writeScore(std::to_string(_score.get_score1()));
@@ -101,12 +102,12 @@ void Bomberman::Core::Draw_breakabke()
             if (COLOR_EQUAL(mapPixels[y * this->_map.get_cubicTexture().width + x], BLACK))
             {
                 DrawCubeTextureRec(grass_texture, _rectGrass, {x - 16.0f, 0.1, y - 8.f},
-                1, 0, 1, WHITE);
+                                   1, 0, 1, WHITE);
             }
             if (COLOR_EQUAL(mapPixels[y * this->_map.get_cubicTexture().width + x], WHITE))
             {
                 DrawCubeTexture(brick_texture, {x - 16.0f, 0.5, y - 8.f},
-                1, 1, 1, WHITE);
+                                1, 1, 1, WHITE);
             }
         }
     }
@@ -194,18 +195,14 @@ void Bomberman::Core::set_Bomb_AI()
     }
 }
 
-
 void Bomberman::Core::Draw3d()
 {
     BeginMode3D(_camera.get_Camera());
-    DrawModelEx(_ai.get_Model(), _ai.get_pos(), (Vector3){ 0, 1, 0 }, _rotate_ai, (Vector3){1, 1, 1}, WHITE);
+    DrawModelEx(_ai.get_Model(), _ai.get_pos(), (Vector3){0, 1, 0}, _rotate_ai, (Vector3){1, 1, 1}, WHITE);
     DrawModelEx(_player.get_Model(), _player.get_pos(1), (Vector3){0, 1, 0}, r, (Vector3){1, 1, 1}, WHITE);
     DrawModelEx(_player.get_Model2(), _player.get_pos(2), (Vector3){0, 1, 0}, rt, (Vector3){1, 1, 1}, WHITE);
-   // DrawModel(_map.get_model(), _map.get_pos(), 1.0f, WHITE);
     Draw_breakabke();
-    _chk_AI = GetRandomValue(0, 1);
-    if (_chk_AI == 1)
-        set_Bomb_AI();
+    set_Bomb_AI();
     if (IsKeyPressed(KEY_RIGHT_SHIFT) && pressed < 1)
     {
         _bomb_pos = _player.get_pos(1);
