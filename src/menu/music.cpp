@@ -20,7 +20,6 @@ Bomberman::ost::ost(std::string name, size_t vol, bool paus)
 
 Bomberman::ost::~ost()
 {
-    CloseAudioDevice();
     UnloadMusicStream(_mp3);
 }
 

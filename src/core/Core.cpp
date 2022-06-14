@@ -37,12 +37,14 @@ void Bomberman::Core::game_loop()
 {
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
-        DrawTextureV(background, Vector2 {0, 0}, WHITE);
-        this->_rotate_ai = _ai.move_AI(this->mapPixels, this->_map.get_cubicTexture());
-        this->rt = _player.Player_move(this->mapPixels, this->_map.get_cubicTexture());
-        this->r = _player.Player_animation(this->mapPixels, this->_map.get_cubicTexture());
-        _map.update();
-        _camera.Camera_move();
+        DrawTextureV(background, Vector2{0, 0}, WHITE);
+        if (_menu.get_pause() == false) {
+            this->_rotate_ai = _ai.move_AI(this->mapPixels, this->_map.get_cubicTexture());
+            this->rt = _player.Player_move(this->mapPixels, this->_map.get_cubicTexture());
+            this->r = _player.Player_animation(this->mapPixels, this->_map.get_cubicTexture());
+            _map.update();
+            _camera.Camera_move();
+        }
         _menu.update();
         Draw();
     }
@@ -57,9 +59,12 @@ void Bomberman::Core::Draw()
     {
         Draw3d();
         Draw2d();
+        if (_menu.get_pause() == true)
+            _menu.pause();
     }
     else
         _menu.loop();
+    
     EndDrawing();
 }
 
@@ -67,10 +72,11 @@ void Bomberman::Core::Draw2d()
 {
     DrawTextureEx(_map.get_cubicTexture(), (Vector2){screenWidth - _map.get_cubicTexture().width * 4.0f - 20, 20.0f}, 0.0f, 4.0f, WHITE);
     DrawRectangleLines(screenWidth - _map.get_cubicTexture().width * 4 - 20, 20, _map.get_cubicTexture().width * 4, _map.get_cubicTexture().height * 4, GREEN);
-    DrawText("The map generated is : ", 1410, 20, 30, GRAY);
+    DrawText("The map generated is : ", 1410, 20, 30, MAGENTA);
     DrawFPS(10, 1060);
-    DrawText(TextFormat("SCORE: %i", _score.get_score1()), 1400, 200, 40, GRAY);
-    DrawText(TextFormat("SCORE: %i", _score.get_score2()), 300, 200, 40, GRAY);
+    
+    DrawText(TextFormat("SCORE: %i", _score.get_score1()), 10, 80, 40, MAGENTA);
+    DrawText(TextFormat("SCORE: %i", _score.get_score2()), 10, 120, 40, MAGENTA);
     _score.writeScore(std::to_string(_score.get_score1()));
     _score.writeScore(std::to_string(_score.get_score2()));
     DrawText(TextFormat("HI-SCORE: %s", _score.getHightScore().c_str()), 10, 20, 40, RED);
@@ -79,7 +85,6 @@ void Bomberman::Core::Draw2d()
     auto minutes = (float)(int)tmp / 60;
     auto seconds = (float)((int)tmp % 60);
     DrawText(TextFormat("Elapsed Time: %02.0f : %02.0f", minutes, seconds), 800, 100, 40, MAGENTA);
-
 }
 
 void Bomberman::Core::Draw_breakabke()
