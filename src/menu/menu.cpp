@@ -143,6 +143,10 @@ void Bomberman::Menu::game_options()
     if (i == 0 || is_game) {
         game();
     } else if  (i == 1 || i == 9 || is_options) {
+        is_pause = false;
+        is_game = false;
+        is_title = false;
+        is_options = true;
         options();
     } else if  (i == 2 || i == 12) {
         adios();
