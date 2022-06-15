@@ -7,8 +7,6 @@
 
 #include "menu.hpp"
 
-Bomberman::ost::ost() {}
-
 Bomberman::ost::ost(std::string name, size_t vol, bool paus)
 {
     _music_name = name;
@@ -69,7 +67,7 @@ Music Bomberman::ost::get_ost()
 void Bomberman::ost::operator=(const Bomberman::ost &obj)
 {
     this->_music_name = obj._music_name;
-    this->_volume = obj._volume;
+    this->_volume = obj._volume; 
     this->_is_paused = obj._is_paused;
     this->_mp3 = LoadMusicStream(obj._music_name.c_str());
-}
+} 
