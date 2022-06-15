@@ -54,7 +54,7 @@ void Bomberman::Menu::init()
     this->musiic.init("./sounds/menu.mp3", 2, false);
     this->sfx = LoadSound("./sounds/explosion8bit.wav");
 
-    this->btns.push_back(Bomberman::Button("Png/play_button.png", (Rectangle){600, 0, 640, 120}, (Rectangle){600.0, 300.0,640, 120}));
+    this->btns.push_back(Bomberman::Button("Png/volume_up_button.png", (Rectangle){0, 0, 640, 120}, (Rectangle){600.0, 300.0,640, 120}));
     this->btns.push_back(Bomberman::Button("Png/options.png", (Rectangle){0, 0, 100, 100}, (Rectangle){900.0, 450.0, 100, 100}));
     this->btns.push_back(Bomberman::Button("Png/exit.png", (Rectangle){0, 0, 100, 100}, (Rectangle){900.0, 650.0, 100, 100}));
     this->btns.push_back(Bomberman::Button("Png/tutorial.png",(Rectangle){0, 0, 100, 100}, (Rectangle){900.0, 850.0, 100, 100}));
@@ -96,14 +96,14 @@ void Bomberman::Menu::update()
         for (; i < limit; i++) {
             if (CheckCollisionPointRec(mousepos, btns[i].btnBounds)) {
                 if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-                    (btns[i].sourceRec.x = 200);
+                    (btns[i].sourceRec.y = 420);
                 else
-                    btns[i].sourceRec.x = 100;
+                    btns[i].sourceRec.y = 215;
                 if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
                     break;
                 }
             } else
-                btns[i].sourceRec.x = 0;
+                btns[i].sourceRec.y = 0;
         }
     }
     if (i != limit) (is_title = false);
