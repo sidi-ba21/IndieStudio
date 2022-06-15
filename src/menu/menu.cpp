@@ -5,6 +5,7 @@
 ** main
 */
 
+#include <unistd.h>
 #include "menu.hpp"
 
 void Bomberman::Menu::game()
@@ -53,7 +54,7 @@ void Bomberman::Menu::init()
     this->musiic.init("./sounds/menu.mp3", 2, false);
     this->sfx = LoadSound("./sounds/explosion8bit.wav");
 
-    this->btns.push_back(Bomberman::Button("Png/play.png", (Rectangle){0, 0, 100, 100}, (Rectangle){900.0, 300.0, 100, 100}));
+    this->btns.push_back(Bomberman::Button("Png/play_button.png", (Rectangle){600, 0, 640, 120}, (Rectangle){600.0, 300.0,640, 120}));
     this->btns.push_back(Bomberman::Button("Png/options.png", (Rectangle){0, 0, 100, 100}, (Rectangle){900.0, 450.0, 100, 100}));
     this->btns.push_back(Bomberman::Button("Png/exit.png", (Rectangle){0, 0, 100, 100}, (Rectangle){900.0, 650.0, 100, 100}));
     this->btns.push_back(Bomberman::Button("Png/tutorial.png",(Rectangle){0, 0, 100, 100}, (Rectangle){900.0, 850.0, 100, 100}));
@@ -132,8 +133,6 @@ void Bomberman::Menu::pause()
     BeginDrawing();
         for (size_t i = 8; i < btns.size(); i++)
             DrawTextureRec(btns[i].button, btns[i].sourceRec, (Vector2){ btns[i].btnBounds.x, btns[i].btnBounds.y }, RAYWHITE);
-        DrawRectangleGradientH(0, 0, 150, 80, PURPLE, SKYBLUE);
-        DrawText("||", 0, 0, 70.0, WHITE);
 }
 
 void Bomberman::Menu::game_options()
