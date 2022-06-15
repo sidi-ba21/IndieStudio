@@ -28,8 +28,8 @@ src/games/Map/Map.cpp
 src/games/Box/Box.cpp
 src/games/Score/Score.cpp
 src/games/Bomb/Bomb.cpp
+src/games/AI/AI.cpp
 src/graphicals/Draw/Draw.cpp
-src/AI/AI.cpp
 src/menu/menu.cpp
 src/menu/music.cpp)
 target_link_libraries(${PROJECT_NAME} raylib)

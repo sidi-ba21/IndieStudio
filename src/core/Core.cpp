@@ -18,7 +18,7 @@ Bomberman::Core::Core()
 
 void Bomberman::Core::init(void)
 {
-    this->background = LoadTexture("Png/space_background.png"); // Load map texture
+    _background.init();
     _map.init();
     _player.init();
     _ai.init_AI();
@@ -31,16 +31,15 @@ void Bomberman::Core::init(void)
 void Bomberman::Core::game_loop()
 {
     while (!WindowShouldClose()) {
-        DrawTextureV(background, Vector2{0, 0}, WHITE);
         if (_menu.get_pause() == false) {
-            _rotate_ai = _ai.move_AI(_map.get_color(), _map.get_cubicTexture());
+            _ai.move_AI(_map.get_color(), _map.get_cubicTexture());
             _player.Player_move1(_map.get_color(), _map.get_cubicTexture());
             _player.Player_move2(_map.get_color(), _map.get_cubicTexture());
             _map.update();
             _camera.Camera_move();
         }
-        _menu.update();
         Draw();
+        _menu.update();
     }
 }
 
@@ -48,10 +47,11 @@ void Bomberman::Core::Draw()
 {
     BeginDrawing();
 
+    _background.draw();
     ClearBackground(RAYWHITE);
     if (_menu.get_game() == true) {
-        Draw3d();
         Draw2d();
+        Draw3d();
         if (_menu.get_pause() == true)
             _menu.pause();
     }
@@ -106,28 +106,6 @@ void Bomberman::Core::Remove_breakable(Vector3 pos)
     int x = pos.x + 16;
     int y = pos.z + 8;
     
-    /*
-        for (int i = -1; i < 2; i++) {
-            if ((x + i > -15 && x + i < 15) &&
-                (COLOR_EQUAL(_map.get_color()[y * _map.get_cubicTexture().width + x + i], RED)
-            || COLOR_EQUAL(_map.get_color()[y * _map.get_cubicTexture().width + x + i], BLACK))) {
-                 _map.get_color()[y * _map.get_cubicTexture().width + x + i] = BLACK;
-                DrawCube(Vector3{(float)(x + i - 16) , _bomb_pos.y, (float)(y - 8)}, 1, 1, 1, RED);
-            }
-            else if (x + i <= -15 && x + i >= 15)
-                break;
-        }
-        for (int i = -1; i < 2; i++) {
-            if ((y + i > -7 && y + i < 7) &&
-                (COLOR_EQUAL(_map.get_color()[(y + i) * _map.get_cubicTexture().width + x], RED)
-            || COLOR_EQUAL(_map.get_color()[(y + i) * _map.get_cubicTexture().width + x], BLACK))) {
-                 _map.get_color()[(y + i) * _map.get_cubicTexture().width + x] = BLACK;
-                DrawCube(Vector3{(float)(x - 16) , _bomb_pos.y, (float)(y + i - 8)}, 1, 1, 1, RED);
-            }
-            else if (y + i <= -7 && y + i >= 7)
-                break;
-        }
-        */
     if (COLOR_EQUAL(_map.get_color()[y * _map.get_cubicTexture().width + x], RED) || COLOR_EQUAL(_map.get_color()[y * _map.get_cubicTexture().width + x], BLACK))
     {
         _map.get_color()[y * _map.get_cubicTexture().width + x] = BLACK;
@@ -187,34 +165,29 @@ void Bomberman::Core::set_Bomb_AI()
 void Bomberman::Core::Draw3d()
 {
     BeginMode3D(_camera.get_Camera());
-    DrawModelEx(_ai.get_Model(), _ai.get_pos(), (Vector3){0, 1, 0}, _rotate_ai, (Vector3){1, 1, 1}, WHITE);
+    DrawModelEx(_ai.get_Model(), _ai.get_pos(), (Vector3){0, 1, 0}, _ai.get_rotate(), (Vector3){1, 1, 1}, WHITE);
     DrawModelEx(_player.get_Model(), _player.get_pos(1), (Vector3){0, 1, 0}, _player.get_rotate1(), (Vector3){1, 1, 1}, WHITE);
     DrawModelEx(_player.get_Model2(), _player.get_pos(2), (Vector3){0, 1, 0}, _player.get_rotate2(), (Vector3){1, 1, 1}, WHITE);
     Draw_breakabke();
     set_Bomb_AI();
-    if (IsKeyPressed(KEY_RIGHT_SHIFT) && pressed < 1)
-    {
+    if (IsKeyPressed(KEY_RIGHT_SHIFT) && pressed < 1) {
         _bomb_pos = _player.get_pos(1);
         printf("%2.f, %2.f\n", _bomb_pos.x, _bomb_pos.z);
         pressed = 1;
         this->time1 = std::time(nullptr);
     }
-    if (pressed > 0 && pressed < 3)
-    {
+    if (pressed > 0 && pressed < 3) {
         DrawSphere(Vector3{_bomb_pos}, 0.3, BLACK);
         DrawSphereWires(Vector3{_bomb_pos}, 0.3, 10, 10, BROWN);
     }
-    if (IsKeyReleased(KEY_RIGHT_SHIFT))
-    {
+    if (IsKeyReleased(KEY_RIGHT_SHIFT)) {
         pressed = 2;
     }
-    if (pressed == 2 || pressed == 3)
-    {
+    if (pressed == 2 || pressed == 3) {
         std::time_t now = std::time(nullptr);
         if (now - time1 > 6)
             pressed = 0;
-        else if (now - time1 > 3)
-        {
+        else if (now - time1 > 3) {
             Remove_breakable(_bomb_pos);
             _score.update1();
             pressed = 3;
@@ -227,22 +200,18 @@ void Bomberman::Core::Draw3d()
         pressed2 = 1;
         this->time2 = std::time(nullptr);
     }
-    if (pressed2 > 0 && pressed2 < 3)
-    {
+    if (pressed2 > 0 && pressed2 < 3) {
         DrawSphere(Vector3{_bomb_pos2}, 0.3, BLACK);
         DrawSphereWires(Vector3{_bomb_pos2}, 0.3, 10, 10, BROWN);
     }
-    if (IsGamepadButtonReleased(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN) || IsKeyReleased(KEY_LEFT_SHIFT))
-    {
+    if (IsGamepadButtonReleased(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN) || IsKeyReleased(KEY_LEFT_SHIFT)) {
         pressed2 = 2;
     }
-    if (pressed2 == 2 || pressed2 == 3)
-    {
+    if (pressed2 == 2 || pressed2 == 3) {
         std::time_t now2 = std::time(nullptr);
         if (now2 - time2 > 6)
             pressed2 = 0;
-        else if (now2 - time2 > 3)
-        {
+        else if (now2 - time2 > 3) {
             Remove_breakable(_bomb_pos2);
             _score.update2();
             pressed2 = 3;

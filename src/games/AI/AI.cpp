@@ -59,7 +59,7 @@ bool Bomberman::AI::Check_collision_AI(Vector3 pos, int direction,
     return false;
 }
 
-float Bomberman::AI::move_AI(Color *mapPixels, Texture2D _cubicTexture)
+void Bomberman::AI::move_AI(Color *mapPixels, Texture2D _cubicTexture)
 {
     auto now = std::time(nullptr);
     if (now - _time > 3) {
@@ -73,7 +73,7 @@ float Bomberman::AI::move_AI(Color *mapPixels, Texture2D _cubicTexture)
         if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
             _AnimFrameCounter_AI = 0;
         _Pos_AI.z -= 0.05;
-        Rotation_AI = 180;
+        _Rotate_AI = 180;
         setPos(_Pos_AI);
     }
 
@@ -83,7 +83,7 @@ float Bomberman::AI::move_AI(Color *mapPixels, Texture2D _cubicTexture)
         if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
            _AnimFrameCounter_AI = 0;
         _Pos_AI.z += 0.05;
-        Rotation_AI = 0;
+        _Rotate_AI = 0;
     }
 
     if (_check == 2 && (now - _time) <= GetRandomValue(0, 2) && !Check_collision_AI(_Pos_AI, 3, mapPixels, _cubicTexture)) {
@@ -92,7 +92,7 @@ float Bomberman::AI::move_AI(Color *mapPixels, Texture2D _cubicTexture)
         if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
            _AnimFrameCounter_AI = 0;
         _Pos_AI.x -= 0.05;
-        Rotation_AI = -90;
+        _Rotate_AI = -90;
     }
 
     if (_check == 3 && (now - _time) <= GetRandomValue(0, 2) && !Check_collision_AI(_Pos_AI, 4, mapPixels, _cubicTexture)) {
@@ -101,7 +101,6 @@ float Bomberman::AI::move_AI(Color *mapPixels, Texture2D _cubicTexture)
         if (_AnimFrameCounter_AI >= _Anim_AI[0].frameCount)
            _AnimFrameCounter_AI = 0;
         _Pos_AI.x += 0.05;
-        Rotation_AI = 90;
+        _Rotate_AI = 90;
     }
-    return (Rotation_AI);
 }

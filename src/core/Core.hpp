@@ -15,7 +15,8 @@
 #include "../games/Camera/Camera.hpp"
 #include "../games/Score/Score.hpp"
 #include "../games/Map/Map.hpp"
-#include "../AI/AI.hpp"
+#include "../games/AI/AI.hpp"
+#include "../games/Background/Background.hpp"
 #include "../menu/menu.hpp"
 #include "../games/Box/Box.hpp"
 #include <iostream>
@@ -47,29 +48,22 @@ namespace Bomberman
     private:
         const int screenWidth{1920};
         const int screenHeight{1080};
-        int _chk_AI;
-        float r{0};
-        float _rotate_ai{0};
-        float rt{0};
         Vector3 _bomb_pos;
         Vector3 _bomb_pos2;
         Vector3 _bomb_pos_AI;
         int pressed{0};
         int pressed2{0};
         int pressed_AI{0};
+        Background _background;
         Player _player;
         Camera _camera;
         Score _score;
         Map _map;
         Box _box;
         Menu _menu;
-        Model model;
-        Image image;
-        Texture2D background;
-        Texture2D texture;
+        AI _ai;
         std::time_t time1;
         std::time_t time2;
-        AI _ai;
     };
 }
 
