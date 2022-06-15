@@ -57,10 +57,8 @@ bool Bomberman::Player::Check_collision(Vector3 pos, int direction,
         y = abs(tmpz);
     if (fabs(tmpx) - (float) abs(tmpx) < 0.2)
         x = abs(tmpx);
- //   printf("x = %d, z =%d, posx = %.3f, posz = %.3f\n", x, y, newPos.x, newPos.z);
     if (COLOR_EQUAL(mapPixels[y*_cubicTexture.width + x], WHITE) || COLOR_EQUAL(mapPixels[prey*_cubicTexture.width + prex], WHITE)
     || COLOR_EQUAL(mapPixels[y*_cubicTexture.width + x], RED) || COLOR_EQUAL(mapPixels[prey*_cubicTexture.width + prex], RED)) {
-   //     printf("collision: %.3f, %.3f\n", pos.x, pos.z);
         return (true);
     }
     return false;

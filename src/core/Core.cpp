@@ -19,11 +19,11 @@ Bomberman::Core::Core()
 void Bomberman::Core::init(void)
 {
     this->background = LoadTexture("Png/space_background.png"); // Load map texture
+    _menu.init();
     _map.init();
     _player.init();
     _ai.init_AI();
     _camera.init();
-    _menu.init();
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
     this->mapPixels = LoadImageColors(_map.get_image());
     this->breakable_texture = LoadTexture("Png/woodx_brick.png");
@@ -172,7 +172,6 @@ void Bomberman::Core::set_Bomb_AI()
     if (pressed_AI < 1)
     {
         _bomb_pos_AI = _ai.get_pos();
-        printf("%2.f, %2.f\n", _bomb_pos_AI.x, _bomb_pos_AI.z);
         pressed_AI = 1;
         this->time1 = std::time(nullptr);
     }
