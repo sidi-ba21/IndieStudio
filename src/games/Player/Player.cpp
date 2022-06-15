@@ -32,6 +32,7 @@ Bomberman::Player::~Player()
     }
     RL_FREE(_anim);   
 }
+
 bool Bomberman::Player::Check_collision(Vector3 pos, int direction,
     Color *mapPixels, Texture2D _cubicTexture)
 {
@@ -64,15 +65,15 @@ bool Bomberman::Player::Check_collision(Vector3 pos, int direction,
     return false;
 }
 
-float Bomberman::Player::Player_animation(Color *mapPixels, Texture2D _cubicTexture)
+void Bomberman::Player::Player_move1(Color *mapPixels, Texture2D _cubicTexture)
 {
     if (IsKeyDown(KEY_UP) && !Check_collision(_pos1, 2, mapPixels, _cubicTexture)) {
         UpdateModelAnimation(_model, _anim[0],_animFrameCounter);
-       _animFrameCounter++;
+        _animFrameCounter++;
         if (_animFrameCounter >= _anim[0].frameCount)
            _animFrameCounter = 0;
         _pos1.z -= 0.05;
-        rotation = 180;
+        _rotate1 = 180;
     }
     if (IsKeyDown(KEY_DOWN) && !Check_collision(_pos1, 1, mapPixels, _cubicTexture)) {
         UpdateModelAnimation(_model, _anim[0],_animFrameCounter);
@@ -80,7 +81,7 @@ float Bomberman::Player::Player_animation(Color *mapPixels, Texture2D _cubicText
         if (_animFrameCounter >= _anim[0].frameCount)
            _animFrameCounter = 0;
         _pos1.z += 0.05;
-        rotation = 0;
+        _rotate1 = 0;
     }
     if (IsKeyDown(KEY_LEFT) && !Check_collision(_pos1, 3, mapPixels, _cubicTexture)) {
         UpdateModelAnimation(_model, _anim[0],_animFrameCounter);
@@ -88,7 +89,7 @@ float Bomberman::Player::Player_animation(Color *mapPixels, Texture2D _cubicText
         if (_animFrameCounter >= _anim[0].frameCount)
            _animFrameCounter = 0;
         _pos1.x -= 0.05;
-        rotation = -90;
+        _rotate1 = -90;
     }
     if (IsKeyDown(KEY_RIGHT) && !Check_collision(_pos1, 4, mapPixels, _cubicTexture)) {
         UpdateModelAnimation(_model, _anim[0],_animFrameCounter);
@@ -96,13 +97,11 @@ float Bomberman::Player::Player_animation(Color *mapPixels, Texture2D _cubicText
         if (_animFrameCounter >= _anim[0].frameCount)
            _animFrameCounter = 0;
         _pos1.x += 0.05;
-        rotation = 90;
+        _rotate1 = 90;
     }
-    return rotation;
 }
 
-
-float Bomberman::Player::Player_move(Color *mapPixels, Texture2D _cubicTexture)
+void Bomberman::Player::Player_move2(Color *mapPixels, Texture2D _cubicTexture)
 {
     if ((IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_UP) || IsKeyDown(KEY_W)) && !Check_collision(_pos2, 2, mapPixels, _cubicTexture)) {
         UpdateModelAnimation(_model2, _anim2[0],_animFrameCounter);
@@ -110,7 +109,7 @@ float Bomberman::Player::Player_move(Color *mapPixels, Texture2D _cubicTexture)
         if (_animFrameCounter >= _anim2[0].frameCount)
            _animFrameCounter = 0;
         _pos2.z -= 0.05;
-        rotation2 = 180;
+        _rotate2 = 180;
     }
     if ((IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_DOWN) || IsKeyDown(KEY_S)) && !Check_collision(_pos2, 1, mapPixels, _cubicTexture)) {
         UpdateModelAnimation(_model2, _anim2[0],_animFrameCounter);
@@ -118,7 +117,7 @@ float Bomberman::Player::Player_move(Color *mapPixels, Texture2D _cubicTexture)
         if (_animFrameCounter >= _anim2[0].frameCount)
            _animFrameCounter = 0;
         _pos2.z += 0.05;
-        rotation2 = 0;
+        _rotate2 = 0;
     }
     if ((IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_LEFT) || IsKeyDown(KEY_A)) && !Check_collision(_pos2, 3, mapPixels, _cubicTexture)) {
         UpdateModelAnimation(_model2, _anim2[0],_animFrameCounter);
@@ -126,7 +125,7 @@ float Bomberman::Player::Player_move(Color *mapPixels, Texture2D _cubicTexture)
         if (_animFrameCounter >= _anim2[0].frameCount)
            _animFrameCounter = 0;
         _pos2.x -= 0.05;
-        rotation2 = -90;
+        _rotate2 = -90;
     }
     if ((IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_RIGHT) || IsKeyDown(KEY_D)) && !Check_collision(_pos2, 4, mapPixels, _cubicTexture)) {
         UpdateModelAnimation(_model2, _anim2[0],_animFrameCounter);
@@ -134,9 +133,8 @@ float Bomberman::Player::Player_move(Color *mapPixels, Texture2D _cubicTexture)
         if (_animFrameCounter >= _anim2[0].frameCount)
            _animFrameCounter = 0;
         _pos2.x += 0.05;
-        rotation2 = 90;
+        _rotate2 = 90;
     }
-    return rotation2;
 }
 
 Model Bomberman::Player::get_Model()

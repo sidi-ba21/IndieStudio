@@ -25,6 +25,7 @@ src/core/Core.cpp
 src/games/Player/Player.cpp
 src/games/Camera/Camera.cpp
 src/games/Map/Map.cpp
+src/games/Box/Box.cpp
 src/games/Score/Score.cpp
 src/games/Bomb/Bomb.cpp
 src/graphicals/Draw/Draw.cpp

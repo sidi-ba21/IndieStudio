@@ -17,6 +17,7 @@
 #include "../games/Map/Map.hpp"
 #include "../AI/AI.hpp"
 #include "../menu/menu.hpp"
+#include "../games/Box/Box.hpp"
 #include <iostream>
 #include <string>
 #include <cmath>
@@ -60,16 +61,12 @@ namespace Bomberman
         Camera _camera;
         Score _score;
         Map _map;
-        Texture2D background;
+        Box _box;
         Menu _menu;
-        Color *mapPixels;
         Model model;
         Image image;
+        Texture2D background;
         Texture2D texture;
-        Texture2D breakable_texture;
-        Texture2D grass_texture;
-        Texture2D brick_texture;
-        Rectangle _rectGrass;
         std::time_t time1;
         std::time_t time2;
         AI _ai;

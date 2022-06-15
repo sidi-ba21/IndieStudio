@@ -19,30 +19,23 @@ Bomberman::Core::Core()
 void Bomberman::Core::init(void)
 {
     this->background = LoadTexture("Png/space_background.png"); // Load map texture
-    _menu.init();
     _map.init();
     _player.init();
     _ai.init_AI();
     _camera.init();
-    SetTargetFPS(60); // Set our game to run at 60 frames-per-second
-    this->mapPixels = LoadImageColors(_map.get_image());
-    this->breakable_texture = LoadTexture("Png/woodx_brick.png");
-    this->grass_texture = LoadTexture("Png/grass_cube.png");
-    this->brick_texture = LoadTexture("Png/brick_cube.png");
-    _rectGrass = Rectangle{(float)grass_texture.width / 2, (float)grass_texture.height / 2,
-                           (float)grass_texture.width / 2, (float)grass_texture.height / 2};
+    _menu.init();
+    _box.init();
+    SetTargetFPS(60); 
 }
 
 void Bomberman::Core::game_loop()
 {
-    while (!WindowShouldClose()) // Detect window close button or ESC key
-    {
+    while (!WindowShouldClose()) {
         DrawTextureV(background, Vector2{0, 0}, WHITE);
-        if (_menu.get_pause() == false)
-        {
-            this->_rotate_ai = _ai.move_AI(this->mapPixels, this->_map.get_cubicTexture());
-            this->rt = _player.Player_move(this->mapPixels, this->_map.get_cubicTexture());
-            this->r = _player.Player_animation(this->mapPixels, this->_map.get_cubicTexture());
+        if (_menu.get_pause() == false) {
+            _rotate_ai = _ai.move_AI(_map.get_color(), _map.get_cubicTexture());
+            _player.Player_move1(_map.get_color(), _map.get_cubicTexture());
+            _player.Player_move2(_map.get_color(), _map.get_cubicTexture());
             _map.update();
             _camera.Camera_move();
         }
@@ -56,8 +49,7 @@ void Bomberman::Core::Draw()
     BeginDrawing();
 
     ClearBackground(RAYWHITE);
-    if (_menu.get_game() == true)
-    {
+    if (_menu.get_game() == true) {
         Draw3d();
         Draw2d();
         if (_menu.get_pause() == true)
@@ -91,23 +83,18 @@ void Bomberman::Core::Draw2d()
 
 void Bomberman::Core::Draw_breakabke()
 {
-    for (int y = 0; y < 16; y++)
-    {
-        for (int x = 0; x < 32; x++)
-        {
-            if (COLOR_EQUAL(mapPixels[y * this->_map.get_cubicTexture().width + x], RED))
-            {
-                DrawCubeTexture(breakable_texture, Vector3{x - 16.0f, 0.5, y - 8.f},
+    for (int y = 0; y < 16; y++) {
+        for (int x = 0; x < 32; x++) {
+            if (COLOR_EQUAL(_map.get_color()[y * this->_map.get_cubicTexture().width + x], RED)) {
+                DrawCubeTexture(_box.get_breakable_texture(), Vector3{x - 16.0f, 0.5, y - 8.f},
                                 1, 1, 1, WHITE);
             }
-            if (COLOR_EQUAL(mapPixels[y * this->_map.get_cubicTexture().width + x], BLACK))
-            {
-                DrawCubeTextureRec(grass_texture, _rectGrass, {x - 16.0f, 0.1, y - 8.f},
+            if (COLOR_EQUAL(_map.get_color()[y * this->_map.get_cubicTexture().width + x], BLACK)) {
+                DrawCubeTextureRec(_box.get_grass_texture(), _box.get_rectGrass(), {x - 16.0f, 0.1, y - 8.f},
                                    1, 0, 1, WHITE);
             }
-            if (COLOR_EQUAL(mapPixels[y * this->_map.get_cubicTexture().width + x], WHITE))
-            {
-                DrawCubeTexture(brick_texture, {x - 16.0f, 0.5, y - 8.f},
+            if (COLOR_EQUAL(_map.get_color()[y * this->_map.get_cubicTexture().width + x], WHITE)) {
+                DrawCubeTexture(_box.get_brick_texture(), {x - 16.0f, 0.5, y - 8.f},
                                 1, 1, 1, WHITE);
             }
         }
@@ -118,12 +105,13 @@ void Bomberman::Core::Remove_breakable(Vector3 pos)
 {
     int x = pos.x + 16;
     int y = pos.z + 8;
+    
     /*
         for (int i = -1; i < 2; i++) {
             if ((x + i > -15 && x + i < 15) &&
-                (COLOR_EQUAL(mapPixels[y * _map.get_cubicTexture().width + x + i], RED)
-            || COLOR_EQUAL(mapPixels[y * _map.get_cubicTexture().width + x + i], BLACK))) {
-                 mapPixels[y * _map.get_cubicTexture().width + x + i] = BLACK;
+                (COLOR_EQUAL(_map.get_color()[y * _map.get_cubicTexture().width + x + i], RED)
+            || COLOR_EQUAL(_map.get_color()[y * _map.get_cubicTexture().width + x + i], BLACK))) {
+                 _map.get_color()[y * _map.get_cubicTexture().width + x + i] = BLACK;
                 DrawCube(Vector3{(float)(x + i - 16) , _bomb_pos.y, (float)(y - 8)}, 1, 1, 1, RED);
             }
             else if (x + i <= -15 && x + i >= 15)
@@ -131,38 +119,38 @@ void Bomberman::Core::Remove_breakable(Vector3 pos)
         }
         for (int i = -1; i < 2; i++) {
             if ((y + i > -7 && y + i < 7) &&
-                (COLOR_EQUAL(mapPixels[(y + i) * _map.get_cubicTexture().width + x], RED)
-            || COLOR_EQUAL(mapPixels[(y + i) * _map.get_cubicTexture().width + x], BLACK))) {
-                 mapPixels[(y + i) * _map.get_cubicTexture().width + x] = BLACK;
+                (COLOR_EQUAL(_map.get_color()[(y + i) * _map.get_cubicTexture().width + x], RED)
+            || COLOR_EQUAL(_map.get_color()[(y + i) * _map.get_cubicTexture().width + x], BLACK))) {
+                 _map.get_color()[(y + i) * _map.get_cubicTexture().width + x] = BLACK;
                 DrawCube(Vector3{(float)(x - 16) , _bomb_pos.y, (float)(y + i - 8)}, 1, 1, 1, RED);
             }
             else if (y + i <= -7 && y + i >= 7)
                 break;
         }
         */
-    if (COLOR_EQUAL(mapPixels[y * _map.get_cubicTexture().width + x], RED) || COLOR_EQUAL(mapPixels[y * _map.get_cubicTexture().width + x], BLACK))
+    if (COLOR_EQUAL(_map.get_color()[y * _map.get_cubicTexture().width + x], RED) || COLOR_EQUAL(_map.get_color()[y * _map.get_cubicTexture().width + x], BLACK))
     {
-        mapPixels[y * _map.get_cubicTexture().width + x] = BLACK;
+        _map.get_color()[y * _map.get_cubicTexture().width + x] = BLACK;
         DrawCube(Vector3{(float)(x - 16), _bomb_pos.y, (float)(y - 8)}, 1, 1, 1, RED);
     }
-    if (x < 15 && (COLOR_EQUAL(mapPixels[y * _map.get_cubicTexture().width + x + 1], RED) || COLOR_EQUAL(mapPixels[y * _map.get_cubicTexture().width + x + 1], BLACK)))
+    if (x < 15 && (COLOR_EQUAL(_map.get_color()[y * _map.get_cubicTexture().width + x + 1], RED) || COLOR_EQUAL(_map.get_color()[y * _map.get_cubicTexture().width + x + 1], BLACK)))
     {
-        mapPixels[y * _map.get_cubicTexture().width + x + 1] = BLACK;
+        _map.get_color()[y * _map.get_cubicTexture().width + x + 1] = BLACK;
         DrawCube(Vector3{(float)(x + 1 - 16), _bomb_pos.y, (float)(y - 8)}, 1, 1, 1, RED);
     }
-    if (x > -15 && (COLOR_EQUAL(mapPixels[y * _map.get_cubicTexture().width + x - 1], RED) || COLOR_EQUAL(mapPixels[y * _map.get_cubicTexture().width + x - 1], BLACK)))
+    if (x > -15 && (COLOR_EQUAL(_map.get_color()[y * _map.get_cubicTexture().width + x - 1], RED) || COLOR_EQUAL(_map.get_color()[y * _map.get_cubicTexture().width + x - 1], BLACK)))
     {
-        mapPixels[y * _map.get_cubicTexture().width + x - 1] = BLACK;
+        _map.get_color()[y * _map.get_cubicTexture().width + x - 1] = BLACK;
         DrawCube(Vector3{(float)(x - 1 - 16), _bomb_pos.y, (float)(y - 8)}, 1, 1, 1, RED);
     }
-    if (y < 7 && (COLOR_EQUAL(mapPixels[(y + 1) * _map.get_cubicTexture().width + x], RED) || COLOR_EQUAL(mapPixels[(y + 1) * _map.get_cubicTexture().width + x], BLACK)))
+    if (y < 7 && (COLOR_EQUAL(_map.get_color()[(y + 1) * _map.get_cubicTexture().width + x], RED) || COLOR_EQUAL(_map.get_color()[(y + 1) * _map.get_cubicTexture().width + x], BLACK)))
     {
-        mapPixels[(y + 1) * _map.get_cubicTexture().width + x] = BLACK;
+        _map.get_color()[(y + 1) * _map.get_cubicTexture().width + x] = BLACK;
         DrawCube(Vector3{(float)(x - 16), _bomb_pos.y, (float)(y + 1 - 8)}, 1, 1, 1, RED);
     }
-    if (y > -7 && (COLOR_EQUAL(mapPixels[(y - 1) * _map.get_cubicTexture().width + x], RED) || COLOR_EQUAL(mapPixels[(y - 1) * _map.get_cubicTexture().width + x], BLACK)))
+    if (y > -7 && (COLOR_EQUAL(_map.get_color()[(y - 1) * _map.get_cubicTexture().width + x], RED) || COLOR_EQUAL(_map.get_color()[(y - 1) * _map.get_cubicTexture().width + x], BLACK)))
     {
-        mapPixels[(y - 1) * _map.get_cubicTexture().width + x] = BLACK;
+        _map.get_color()[(y - 1) * _map.get_cubicTexture().width + x] = BLACK;
         DrawCube(Vector3{(float)(x - 16), _bomb_pos.y, (float)(y - 1 - 8)}, 1, 1, 1, RED);
     }
 }
@@ -172,6 +160,7 @@ void Bomberman::Core::set_Bomb_AI()
     if (pressed_AI < 1)
     {
         _bomb_pos_AI = _ai.get_pos();
+        printf("%2.f, %2.f\n", _bomb_pos_AI.x, _bomb_pos_AI.z);
         pressed_AI = 1;
         this->time1 = std::time(nullptr);
     }
@@ -199,8 +188,8 @@ void Bomberman::Core::Draw3d()
 {
     BeginMode3D(_camera.get_Camera());
     DrawModelEx(_ai.get_Model(), _ai.get_pos(), (Vector3){0, 1, 0}, _rotate_ai, (Vector3){1, 1, 1}, WHITE);
-    DrawModelEx(_player.get_Model(), _player.get_pos(1), (Vector3){0, 1, 0}, r, (Vector3){1, 1, 1}, WHITE);
-    DrawModelEx(_player.get_Model2(), _player.get_pos(2), (Vector3){0, 1, 0}, rt, (Vector3){1, 1, 1}, WHITE);
+    DrawModelEx(_player.get_Model(), _player.get_pos(1), (Vector3){0, 1, 0}, _player.get_rotate1(), (Vector3){1, 1, 1}, WHITE);
+    DrawModelEx(_player.get_Model2(), _player.get_pos(2), (Vector3){0, 1, 0}, _player.get_rotate2(), (Vector3){1, 1, 1}, WHITE);
     Draw_breakabke();
     set_Bomb_AI();
     if (IsKeyPressed(KEY_RIGHT_SHIFT) && pressed < 1)

@@ -16,7 +16,7 @@
 namespace Bomberman {
         class ost {
         public:
-            ost();
+            ost() = default;
             ost(std::string, size_t, bool);
             ~ost();
             void init(std::string, size_t, bool);
