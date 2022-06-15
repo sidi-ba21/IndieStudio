@@ -54,21 +54,21 @@ void Bomberman::Menu::init()
     this->musiic.init("./sounds/menu.mp3", 2, false);
     this->sfx = LoadSound("./sounds/explosion8bit.wav");
 
-    this->btns.push_back(Bomberman::Button("Png/basic.png", (Rectangle){0, 0, 540, 120}, (Rectangle){600.0, 300.0,640, 120}));
-    this->btns.push_back(Bomberman::Button("Png/options.png", (Rectangle){0, 0, 100, 100}, (Rectangle){900.0, 450.0, 100, 100}));
-    this->btns.push_back(Bomberman::Button("Png/exit.png", (Rectangle){0, 0, 100, 100}, (Rectangle){900.0, 650.0, 100, 100}));
-    this->btns.push_back(Bomberman::Button("Png/tutorial.png",(Rectangle){0, 0, 100, 100}, (Rectangle){900.0, 850.0, 100, 100}));
+    this->btns.push_back(Bomberman::Button("Png/basic_play.png", (Rectangle){0, 0, 540, 120}, (Rectangle){700.0, 250.0,540, 120}));
+    this->btns.push_back(Bomberman::Button("Png/basic_option.png", (Rectangle){0, 0, 540, 120}, (Rectangle){700.0, 450.0, 540, 120}));
+    this->btns.push_back(Bomberman::Button("Png/basic_exit.png", (Rectangle){0, 0, 540, 120}, (Rectangle){700.0, 850.0, 540, 120}));
+    this->btns.push_back(Bomberman::Button("Png/basic_tuto.png",(Rectangle){0, 0, 540, 120}, (Rectangle){700.0, 650.0, 540, 120}));
 
-    this->btns.push_back(Bomberman::Button("Png/+.png",(Rectangle){0, 0, 100, 100}, (Rectangle){1300.0, 400.0, 100, 100}));
-    this->btns.push_back(Bomberman::Button("Png/+.png",(Rectangle){0, 0, 100, 100}, (Rectangle){1300.0, 700.0, 100, 100}));
-    this->btns.push_back(Bomberman::Button("Png/-.png",(Rectangle){0, 0, 100, 100}, (Rectangle){400.0, 400.0, 100, 100}));
-    this->btns.push_back(Bomberman::Button("Png/-.png",(Rectangle){0, 0, 100, 100}, (Rectangle){400.0, 700.0, 100, 100}));
+    this->btns.push_back(Bomberman::Button("Png/+.png",(Rectangle){0, 0, 100, 100}, (Rectangle){1300.0, 400.0, 540, 120}));
+    this->btns.push_back(Bomberman::Button("Png/+.png",(Rectangle){0, 0, 100, 100}, (Rectangle){1300.0, 700.0, 540, 120}));
+    this->btns.push_back(Bomberman::Button("Png/-.png",(Rectangle){0, 0, 100, 100}, (Rectangle){400.0, 400.0, 540, 120}));
+    this->btns.push_back(Bomberman::Button("Png/-.png",(Rectangle){0, 0, 100, 100}, (Rectangle){400.0, 700.0, 540, 120}));
 
-    /*pause*/ this->btns.push_back(Bomberman::Button("Png/play.png",(Rectangle){0, 0, 100, 100}, (Rectangle){1800.0, 0.0, 100, 100}));
-    /*options*/ this->btns.push_back(Bomberman::Button("Png/options.png", (Rectangle){0, 0, 100, 100}, (Rectangle){900.0, 700, 100, 100}));
-    /*title*/ this->btns.push_back(Bomberman::Button("Png/+.png",(Rectangle){0, 0, 100, 100}, (Rectangle){900, 500, 100, 100}));
-    /*resume*/ this->btns.push_back(Bomberman::Button("Png/-.png",(Rectangle){0, 0, 100, 100}, (Rectangle){900, 300, 100, 100}));
-    /*quit*/ this->btns.push_back(Bomberman::Button("Png/exit.png",(Rectangle){0, 0, 100, 100}, (Rectangle){900, 900, 100, 100}));
+    /*pause*/// this->btns.push_back(Bomberman::Button("Png/play.png",(Rectangle){0, 0, 100, 100}, (Rectangle){1800.0, 0.0, 100, 100}));
+    /*options*/ this->btns.push_back(Bomberman::Button("Png/basic_resume.png", (Rectangle){0, 0, 540, 120}, (Rectangle){700.0, 300, 540, 120}));
+    /*title*/ this->btns.push_back(Bomberman::Button("Png/basic_option.png",(Rectangle){0, 0, 540, 120}, (Rectangle){700, 450, 540, 120}));
+    /*resume*/ this->btns.push_back(Bomberman::Button("Png/basic_home.png",(Rectangle){0, 0, 540, 120}, (Rectangle){700, 600, 540, 120}));
+    /*quit*/ this->btns.push_back(Bomberman::Button("Png/basic_exit.png",(Rectangle){0, 0, 540, 120}, (Rectangle){700, 750, 540, 120}));
     /*filler*/this->btns.push_back(Bomberman::Button("Png/+.png", (Rectangle){0, 0, 0, 0}, (Rectangle){0, 0, 0, 0}));
     for (size_t i = 0; i < this->btns.size(); i++)
         this->btns[i].init();
