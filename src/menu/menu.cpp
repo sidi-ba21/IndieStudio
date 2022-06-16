@@ -80,7 +80,7 @@ void Bomberman::Menu::init()
 
 void Bomberman::Menu::title_button()
 {
-    if (is_options == true)
+    if (is_options == true || is_tuto == true)
         btns[10].btnBounds = (Rectangle){680, 200, 540, 120};
     else
         btns[10].btnBounds = (Rectangle){700, 600, 540, 120};
@@ -161,6 +161,19 @@ void Bomberman::Menu::pause()
             DrawTextureRec(btns[i].button, btns[i].sourceRec, (Vector2){ btns[i].btnBounds.x, btns[i].btnBounds.y }, RAYWHITE);
 }
 
+void Bomberman::Menu::tuto()
+{
+    is_game = false;
+    is_options = false;
+    is_title = false;
+    is_tuto = true;
+    is_pause = false;
+    BeginDrawing();
+        ClearBackground(RAYWHITE);
+        DrawText("TUTORIAL", 0, 0, 80, RAYWHITE);
+        title_button();
+}
+
 void Bomberman::Menu::game_options()
 {
     static float volumesfx = 1;
@@ -176,7 +189,7 @@ void Bomberman::Menu::game_options()
     } else if  (i == 2 || i == 12) {
         adios();
     }
-    //tuto if (i == 3) exit(0);
+    if (i == 3 || is_tuto == true) tuto();
     if (i == 4) (this->musiic.set_volume(this->musiic.get_volume() + 2));
     if (i == 5) (volumesfx += 2);
     if (i == 6) (this->musiic.set_volume(this->musiic.get_volume() - 2));
