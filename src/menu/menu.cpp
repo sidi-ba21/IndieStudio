@@ -10,6 +10,8 @@
 #include <unistd.h>
 #include "menu.hpp"
 
+static float sprite_separator[2] = {344, 175};
+
 void Bomberman::Menu::game()
 {
     this->is_game = true;
@@ -53,7 +55,6 @@ void Bomberman::Button::init()
 
 void Bomberman::Menu::init()
 {
-//    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
     InitAudioDevice();
     this->musiic.init("./sounds/menu.mp3", 2, false);
     this->sfx = LoadSound("./sounds/explosion8bit.wav");
@@ -63,10 +64,10 @@ void Bomberman::Menu::init()
     this->btns.push_back(Bomberman::Button("Png/basic_exit.png", (Rectangle){0, 0, 540, 120}, (Rectangle){700.0, 850.0, 540, 120}));
     this->btns.push_back(Bomberman::Button("Png/basic_tuto.png",(Rectangle){0, 0, 540, 120}, (Rectangle){700.0, 650.0, 540, 120}));
 
-    this->btns.push_back(Bomberman::Button("Png/+.png",(Rectangle){0, 0, 100, 100}, (Rectangle){1300.0, 400.0, 540, 120}));
-    this->btns.push_back(Bomberman::Button("Png/+.png",(Rectangle){0, 0, 100, 100}, (Rectangle){1300.0, 700.0, 540, 120}));
-    this->btns.push_back(Bomberman::Button("Png/-.png",(Rectangle){0, 0, 100, 100}, (Rectangle){400.0, 400.0, 540, 120}));
-    this->btns.push_back(Bomberman::Button("Png/-.png",(Rectangle){0, 0, 100, 100}, (Rectangle){400.0, 700.0, 540, 120}));
+    this->btns.push_back(Bomberman::Button("Png/+.png",(Rectangle){0, 0, 100, 100}, (Rectangle){1300, 400, 100, 100}));
+    this->btns.push_back(Bomberman::Button("Png/+.png",(Rectangle){0, 0, 100, 100}, (Rectangle){1300, 700, 100, 100}));
+    this->btns.push_back(Bomberman::Button("Png/-.png",(Rectangle){0, 0, 100, 100}, (Rectangle){400, 400, 100, 100}));
+    this->btns.push_back(Bomberman::Button("Png/-.png",(Rectangle){0, 0, 100, 100}, (Rectangle){400, 700, 100, 100}));
 
     /*resume*/ this->btns.push_back(Bomberman::Button("Png/basic_resume.png", (Rectangle){0, 0, 540, 120}, (Rectangle){700.0, 300, 540, 120}));
     /*options*/ this->btns.push_back(Bomberman::Button("Png/basic_option.png",(Rectangle){0, 0, 540, 120}, (Rectangle){700, 450, 540, 120}));
@@ -119,12 +120,19 @@ void Bomberman::Menu::update()
         limit = 13;
     }
     if (is_game || is_options || is_title || is_pause) {
+        if (i == 4) {
+            sprite_separator[0] = 100;
+            sprite_separator[1] = 200;
+        } else {
+            sprite_separator[0] = 344;
+            sprite_separator[1] = 175;
+        }
         for (; i < limit; i++) {
             if (CheckCollisionPointRec(mousepos, btns[i].btnBounds)) {
                 if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-                    (btns[i].sourceRec.y = 344);
+                    (btns[i].sourceRec.y = sprite_separator[0]);
                 else
-                    btns[i].sourceRec.y = 175;
+                    btns[i].sourceRec.y = sprite_separator[1];
                 if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
                     break;
                 }
@@ -176,7 +184,7 @@ void Bomberman::Menu::tuto()
 
 void Bomberman::Menu::game_options()
 {
-    static float volumesfx = 1;
+    static float volumesfx = 1.0;
 
     if (i == 0 || is_game) {
         game();
@@ -194,9 +202,10 @@ void Bomberman::Menu::game_options()
     if (i == 5) (volumesfx += 2);
     if (i == 6) (this->musiic.set_volume(this->musiic.get_volume() - 2));
     if (i == 7) (volumesfx -= 2);
-    if (volumesfx < 0)
-        volumesfx = 0;
+    if (volumesfx < 0) volumesfx = 0;
+    if (this->musiic.get_volume() <= 0) this->musiic.set_volume(0);
     SetSoundVolume(this->sfx, volumesfx);
+    SetMusicVolume(this->musiic.get_ost(), this->musiic.get_volume());
     if (is_pause) (pause());
 }
 

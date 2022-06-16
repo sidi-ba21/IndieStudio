@@ -21,8 +21,8 @@ namespace Bomberman {
             ~ost();
             void init(std::string, size_t, bool);
             void operator=(const ost &);
-            void set_volume(size_t);
-            size_t get_volume();
+            void set_volume(int);
+            int get_volume();
             void set_pause();
             bool get_pause();
             Music get_ost();
@@ -31,7 +31,7 @@ namespace Bomberman {
             private:
             std::string _music_name;
             Music _mp3;
-            size_t _volume;
+            int _volume;
             bool _is_paused;
     };
     class Button {
