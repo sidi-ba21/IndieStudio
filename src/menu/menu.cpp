@@ -13,6 +13,7 @@ void Bomberman::Menu::game()
     this->is_game = true;
     this->is_title = false;
     this->is_options = false;
+    this->is_pause = false;
 }
 
 void Bomberman::Menu::options()
