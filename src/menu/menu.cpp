@@ -10,13 +10,12 @@
 #include <unistd.h>
 #include "menu.hpp"
 
-static float sprite_separator[2] = {344, 175};
-
 void Bomberman::Menu::game()
 {
     this->is_game = true;
     this->is_title = false;
     this->is_options = false;
+    this->is_tuto = false;
     this->is_pause = false;
 }
 
@@ -25,6 +24,8 @@ void Bomberman::Menu::options()
     is_title = false;
     is_game = false;
     is_options = true;
+    is_tuto = false;
+    is_pause = false;
     BeginDrawing();
         ClearBackground(RAYWHITE);
         DrawText("OPTIONS", 0, 0, 80.0, WHITE);
@@ -95,11 +96,11 @@ void Bomberman::Menu::title_button()
             is_pause = false;
             is_game = false;
             is_title = true;
+            is_tuto = false;
         }
     } else
         btns[10].sourceRec.y = 0;
     DrawTextureRec(btns[10].button, btns[10].sourceRec, (Vector2){ btns[10].btnBounds.x, btns[10].btnBounds.y }, RAYWHITE);
-
 }
 
 void Bomberman::Menu::update()
@@ -120,19 +121,12 @@ void Bomberman::Menu::update()
         limit = 13;
     }
     if (is_game || is_options || is_title || is_pause) {
-        if (i == 4) {
-            sprite_separator[0] = 100;
-            sprite_separator[1] = 200;
-        } else {
-            sprite_separator[0] = 344;
-            sprite_separator[1] = 175;
-        }
         for (; i < limit; i++) {
             if (CheckCollisionPointRec(mousepos, btns[i].btnBounds)) {
                 if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-                    (btns[i].sourceRec.y = sprite_separator[0]);
+                    btns[i].sourceRec.y =344;
                 else
-                    btns[i].sourceRec.y = sprite_separator[1];
+                    btns[i].sourceRec.y = 175;
                 if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
                     break;
                 }
@@ -147,18 +141,11 @@ void Bomberman::Menu::update()
         is_pause = false;
         is_game = false;
         is_title = true;
+        is_tuto = false;
     }
     if (IsKeyPressed(KEY_SPACE)) (musiic.set_pause());
     if (IsKeyPressed(KEY_P)) (is_pause = !is_pause);
     if ((i == 8 || i == 11) && !is_options) (is_pause = !is_pause);
-    if (i == 10 || i == 9) {
-        if (i == 10) {
-            (is_title = true);
-        } else
-            (is_options = true);
-        is_game = false;
-        is_pause = false;
-    }
     if (i == 12) adios();
 }
 
@@ -193,6 +180,7 @@ void Bomberman::Menu::game_options()
         is_game = false;
         is_title = false;
         is_options = true;
+        is_tuto = false;
         options();
     } else if  (i == 2 || i == 12) {
         adios();
