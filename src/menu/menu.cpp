@@ -171,7 +171,6 @@ void Bomberman::Menu::tuto()
 
 void Bomberman::Menu::game_options()
 {
-    static float volumesfx = 1.0;
 
     if (i == 0 || is_game) {
         game();
@@ -186,6 +185,14 @@ void Bomberman::Menu::game_options()
         adios();
     }
     if (i == 3 || is_tuto == true) tuto();
+    if (is_pause) (pause());
+    handle_volume();
+}
+
+void Bomberman::Menu::handle_volume()
+{
+    static float volumesfx = 1.0;
+
     if (i == 4) (this->musiic.set_volume(this->musiic.get_volume() + 2));
     if (i == 5) (volumesfx += 2);
     if (i == 6) (this->musiic.set_volume(this->musiic.get_volume() - 2));
@@ -194,7 +201,6 @@ void Bomberman::Menu::game_options()
     if (this->musiic.get_volume() <= 0) this->musiic.set_volume(0);
     SetSoundVolume(this->sfx, volumesfx);
     SetMusicVolume(this->musiic.get_ost(), this->musiic.get_volume());
-    if (is_pause) (pause());
 }
 
 void Bomberman::Menu::loop()

@@ -73,6 +73,8 @@ namespace Bomberman {
             void game_options();
             void title_button();
 
+            void handle_volume();
+
         private:
             Vector2 mousepos = { -100.0f, -100.0f };
             bool is_title = true;
