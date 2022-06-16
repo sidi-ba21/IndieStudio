@@ -1,3 +1,5 @@
+
+
 /*
 ** EPITECH PROJECT, 2022
 ** B-YEP-400-PAR-4-1-indiestudio-bill.on
@@ -32,6 +34,7 @@ void Bomberman::Menu::options()
         DrawText("SOUND EFFECTS", 600, 700, 70.0, WHITE);
         for (size_t i = 4; i < 8; i++)
             DrawTextureRec(btns[i].button, btns[i].sourceRec, (Vector2){ btns[i].btnBounds.x, btns[i].btnBounds.y }, RAYWHITE);
+    title_button();
 }
 
 void Bomberman::Menu::adios()
@@ -65,15 +68,37 @@ void Bomberman::Menu::init()
     this->btns.push_back(Bomberman::Button("Png/-.png",(Rectangle){0, 0, 100, 100}, (Rectangle){400.0, 400.0, 540, 120}));
     this->btns.push_back(Bomberman::Button("Png/-.png",(Rectangle){0, 0, 100, 100}, (Rectangle){400.0, 700.0, 540, 120}));
 
-    /*pause*/// this->btns.push_back(Bomberman::Button("Png/play.png",(Rectangle){0, 0, 100, 100}, (Rectangle){1800.0, 0.0, 100, 100}));
-    /*options*/ this->btns.push_back(Bomberman::Button("Png/basic_resume.png", (Rectangle){0, 0, 540, 120}, (Rectangle){700.0, 300, 540, 120}));
-    /*title*/ this->btns.push_back(Bomberman::Button("Png/basic_option.png",(Rectangle){0, 0, 540, 120}, (Rectangle){700, 450, 540, 120}));
-    /*resume*/ this->btns.push_back(Bomberman::Button("Png/basic_home.png",(Rectangle){0, 0, 540, 120}, (Rectangle){700, 600, 540, 120}));
+    /*resume*/ this->btns.push_back(Bomberman::Button("Png/basic_resume.png", (Rectangle){0, 0, 540, 120}, (Rectangle){700.0, 300, 540, 120}));
+    /*options*/ this->btns.push_back(Bomberman::Button("Png/basic_option.png",(Rectangle){0, 0, 540, 120}, (Rectangle){700, 450, 540, 120}));
+    /*title*/ this->btns.push_back(Bomberman::Button("Png/basic_home.png",(Rectangle){0, 0, 540, 120}, (Rectangle){700, 600, 540, 120}));
     /*quit*/ this->btns.push_back(Bomberman::Button("Png/basic_exit.png",(Rectangle){0, 0, 540, 120}, (Rectangle){700, 750, 540, 120}));
     /*filler*/this->btns.push_back(Bomberman::Button("Png/+.png", (Rectangle){0, 0, 0, 0}, (Rectangle){0, 0, 0, 0}));
     for (size_t i = 0; i < this->btns.size(); i++)
         this->btns[i].init();
     PlayMusicStream(musiic.get_ost());
+}
+
+void Bomberman::Menu::title_button()
+{
+    if (is_options == true)
+        btns[10].btnBounds = (Rectangle){680, 200, 540, 120};
+    else
+        btns[10].btnBounds = (Rectangle){700, 600, 540, 120};
+    if (CheckCollisionPointRec(mousepos, btns[10].btnBounds)) {
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            (btns[10].sourceRec.y = 344);
+        } else
+            btns[10].sourceRec.y = 175;
+        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
+            is_options = false;
+            is_pause = false;
+            is_game = false;
+            is_title = true;
+        }
+    } else
+        btns[10].sourceRec.y = 0;
+    DrawTextureRec(btns[10].button, btns[10].sourceRec, (Vector2){ btns[10].btnBounds.x, btns[10].btnBounds.y }, RAYWHITE);
+
 }
 
 void Bomberman::Menu::update()

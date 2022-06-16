@@ -69,7 +69,9 @@ namespace Bomberman {
             void options();
             void adios();
             void pause();
+            void tuto();
             void game_options();
+            void title_button();
 
         private:
             Vector2 mousepos = { -100.0f, -100.0f };
@@ -77,6 +79,7 @@ namespace Bomberman {
             bool is_game = false;
             bool is_options = false;
             bool is_pause = false;
+            bool is_tuto = false;
             size_t i = 4;
             ost musiic;
             Sound sfx;
