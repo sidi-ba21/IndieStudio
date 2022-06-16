@@ -26,6 +26,7 @@ namespace Bomberman {
             Vector3 get_pos();
             Texture2D get_cubicTexture();
             Image get_image();
+            Color *get_color();
 
         protected:
         private:
@@ -35,6 +36,7 @@ namespace Bomberman {
             Texture2D _texture;
             Mesh _mesh;
             Model _model;
+            Color *_color;
     };
 
 }

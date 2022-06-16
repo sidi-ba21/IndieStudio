@@ -21,8 +21,10 @@ namespace Bomberman {
             void init();
             void update1();
             void update2();
+            void update_AI();
             int get_score1();
             int get_score2();
+            int get_score_AI();
             int get_highscore();
             void loadScore() {
             std::ifstream file;
@@ -63,6 +65,7 @@ namespace Bomberman {
             int _score1{0};
             std::string _highscore{ "NOT AVAILABLE" };
             int _score2{0};
+            int _score_AI{0};
     };
 
 }

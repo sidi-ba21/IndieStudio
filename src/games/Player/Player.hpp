@@ -32,20 +32,35 @@ namespace Bomberman {
             Player() = default;
             ~Player();
             void init();
-            float Player_animation(Color *, Texture2D _cubicTexture);
-            float Player_move(Color *, Texture2D _cubicTexture);
+            void Player_animation();
+            void Player_move1(Color *, Texture2D _cubicTexture);
+            void Player_move2(Color *, Texture2D _cubicTexture);
             Model get_Model();
             Model get_Model2();
             Vector3 get_pos(int player = 1);
+            void setPos(Vector3 chk_pos) {
+                _pos2 = chk_pos;
+            }
+            ModelAnimation *get_anim2() {
+                return _anim2;
+            }
+            int get_anifram() {
+                return _animFrameCounter;
+            }
+            float get_rotate1() {
+                return _rotate1;
+            }
+            float get_rotate2() {
+                return _rotate2;
+            }
             bool Check_collision(Vector3, int direction, Color *mapPixels, Texture2D _cubicTexture);
-
 
         protected:
         private:
             unsigned int _animCount{2};
             int _animFrameCounter{0};
-            float rotation{0};
-            float rotation2{0};
+            float _rotate1{0};
+            float _rotate2{0};
 
             Vector3 _pos1{14, 0.1, 6};
             Vector3 _pos2{-15, 0.1, -7};

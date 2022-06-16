@@ -7,8 +7,6 @@
 
 #include "menu.hpp"
 
-Bomberman::ost::ost() {}
-
 Bomberman::ost::ost(std::string name, size_t vol, bool paus)
 {
     _music_name = name;

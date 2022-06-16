@@ -16,7 +16,7 @@
 namespace Bomberman {
         class ost {
         public:
-            ost();
+            ost() = default;
             ost(std::string, size_t, bool);
             ~ost();
             void init(std::string, size_t, bool);
@@ -38,9 +38,9 @@ namespace Bomberman {
         public:
             Button();
             Button(std::string str, Rectangle src, Rectangle bounds) : filename(str), sourceRec(src), btnBounds(bounds) {}
-            ~Button() { UnloadTexture(button);}
+            ~Button() = default;
             void init();
-            std::string filename = "Png/exit.png";
+            std::string filename{nullptr};
             Texture2D button;
             Rectangle sourceRec = { 0, 0, 100, 100 };
             Rectangle btnBounds = {0, 0, 100, 100};
