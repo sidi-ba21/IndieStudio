@@ -108,7 +108,7 @@ void Bomberman::Menu::update()
     }
     if (i != limit) (is_title = false);
     if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) (PlaySound(this->sfx));
-    if (IsKeyPressed(KEY_T) || i == 10) {
+    if ((IsKeyPressed(KEY_T) || i == 10) && (is_game == false)) {
         is_options = false;
         is_pause = false;
         is_game = false;
