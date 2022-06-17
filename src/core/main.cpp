@@ -23,6 +23,8 @@ int basic_error(int ac, char **av)
 int main(int ac, char **av)
 {
     basic_error(ac, av);
+    //auto time1 = std::time(nullptr);
+    //std::cout << time1 << std::endl;
     Bomberman::Core core;
     return 0;
 }

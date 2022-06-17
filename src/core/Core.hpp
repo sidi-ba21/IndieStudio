@@ -23,6 +23,7 @@
 #include <string>
 #include <cmath>
 #include <chrono>
+#include "Time.hpp"
 
 namespace Bomberman
 {
@@ -34,11 +35,18 @@ namespace Bomberman
         void init();
         void game_loop();
         void Draw();
+        void Draw_text();
+        void Draw_map();
+        void Draw_ai();
+        void Draw_bomb(Vector3 centerpos);
+        void Draw_player();
+        void score();
         void Draw2d();
         void Draw3d();
         void Draw_breakabke();
         void Remove_breakable(Vector3 pos);
         void set_Bomb_AI();
+        void set_bomb_player();
         Core(const Core &) = delete;
         Core &operator=(const Core &) = delete;
         Core(Core &&) = delete;
@@ -62,8 +70,10 @@ namespace Bomberman
         Box _box;
         Menu _menu;
         AI _ai;
-        std::time_t time1;
-        std::time_t time2;
+        Time _time;
+        float _time_bomb{0};
+        float _time_bomb2{0};
+        float _time_bomb3{0};
     };
 }
 

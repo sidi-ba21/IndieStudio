@@ -7,10 +7,6 @@
 
 #include "Map.hpp"
 
-//Bomberman::Map::Map()
-//{
-//}
-
 void Bomberman::Map::init()
 {
     _image = LoadImage("Png/test_map.png");   // Load cubicmap image (RAM)

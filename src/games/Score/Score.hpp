@@ -27,14 +27,14 @@ namespace Bomberman {
             int get_score_AI();
             int get_highscore();
             void loadScore() {
-            std::ifstream file;
-            std::string line;
-            file.open("Score.txt", std::ifstream::in);
-            if (file.peek() == std::ifstream::traits_type::eof())
-                _highscore.assign("NOT AVAILABLE");
-            else {
-                if (file.is_open() && std::getline(file, line))
-                    _highscore = line;
+                std::ifstream file;
+                std::string line;
+                file.open("Score.txt", std::ifstream::in);
+                if (file.peek() == std::ifstream::traits_type::eof())
+                    _highscore.assign("NOT AVAILABLE");
+                else {
+                    if (file.is_open() && std::getline(file, line))
+                        _highscore = line;
             }
             file.close();
         }
