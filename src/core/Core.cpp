@@ -95,6 +95,7 @@ void Bomberman::Core::Draw2d()
     DrawFPS(10, 1060);
     Draw_map();
     Draw_text();
+    score();
 }
 
 void Bomberman::Core::Draw_breakabke()
@@ -150,17 +151,14 @@ void Bomberman::Core::set_Bomb_AI()
         _time_bomb += _time.getTime();
     if (!pressed_AI) {
         _bomb_pos_AI = _ai.get_pos();
-        printf("%2.f, %2.f\n", _bomb_pos_AI.x, _bomb_pos_AI.z);
         pressed_AI = 1;
     }
-    if (_time_bomb > 0 && _time_bomb < 3) {
+    if (_time_bomb > 0 && _time_bomb < 3)
         Draw_bomb(_bomb_pos_AI);
-    }
-    if (_time_bomb > 3 && _time_bomb < 3.5) {
+    if (_time_bomb > 3 && _time_bomb < 3.5)
         Remove_breakable(_bomb_pos_AI);
-        _score.update_AI();
-    }
     if (_time_bomb > 6) {
+        _score.update_AI();
         pressed_AI = 0;
         _time_bomb = 0;
     }
@@ -177,11 +175,10 @@ void Bomberman::Core::set_bomb_player()
     }
     if (_time_bomb2 > 0 && _time_bomb2 < 3)
         Draw_bomb(_bomb_pos);
-    if (_time_bomb2 > 3 && _time_bomb2 < 3.5) {
+    if (_time_bomb2 > 3 && _time_bomb2 < 3.5)
         Remove_breakable(_bomb_pos);
-        _score.update1();
-    }
     if (_time_bomb2 > 6) {
+        _score.update1();
         pressed = 0;
         _time_bomb2 = 0;
     }
@@ -194,14 +191,12 @@ void Bomberman::Core::set_bomb_player()
         _bomb_pos2 = _player.get_pos(2);
         pressed2 = 1;
     }
-    if (_time_bomb3 > 0 && _time_bomb3 < 3) {
+    if (_time_bomb3 > 0 && _time_bomb3 < 3)
         Draw_bomb(_bomb_pos2);
-    }
-    if (_time_bomb3 > 3 && _time_bomb3 < 3.5) {
+    if (_time_bomb3 > 3 && _time_bomb3 < 3.5)
         Remove_breakable(_bomb_pos2);
-        _score.update1();
-    }
     if (_time_bomb3 > 6) {
+        _score.update1();
         _time_bomb3 = 0;
         pressed2 = 0;
     }
