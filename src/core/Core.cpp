@@ -146,80 +146,64 @@ void Bomberman::Core::Remove_breakable(Vector3 pos)
 
 void Bomberman::Core::set_Bomb_AI()
 {
-    _time_bomb += _time.getTime();
-    if (pressed_AI < 1)
-    {
+    if (pressed_AI)
+        _time_bomb += _time.getTime();
+    if (!pressed_AI) {
         _bomb_pos_AI = _ai.get_pos();
         printf("%2.f, %2.f\n", _bomb_pos_AI.x, _bomb_pos_AI.z);
         pressed_AI = 1;
-        _time_bomb = 0;
     }
-    if (pressed_AI > 0 && pressed_AI < 3) {
+    if (_time_bomb > 0 && _time_bomb < 3) {
         Draw_bomb(_bomb_pos_AI);
     }
-    pressed_AI = 2;
-    if (pressed_AI == 2 || pressed_AI == 3)
-    {
-        if (_time_bomb > 6)
-            pressed_AI = 0;
-        else if (_time_bomb > 3)
-        {
-            Remove_breakable(_bomb_pos_AI);
-            _score.update_AI();
-            pressed_AI = 3;
-        }
+    if (_time_bomb > 3 && _time_bomb < 3.5) {
+        Remove_breakable(_bomb_pos_AI);
+        _score.update_AI();
+    }
+    if (_time_bomb > 6) {
+        pressed_AI = 0;
+        _time_bomb = 0;
     }
 }
 
 void Bomberman::Core::set_bomb_player()
 {
-    _time_bomb2 += _time.getTime();
-    if (IsKeyPressed(KEY_RIGHT_SHIFT) && pressed < 1) {
+    //Player 1
+    if (pressed)
+        _time_bomb2 += _time.getTime();
+    if (IsKeyPressed(KEY_RIGHT_SHIFT) && !pressed) {
         _bomb_pos = _player.get_pos(1);
-        printf("%2.f, %2.f\n", _bomb_pos.x, _bomb_pos.z);
         pressed = 1;
+    }
+    if (_time_bomb2 > 0 && _time_bomb2 < 3)
+        Draw_bomb(_bomb_pos);
+    if (_time_bomb2 > 3 && _time_bomb2 < 3.5) {
+        Remove_breakable(_bomb_pos);
+        _score.update1();
+    }
+    if (_time_bomb2 > 6) {
+        pressed = 0;
         _time_bomb2 = 0;
     }
-    if (pressed > 0 && pressed < 3) {
-        Draw_bomb(_bomb_pos);
-    }
-    if (IsKeyReleased(KEY_RIGHT_SHIFT)) {
-        pressed = 2;
-    }
-    if (pressed == 2 || pressed == 3) {
-        std::time_t now = std::time(nullptr);
-        if (_time_bomb2 > 6)
-            pressed = 0;
-        else if (_time_bomb2 > 3) {
-            Remove_breakable(_bomb_pos);
-            _score.update1();
-            pressed = 3;
-        }
-    }
 
-
-    _time_bomb3 += _time.getTime();
-    if ((IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN) || IsKeyPressed(KEY_LEFT_SHIFT)) && pressed2 < 1)
+    //Player 2
+    if (pressed2)
+        _time_bomb3 += _time.getTime();
+    if ((IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN) || IsKeyPressed(KEY_LEFT_SHIFT)) && !pressed2)
     {
         _bomb_pos2 = _player.get_pos(2);
         pressed2 = 1;
-        _time_bomb3 = 0;
     }
-    if (pressed2 > 0 && pressed2 < 3) {
+    if (_time_bomb3 > 0 && _time_bomb3 < 3) {
         Draw_bomb(_bomb_pos2);
     }
-    if (IsGamepadButtonReleased(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN) || IsKeyReleased(KEY_LEFT_SHIFT)) {
-        pressed2 = 2;
+    if (_time_bomb3 > 3 && _time_bomb3 < 3.5) {
+        Remove_breakable(_bomb_pos2);
+        _score.update1();
     }
-    if (pressed2 == 2 || pressed2 == 3) {
-        std::time_t now2 = std::time(nullptr);
-        if (_time_bomb3 > 6)
-            pressed2 = 0;
-        else if (_time_bomb3 > 3) {
-            Remove_breakable(_bomb_pos2);
-            _score.update2();
-            pressed2 = 3;
-        }
+    if (_time_bomb3 > 6) {
+        _time_bomb3 = 0;
+        pressed2 = 0;
     }
 }
 
