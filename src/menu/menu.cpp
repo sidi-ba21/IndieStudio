@@ -78,21 +78,15 @@ void Bomberman::Menu::update()
 
 void Bomberman::Menu::game_options()
 {
-
+    handle_volume();
     if (i == 0 || is_game) {
         game();
     } else if  (i == 1 || i == 9 || is_options) {
-        is_pause = false;
-        is_game = false;
-        is_title = false;
-        is_options = true;
-        is_tuto = false;
         options();
     } else if  (i == 2 || i == 12)
         adios();
     if (i == 3 || is_tuto == true) tuto();
     if (is_pause) (pause());
-    handle_volume();
 }
 
 void Bomberman::Menu::handle_volume()

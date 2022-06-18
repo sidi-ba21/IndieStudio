@@ -55,13 +55,13 @@ void Bomberman::Menu::pause()
 
 void Bomberman::Menu::tuto()
 {
+    static int i = 0;
+
     is_game = false;
     is_options = false;
     is_title = false;
     is_tuto = true;
     is_pause = false;
-    static int i = 0;
-
     if (i == 0) {
         (cmd = LoadTexture("Png/commands.png"));
         (i++);

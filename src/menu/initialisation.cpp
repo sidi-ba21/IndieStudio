@@ -35,6 +35,7 @@ void Bomberman::Menu::init()
     /*title*/ this->btns.push_back(Bomberman::Button("Png/basic_home.png",(Rectangle){0, 0, 540, 120}, (Rectangle){700, 600, 540, 120}));
     /*quit*/ this->btns.push_back(Bomberman::Button("Png/basic_exit.png",(Rectangle){0, 0, 540, 120}, (Rectangle){700, 750, 540, 120}));
     /*filler*/this->btns.push_back(Bomberman::Button("Png/+.png", (Rectangle){0, 0, 0, 0}, (Rectangle){0, 0, 0, 0}));
+
     for (size_t i = 0; i < this->btns.size(); i++)
         this->btns[i].init();
     PlayMusicStream(musiic.get_ost());
