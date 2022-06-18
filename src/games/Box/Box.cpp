@@ -42,7 +42,7 @@ void Bomberman::Box::random_walls()
 
 void Bomberman::Box::random_breackable()
 {
-    const char *tab1[] = {
+    const char *tab1[7] = {
         "Png/woodx_brick.png",
         "Png/tnt_cube.png",
         "Png/chest_cube.png",
