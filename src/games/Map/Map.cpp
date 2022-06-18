@@ -47,6 +47,13 @@ void Bomberman::Map::random_textures()
     _texture = LoadTexture(tab1[random() % 5]);
 }
 
+void Bomberman::Map::draw(int screenWidth)
+{
+    DrawTextureEx(get_cubicTexture(), (Vector2){screenWidth - get_cubicTexture().width * 4.0f - 20, 20.0f}, 0.0f, 4.0f, WHITE);
+    DrawRectangleLines(screenWidth - get_cubicTexture().width * 4 - 20, 20, get_cubicTexture().width * 4, get_cubicTexture().height * 4, GREEN);
+}
+
+
 void Bomberman::Map::update()
 {
 }
