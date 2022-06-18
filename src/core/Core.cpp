@@ -89,12 +89,6 @@ void Bomberman::Core::Draw_text()
     DrawText(TextFormat("Elapsed Time: %02.0f : %02.0f", minutes, seconds), 800, 100, 40, MAGENTA);
 }
 
-void Bomberman::Core::Draw_map()
-{
-    DrawTextureEx(_map.get_cubicTexture(), (Vector2){screenWidth - _map.get_cubicTexture().width * 4.0f - 20, 20.0f}, 0.0f, 4.0f, WHITE);
-    DrawRectangleLines(screenWidth - _map.get_cubicTexture().width * 4 - 20, 20, _map.get_cubicTexture().width * 4, _map.get_cubicTexture().height * 4, GREEN);
-}
-
 void Bomberman::Core::Draw_speed_up()
 {
     DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){-13, 1.1, -4}, 0.80f, 0.1f, 0.80f, WHITE);
@@ -122,7 +116,7 @@ void Bomberman::Core::Draw_speed_down()
 void Bomberman::Core::Draw2d()
 {
     DrawFPS(10, 1060);
-    Draw_map();
+    _map.draw(screenWidth);
     Draw_text();
     score();
 }
@@ -141,26 +135,16 @@ void Bomberman::Core::set_bomb()
     }
 }
 
-void Bomberman::Core::Draw_ai()
-{
-    DrawModelEx(_ai.get_Model(), _ai.get_pos(), (Vector3){0, 1, 0}, _ai.get_rotate(), (Vector3){1, 1, 1}, WHITE);
-}
-
-void Bomberman::Core::Draw_player()
-{
-    DrawModelEx(_player.get_Model(), _player.get_pos(1), (Vector3){0, 1, 0}, _player.get_rotate1(), (Vector3){1, 1, 1}, WHITE);
-    DrawModelEx(_player.get_Model2(), _player.get_pos(2), (Vector3){0, 1, 0}, _player.get_rotate2(), (Vector3){1, 1, 1}, WHITE);
-}
 
 void Bomberman::Core::Draw3d()
 {
     BeginMode3D(_camera.get_Camera());
 
-    Draw_ai();
-    Draw_player();
+    _ai.draw();
+    _player.draw();
+    _box.draw_breakable(_map);
     Draw_speed_up();
     Draw_speed_down();
-    _box.draw_breakable(_map);
     set_bomb();
     EndMode3D();
 }

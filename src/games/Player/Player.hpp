@@ -34,6 +34,7 @@ namespace Bomberman {
             ~Player();
             void init();
             void Player_animation();
+            void draw();
             void Player_move1(Color *, Texture2D _cubicTexture);
             void Player_move2(Color *, Texture2D _cubicTexture);
             void Power_up2();

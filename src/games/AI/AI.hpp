@@ -22,6 +22,7 @@ namespace Bomberman
             ~AI();
             void init_AI();
             void move_AI(Color *mapPixels, Texture2D _cubicTexture);
+            void draw();
             Model get_Model() {
                 return _Model_AI;
             }

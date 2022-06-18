@@ -56,9 +56,6 @@ namespace Bomberman
     private:
         const int screenWidth{1920};
         const int screenHeight{1080};
-        Vector3 _bomb_pos;
-        Vector3 _bomb_pos2;
-        Vector3 _bomb_pos_AI;
         Background _background;
         Player _player;
         Camera _camera;
