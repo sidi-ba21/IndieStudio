@@ -26,7 +26,7 @@ void Bomberman::Core::init(void)
     _camera.init();
     _menu.init();
     _box.init();
-    SetTargetFPS(60);
+    SetTargetFPS(60); 
 }
 
 void Bomberman::Core::game_loop()

@@ -11,7 +11,6 @@
 #ifndef BOX_HPP_
     #define BOX_HPP_
 
-
 namespace Bomberman
 {
     class Box {
