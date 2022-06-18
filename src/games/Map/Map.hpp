@@ -23,6 +23,7 @@ namespace Bomberman {
             void init();
             void update();
             void random_maps();
+            void random_textures();
             Model get_model();
             Vector3 get_pos();
             Texture2D get_cubicTexture();

@@ -10,19 +10,19 @@
 void Bomberman::Map::init()
 {
     random_maps();
+    random_textures();
     _cubicTexture = LoadTextureFromImage(_image); // Convert image to texture to display (VRAM)
     _mesh = GenMeshCubicmap(_image, (Vector3){1.0f, 1.0f, 1.0f});
     _model = LoadModelFromMesh(_mesh);
-    _texture = LoadTexture("Png/grassbrick_cube.png"); // Load map texture
     _color = LoadImageColors(_image);
 
-    _model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = _texture; // Set map diffuse texture
+ //   _model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = _texture; // Set map diffuse texture
     del = 1;
 }
 
 void Bomberman::Map::random_maps()
 {
-    char *tab[9] = {
+  const char *tab[] = {
         (char *)"Png/test_map.png",
         (char *)"Png/test_map1.png",
         (char *)"Png/test_map2.png",
@@ -34,6 +34,17 @@ void Bomberman::Map::random_maps()
         (char *)"Png/test_map8.png",
     };
     _image = LoadImage(tab[random() % 9]);
+}
+
+void Bomberman::Map::random_textures()
+{
+   const char *tab1[] = {
+        (char *)"Png/brickstone_cube.png",
+        (char *)"Png/fullgrass_cube.png",
+        (char *)"Png/brickstone_cube.png",
+        (char *)"Png/fullgrass_cube.png",
+    };
+    _texture = LoadTexture(tab1[random() % 5]);
 }
 
 void Bomberman::Map::update()
