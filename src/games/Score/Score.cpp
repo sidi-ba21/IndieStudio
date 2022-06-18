@@ -11,22 +11,14 @@ void Bomberman::Score::init()
 {
 }
 
-void Bomberman::Score::update1()
+void Bomberman::Score::update(int n)
 {
-    int x = 1;
-    _score1 = _score1 + x;
-}
-
-void Bomberman::Score::update2()
-{
-    int x = 1;
-    _score2 = _score2 + x;
-}
-
-void Bomberman::Score::update_AI()
-{
-    int x = 1;
-    _score_AI = _score_AI + x;
+    if (n == 0)
+        _score_AI += 1;
+    if (n == 1)
+        _score1 += 1;
+    if (n == 2)
+        _score2 += 1;
 }
 
 int Bomberman::Score::get_score1()

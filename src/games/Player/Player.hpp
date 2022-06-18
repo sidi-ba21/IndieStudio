@@ -8,6 +8,7 @@
 #include "raylib.h"
 #include "cmath"
 #include <stdio.h>
+#include "../Bomb/Bomb.hpp"
 
 #define XBOX360_LEGACY_NAME_ID  "Xbox Controller"
 #if defined(PLATFORM_RPI)
@@ -27,7 +28,7 @@
 
 namespace Bomberman {
 
-    class Player {
+    class Player : public Bomb {
         public:
             Player() = default;
             ~Player();

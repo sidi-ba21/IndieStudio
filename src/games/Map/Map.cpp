@@ -22,16 +22,16 @@ void Bomberman::Map::init()
 
 void Bomberman::Map::random_maps()
 {
-    char *tab[9] = {
-        (char *)"Png/test_map.png",
-        (char *)"Png/test_map1.png",
-        (char *)"Png/test_map2.png",
-        (char *)"Png/test_map3.png",
-        (char *)"Png/test_map4.png",
-        (char *)"Png/test_map5.png",
-        (char *)"Png/test_map6.png",
-        (char *)"Png/test_map7.png",
-        (char *)"Png/test_map8.png",
+    char const *tab[9] = {
+        "Png/test_map.png",
+        "Png/test_map1.png",
+        "Png/test_map2.png",
+        "Png/test_map3.png",
+        "Png/test_map4.png",
+        "Png/test_map5.png",
+        "Png/test_map6.png",
+        "Png/test_map7.png",
+        "Png/test_map8.png",
     };
     _image = LoadImage(tab[random() % 9]);
 }
