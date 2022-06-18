@@ -67,7 +67,13 @@ bool Bomberman::Player::Check_collision(Vector3 pos, int direction,
 
 void Bomberman::Player::Player_move1(Color *mapPixels, Texture2D _cubicTexture)
 {
-    if (_pos1.z < 1 && _pos1.z > -1 && _pos1.x < 1 && _pos1.x > -1)
+    if (_pos1.z < 1 && _pos1.z > 0  && _pos2.x < 1 && _pos2.x > 0)
+        spd1 = spd1 + 0.01;
+    if (_pos1.z < -6 && _pos1.z > -5  && _pos2.x < -6 && _pos2.x > -5)
+        spd1 = spd1 + 0.01;
+    if (_pos1.z < 6 && _pos1.z > 5  && _pos2.x < 6 && _pos2.x > 5)
+        spd1 = spd1 + 0.01;
+    if (_pos1.z < -5 && _pos1.z > -4  && _pos2.x < 1 && _pos2.x > 0)
         spd1 = spd1 + 0.01;
         
     if (IsKeyDown(KEY_UP) && !Check_collision(_pos1, 2, mapPixels, _cubicTexture)) {
@@ -106,7 +112,13 @@ void Bomberman::Player::Player_move1(Color *mapPixels, Texture2D _cubicTexture)
 
 void Bomberman::Player::Player_move2(Color *mapPixels, Texture2D _cubicTexture)
 {
-    if (_pos2.z < 1 && _pos2.z > -1 && _pos2.x < 1 && _pos2.x > -1)
+    if (_pos2.z < 1 && _pos2.z > 0  && _pos2.x < 1 && _pos2.x > 0)
+        spd2 = spd2 + 0.01;
+    if (_pos2.z < -6 && _pos2.z > -5  && _pos2.x < -6 && _pos2.x > -5)
+        spd2 = spd2 + 0.01;
+    if (_pos2.z < 6 && _pos2.z > 5  && _pos2.x < 6 && _pos2.x > 5)
+        spd2 = spd2 + 0.01;
+    if (_pos2.z < -5 && _pos2.z > -4  && _pos2.x < 1 && _pos2.x > 0)
         spd2 = spd2 + 0.01;
 
     if ((IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_UP) || IsKeyDown(KEY_W)) && !Check_collision(_pos2, 2, mapPixels, _cubicTexture)) {
