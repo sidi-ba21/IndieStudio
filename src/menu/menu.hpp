@@ -21,8 +21,8 @@ namespace Bomberman {
             ~ost();
             void init(std::string, size_t, bool);
             void operator=(const ost &);
-            void set_volume(size_t);
-            size_t get_volume();
+            void set_volume(int);
+            int get_volume();
             void set_pause();
             bool get_pause();
             Music get_ost();
@@ -31,7 +31,7 @@ namespace Bomberman {
             private:
             std::string _music_name;
             Music _mp3;
-            size_t _volume;
+            int _volume;
             bool _is_paused;
     };
     class Button {
@@ -64,12 +64,18 @@ namespace Bomberman {
             void set_gamebool(bool obj) { is_game = obj; }
             void set_pause(bool obj) { is_pause = obj; }
             bool get_pause() { return is_pause; }
+            void set_finish(bool obj) { is_finished = obj; }
+            bool get_finish() { return is_finished; }
 
             void game();
             void options();
             void adios();
             void pause();
+            void tuto();
             void game_options();
+            void title_button();
+            void the_end(int);
+            void handle_volume();
 
         private:
             Vector2 mousepos = { -100.0f, -100.0f };
@@ -77,6 +83,8 @@ namespace Bomberman {
             bool is_game = false;
             bool is_options = false;
             bool is_pause = false;
+            bool is_tuto = false;
+            bool is_finished = false;
             size_t i = 4;
             ost musiic;
             Sound sfx;

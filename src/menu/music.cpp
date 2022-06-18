@@ -29,13 +29,15 @@ void Bomberman::ost::init(std::string str, size_t nb, bool b)
     this->_music_name = str;
 }
 
-void Bomberman::ost::set_volume(size_t vol)
+void Bomberman::ost::set_volume(int vol)
 {
     _volume = vol;
-    SetMusicVolume(_mp3, vol);
+    if (_volume <= 0)
+        _volume = 0;
+    //SetMusicVolume(_mp3, vol);
 }
 
-size_t Bomberman::ost::get_volume()
+int Bomberman::ost::get_volume()
 {
     return _volume;
 }
