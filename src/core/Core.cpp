@@ -97,66 +97,10 @@ void Bomberman::Core::Draw_map()
 void Bomberman::Core::Draw2d()
 {
     DrawFPS(10, 1060);
+    // std::cout << "bomb == " << _bomb.getTime() << std::endl;
     Draw_map();
     Draw_text();
     score();
-}
-
-void Bomberman::Core::Draw_breakabke()
-{
-    for (int y = 0; y < 16; y++)
-    {
-        for (int x = 0; x < 32; x++)
-        {
-            if (COLOR_EQUAL(_map.get_color()[y * this->_map.get_cubicTexture().width + x], RED))
-            {
-                DrawCubeTexture(_box.get_breakable_texture(), Vector3{x - 16.0f, 0.5, y - 8.f},
-                                1, 1, 1, WHITE);
-            }
-            if (COLOR_EQUAL(_map.get_color()[y * this->_map.get_cubicTexture().width + x], BLACK))
-            {
-                DrawCubeTextureRec(_box.get_grass_texture(), _box.get_rectGrass(), {x - 16.0f, 0.1, y - 8.f},
-                                   1, 0, 1, WHITE);
-            }
-            if (COLOR_EQUAL(_map.get_color()[y * this->_map.get_cubicTexture().width + x], WHITE))
-            {
-                DrawCubeTexture(_box.get_brick_texture(), {x - 16.0f, 0.5, y - 8.f},
-                                1, 1, 1, WHITE);
-            }
-        }
-    }
-}
-
-void Bomberman::Core::Remove_breakable(Vector3 pos)
-{
-    int x = pos.x + 16;
-    int y = pos.z + 8;
-
-    if (COLOR_EQUAL(_map.get_color()[y * _map.get_cubicTexture().width + x], RED) || COLOR_EQUAL(_map.get_color()[y * _map.get_cubicTexture().width + x], BLACK))
-    {
-        _map.get_color()[y * _map.get_cubicTexture().width + x] = BLACK;
-        DrawCube(Vector3{(float)(x - 16), _bomb_pos.y, (float)(y - 8)}, 1, 1, 1, RED);
-    }
-    if (x < 15 && (COLOR_EQUAL(_map.get_color()[y * _map.get_cubicTexture().width + x + 1], RED) || COLOR_EQUAL(_map.get_color()[y * _map.get_cubicTexture().width + x + 1], BLACK)))
-    {
-        _map.get_color()[y * _map.get_cubicTexture().width + x + 1] = BLACK;
-        DrawCube(Vector3{(float)(x + 1 - 16), _bomb_pos.y, (float)(y - 8)}, 1, 1, 1, RED);
-    }
-    if (x > -15 && (COLOR_EQUAL(_map.get_color()[y * _map.get_cubicTexture().width + x - 1], RED) || COLOR_EQUAL(_map.get_color()[y * _map.get_cubicTexture().width + x - 1], BLACK)))
-    {
-        _map.get_color()[y * _map.get_cubicTexture().width + x - 1] = BLACK;
-        DrawCube(Vector3{(float)(x - 1 - 16), _bomb_pos.y, (float)(y - 8)}, 1, 1, 1, RED);
-    }
-    if (y < 7 && (COLOR_EQUAL(_map.get_color()[(y + 1) * _map.get_cubicTexture().width + x], RED) || COLOR_EQUAL(_map.get_color()[(y + 1) * _map.get_cubicTexture().width + x], BLACK)))
-    {
-        _map.get_color()[(y + 1) * _map.get_cubicTexture().width + x] = BLACK;
-        DrawCube(Vector3{(float)(x - 16), _bomb_pos.y, (float)(y + 1 - 8)}, 1, 1, 1, RED);
-    }
-    if (y > -7 && (COLOR_EQUAL(_map.get_color()[(y - 1) * _map.get_cubicTexture().width + x], RED) || COLOR_EQUAL(_map.get_color()[(y - 1) * _map.get_cubicTexture().width + x], BLACK)))
-    {
-        _map.get_color()[(y - 1) * _map.get_cubicTexture().width + x] = BLACK;
-        DrawCube(Vector3{(float)(x - 16), _bomb_pos.y, (float)(y - 1 - 8)}, 1, 1, 1, RED);
-    }
 }
 
 void Bomberman::Core::set_Bomb_AI()
@@ -171,10 +115,12 @@ void Bomberman::Core::set_Bomb_AI()
     if (_time_bomb > 0 && _time_bomb < 3)
         Draw_bomb(_bomb_pos_AI);
     if (_time_bomb > 3 && _time_bomb < 3.5)
-        Remove_breakable(_bomb_pos_AI);
+    {
+        _box.remove_breakable(_map, _bomb_pos_AI);
+        _score.update_AI();
+    }
     if (_time_bomb > 6)
     {
-        _score.update_AI();
         pressed_AI = 0;
         _time_bomb = 0;
     }
@@ -193,10 +139,12 @@ void Bomberman::Core::set_bomb_player()
     if (_time_bomb2 > 0 && _time_bomb2 < 3)
         Draw_bomb(_bomb_pos);
     if (_time_bomb2 > 3 && _time_bomb2 < 3.5)
-        Remove_breakable(_bomb_pos);
+    {
+        _box.remove_breakable(_map, _bomb_pos);
+        _score.update1();
+    }
     if (_time_bomb2 > 6)
     {
-        _score.update1();
         pressed = 0;
         _time_bomb2 = 0;
     }
@@ -212,10 +160,12 @@ void Bomberman::Core::set_bomb_player()
     if (_time_bomb3 > 0 && _time_bomb3 < 3)
         Draw_bomb(_bomb_pos2);
     if (_time_bomb3 > 3 && _time_bomb3 < 3.5)
-        Remove_breakable(_bomb_pos2);
+    {
+        _box.remove_breakable(_map, _bomb_pos2);
+        _score.update2();
+    }
     if (_time_bomb3 > 6)
     {
-        _score.update1();
         _time_bomb3 = 0;
         pressed2 = 0;
     }
@@ -244,7 +194,7 @@ void Bomberman::Core::Draw3d()
 
     Draw_ai();
     Draw_player();
-    Draw_breakabke();
+    _box.draw_breakable(_map);
     set_Bomb_AI();
     set_bomb_player();
     EndMode3D();

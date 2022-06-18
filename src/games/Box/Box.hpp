@@ -6,9 +6,11 @@
 */
 
 #include "raylib.h"
+#include "../Map/Map.hpp"
 
 #ifndef BOX_HPP_
-#define BOX_HPP_
+    #define BOX_HPP_
+
 
 namespace Bomberman
 {
@@ -17,6 +19,8 @@ namespace Bomberman
             Box();
             ~Box();
             void init();
+            void draw_breakable(Bomberman::Map map);
+            void remove_breakable(Bomberman::Map map, Vector3 pos);
             Texture2D get_breakable_texture();
             Texture2D get_grass_texture();
             Texture2D get_brick_texture();

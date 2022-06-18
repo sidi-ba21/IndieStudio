@@ -17,7 +17,7 @@ void Bomberman::Map::init()
     _color = LoadImageColors(_image);
 
     _model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = _texture; // Set map diffuse texture
-
+    del = 1;
 }
 
 void Bomberman::Map::update()
@@ -51,9 +51,11 @@ Color *Bomberman::Map::get_color()
 
 Bomberman::Map::~Map()
 {
-    UnloadImage(_image); // Unload cubesmap image from RAM, already uploaded to VRAM
-    UnloadTexture(_cubicTexture); // Unload cubicmap texture
-    UnloadTexture(_texture);  // Unload map texture
-    UnloadModel(_model);      // Unload map model
-    UnloadImageColors(_color);
+    if (!del) {
+        UnloadImage(_image); // Unload cubesmap image from RAM, already uploaded to VRAM
+        UnloadTexture(_cubicTexture); // Unload cubicmap texture
+        UnloadTexture(_texture);  // Unload map texture
+        UnloadModel(_model);      // Unload map model
+        UnloadImageColors(_color);
+    }
 }

@@ -61,6 +61,9 @@ namespace Bomberman {
             int _animFrameCounter{0};
             float _rotate1{0};
             float _rotate2{0};
+            float spd1 = 0.05;
+            float spd2 = 0.05;
+
 
             Vector3 _pos1{14, 0.1, 6};
             Vector3 _pos2{-15, 0.1, -7};
