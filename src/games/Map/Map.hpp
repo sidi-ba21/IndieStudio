@@ -8,11 +8,11 @@
 #include "raylib.h"
 #include <cmath>
 
-#ifndef MAP_HPP_
-    #define MAP_HPP_
 #ifndef COLOR_EQUAL
     #define COLOR_EQUAL(col1, col2) ((col1.r == col2.r)&&(col1.g == col2.g)&&(col1.b == col2.b)&&(col1.a == col2.a))
 #endif
+#ifndef MAP_HPP_
+    #define MAP_HPP_
 
 namespace Bomberman {
 
@@ -22,6 +22,7 @@ namespace Bomberman {
             ~Map();
             void init();
             void update();
+            void random_maps();
             Model get_model();
             Vector3 get_pos();
             Texture2D get_cubicTexture();
@@ -37,6 +38,7 @@ namespace Bomberman {
             Mesh _mesh;
             Model _model;
             Color *_color;
+            int del{0};
     };
 
 }

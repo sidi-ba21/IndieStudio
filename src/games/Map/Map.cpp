@@ -7,13 +7,9 @@
 
 #include "Map.hpp"
 
-//Bomberman::Map::Map()
-//{
-//}
-
 void Bomberman::Map::init()
 {
-    _image = LoadImage("Png/test_map.png");   // Load cubicmap image (RAM)
+    random_maps();
     _cubicTexture = LoadTextureFromImage(_image); // Convert image to texture to display (VRAM)
     _mesh = GenMeshCubicmap(_image, (Vector3){1.0f, 1.0f, 1.0f});
     _model = LoadModelFromMesh(_mesh);
@@ -21,7 +17,23 @@ void Bomberman::Map::init()
     _color = LoadImageColors(_image);
 
     _model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = _texture; // Set map diffuse texture
+    del = 1;
+}
 
+void Bomberman::Map::random_maps()
+{
+    char *tab[9] = {
+        (char *)"Png/test_map.png",
+        (char *)"Png/test_map1.png",
+        (char *)"Png/test_map2.png",
+        (char *)"Png/test_map3.png",
+        (char *)"Png/test_map4.png",
+        (char *)"Png/test_map5.png",
+        (char *)"Png/test_map6.png",
+        (char *)"Png/test_map7.png",
+        (char *)"Png/test_map8.png",
+    };
+    _image = LoadImage(tab[random() % 9]);
 }
 
 void Bomberman::Map::update()
@@ -55,9 +67,12 @@ Color *Bomberman::Map::get_color()
 
 Bomberman::Map::~Map()
 {
-    UnloadImage(_image); // Unload cubesmap image from RAM, already uploaded to VRAM
-    UnloadTexture(_cubicTexture); // Unload cubicmap texture
-    UnloadTexture(_texture);  // Unload map texture
-    UnloadModel(_model);      // Unload map model
-    UnloadImageColors(_color);
+    if (!del)
+    {
+        UnloadImage(_image);          // Unload cubesmap image from RAM, already uploaded to VRAM
+        UnloadTexture(_cubicTexture); // Unload cubicmap texture
+        UnloadTexture(_texture);      // Unload map texture
+        UnloadModel(_model);          // Unload map model
+        UnloadImageColors(_color);
+    }
 }
