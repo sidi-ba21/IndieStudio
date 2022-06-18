@@ -22,7 +22,7 @@ namespace Bomberman {
             ~Map();
             void init();
             void update();
-            char random_maps();
+            void random_maps();
             Model get_model();
             Vector3 get_pos();
             Texture2D get_cubicTexture();

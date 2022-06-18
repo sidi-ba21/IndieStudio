@@ -20,19 +20,20 @@ void Bomberman::Map::init()
     del = 1;
 }
 
-char Bomberman::Map::random_maps()
+void Bomberman::Map::random_maps()
 {
-    char *tab[8] = {
-        "Png/test_map1.png",
-        "Png/test_map2.png",
-        "Png/test_map3.png",
-        "Png/test_map4.png",
-        "Png/test_map5.png",
-        "Png/test_map6.png",
-        "Png/test_map7.png",
-        "Png/test_map8.png",
+    char *tab[9] = {
+        (char *)"Png/test_map.png",
+        (char *)"Png/test_map1.png",
+        (char *)"Png/test_map2.png",
+        (char *)"Png/test_map3.png",
+        (char *)"Png/test_map4.png",
+        (char *)"Png/test_map5.png",
+        (char *)"Png/test_map6.png",
+        (char *)"Png/test_map7.png",
+        (char *)"Png/test_map8.png",
     };
-    _image = LoadImage(tab[random() % 8]);
+    _image = LoadImage(tab[random() % 9]);
 }
 
 void Bomberman::Map::update()
