@@ -7,6 +7,8 @@
 
 #include "menu.hpp"
 
+static Texture2D cmd;
+
 void Bomberman::Menu::game()
 {
     this->is_game = true;
@@ -39,6 +41,7 @@ void Bomberman::Menu::options()
 
 void Bomberman::Menu::adios()
 {
+    UnloadTexture(cmd);
     CloseAudioDevice();
     CloseWindow();
     exit(0);
@@ -57,8 +60,16 @@ void Bomberman::Menu::tuto()
     is_title = false;
     is_tuto = true;
     is_pause = false;
+    static int i = 0;
+
+    if (i == 0) {
+        (cmd = LoadTexture("Png/commands.png"));
+        (i++);
+    }
     BeginDrawing();
         ClearBackground(RAYWHITE);
         DrawText("TUTORIAL", 0, 0, 80, RAYWHITE);
+        DrawText("Explode your ennemies to survive the arena !", 50, 350, 80, RAYWHITE);
+        if (i != 0) DrawTextureEx(cmd, (Vector2){500, 500}, 0, 0.5, RAYWHITE);
         title_button();
 }
