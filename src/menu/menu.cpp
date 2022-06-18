@@ -67,7 +67,13 @@ void Bomberman::Menu::update()
         is_title = true;
         is_tuto = false;
     }
-    if (IsKeyPressed(KEY_SPACE)) (musiic.set_pause());
+    if (IsKeyPressed(KEY_SPACE)) {
+        (musiic.set_pause());
+        if (musiic.get_pause() == true)
+            SetSoundVolume(sfx, 0);
+        else
+            SetSoundVolume(sfx, 2);
+    }
     if (IsKeyPressed(KEY_P)) (is_pause = !is_pause);
     if ((i == 8) && !is_options) (is_pause = !is_pause);
     if (i == 11 || i == 2) adios();
@@ -99,6 +105,10 @@ void Bomberman::Menu::handle_volume()
     if (volumesfx < 0) volumesfx = 0;
     if (this->musiic.get_volume() <= 0) this->musiic.set_volume(0);
     SetSoundVolume(this->sfx, volumesfx);
+    if (musiic.get_pause() == true)
+        SetSoundVolume(this->sfx, 0);
+    else
+        std::cout << "still here\n";
     SetMusicVolume(this->musiic.get_ost(), this->musiic.get_volume());
 }
 
