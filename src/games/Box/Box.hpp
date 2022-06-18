@@ -26,6 +26,8 @@ namespace Bomberman
             Texture2D get_grass_texture();
             Texture2D get_brick_texture();
             Rectangle get_rectGrass();
+            void random_walls();
+            void random_breackable();
 
         protected:
         private:
