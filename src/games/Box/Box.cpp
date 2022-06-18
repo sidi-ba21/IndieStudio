@@ -15,6 +15,7 @@ void Bomberman::Box::init()
 {
     _breakable_texture = LoadTexture("Png/woodx_brick.png");
     _speed_up_texture = LoadTexture("Png/speed.png");
+    _speed_down_texture = LoadTexture("Png/speed_down.png");
     _grass_texture = LoadTexture("Png/grass_cube.png");
     _brick_texture = LoadTexture("Png/brick_cube.png");
     _rectGrass = Rectangle{(float)_grass_texture.width / 2,
