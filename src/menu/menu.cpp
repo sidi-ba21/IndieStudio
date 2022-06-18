@@ -62,7 +62,7 @@ void Bomberman::Menu::update()
     }
     if (i != limit) (is_title = false);
     if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) (PlaySound(this->sfx));
-    if ((IsKeyPressed(KEY_T) || i == 10) && (is_game == false)) {
+    if ((IsKeyPressed(KEY_T) && (is_game == false)) || (i == 10)){
         is_options = false;
         is_pause = false;
         is_game = false;
@@ -71,8 +71,9 @@ void Bomberman::Menu::update()
     }
     if (IsKeyPressed(KEY_SPACE)) (musiic.set_pause());
     if (IsKeyPressed(KEY_P)) (is_pause = !is_pause);
-    if ((i == 8 || i == 11) && !is_options) (is_pause = !is_pause);
-    if (i == 12) adios();
+    if ((i == 8) && !is_options) (is_pause = !is_pause);
+    if (i == 11 || i == 2) adios();
+    if (i == 1 || i == 9 || is_options) options();
 }
 
 
@@ -81,9 +82,9 @@ void Bomberman::Menu::game_options()
     handle_volume();
     if (i == 0 || is_game) {
         game();
-    } else if  (i == 1 || i == 9 || is_options) {
+    } else if (i == 1 || i == 9 || is_options) {
         options();
-    } else if  (i == 2 || i == 12)
+    } else if  (i == 2 || i == 11)
         adios();
     if (i == 3 || is_tuto == true) tuto();
     if (is_pause) (pause());

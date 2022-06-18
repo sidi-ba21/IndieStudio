@@ -64,6 +64,8 @@ namespace Bomberman {
             void set_gamebool(bool obj) { is_game = obj; }
             void set_pause(bool obj) { is_pause = obj; }
             bool get_pause() { return is_pause; }
+            void set_finish(bool obj) { is_finished = obj; }
+            bool get_finish() { return is_finished; }
 
             void game();
             void options();
@@ -72,7 +74,7 @@ namespace Bomberman {
             void tuto();
             void game_options();
             void title_button();
-
+            void the_end(int);
             void handle_volume();
 
         private:
@@ -82,6 +84,7 @@ namespace Bomberman {
             bool is_options = false;
             bool is_pause = false;
             bool is_tuto = false;
+            bool is_finished = false;
             size_t i = 4;
             ost musiic;
             Sound sfx;

@@ -48,6 +48,7 @@ void Bomberman::Menu::adios()
 }
 void Bomberman::Menu::pause()
 {
+    btns[10].btnBounds = (Rectangle){700, 600, 540, 120};
     BeginDrawing();
         for (size_t i = 8; i < btns.size(); i++)
             DrawTextureRec(btns[i].button, btns[i].sourceRec, (Vector2){ btns[i].btnBounds.x, btns[i].btnBounds.y }, RAYWHITE);
@@ -72,4 +73,18 @@ void Bomberman::Menu::tuto()
         DrawText("Explode your ennemies to survive the arena !", 50, 350, 80, RAYWHITE);
         if (i != 0) DrawTextureEx(cmd, (Vector2){500, 500}, 0, 0.5, RAYWHITE);
         title_button();
+}
+
+void Bomberman::Menu::the_end(int id)
+{
+    is_game = false;
+    is_options = false;
+    is_title = false;
+    is_tuto = false;
+    is_pause = false;
+    is_finished = true;
+
+    BeginDrawing();
+        ClearBackground(RAYWHITE);
+        DrawText("ENDING", 0, 0, 80, RAYWHITE);
 }
