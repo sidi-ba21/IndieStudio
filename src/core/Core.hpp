@@ -19,6 +19,7 @@
 #include "../games/Background/Background.hpp"
 #include "../menu/menu.hpp"
 #include "../games/Box/Box.hpp"
+#include "../games/Bomb/Bomb.hpp"
 #include <iostream>
 #include <string>
 #include <cmath>
@@ -66,10 +67,11 @@ namespace Bomberman
         Player _player;
         Camera _camera;
         Score _score;
-        Map _map;
         Box _box;
+        Map _map;
         Menu _menu;
         AI _ai;
+        Bomb _bomb;
         Time _time;
         float _time_bomb{0};
         float _time_bomb2{0};
