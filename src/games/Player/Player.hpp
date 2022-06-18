@@ -36,6 +36,8 @@ namespace Bomberman {
             void Player_animation();
             void Player_move1(Color *, Texture2D _cubicTexture);
             void Player_move2(Color *, Texture2D _cubicTexture);
+            void Power_up2();
+            void Power_up1();
             Model get_Model();
             Model get_Model2();
             Vector3 get_pos(int player = 1);
@@ -64,7 +66,6 @@ namespace Bomberman {
             float _rotate2{0};
             float spd1 = 0.05;
             float spd2 = 0.05;
-
 
             Vector3 _pos1{14, 0.1, 6};
             Vector3 _pos2{-15, 0.1, -7};

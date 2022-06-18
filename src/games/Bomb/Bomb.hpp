@@ -27,14 +27,13 @@ namespace Bomberman {
             Vector3 get_pos();
             void draw_bomb();
             void pose_bomb(Vector3 pos);
-            void explosion(Bomberman::Box box, Bomberman::Map map, Bomberman::Score score, int n);
+            void explosion(Bomberman::Box &box, Bomberman::Map &map, Bomberman::Score &score, int n);
             void wait_bomb();
 
         protected:
         private:
             Vector3 _pos = {-16.0f, 0.0f, -8.0f}; //set model position
             bool _ispressed = false;
-            float _time_bomb;
             //Mesh _mesh;
             //Model _model;
     };

@@ -37,7 +37,7 @@ void Bomberman::Bomb::pose_bomb(Vector3 player_pos)
     }
 }
 
-void Bomberman::Bomb::explosion(Bomberman::Box box, Bomberman::Map map, Bomberman::Score score, int n)
+void Bomberman::Bomb::explosion(Bomberman::Box &box, Bomberman::Map &map, Bomberman::Score &score, int n)
 {
     elapsed();
     if (getTime() > 3 && getTime() < 3.5) {

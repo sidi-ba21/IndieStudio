@@ -40,6 +40,8 @@ namespace Bomberman
         void Draw_text();
         void Draw_map();
         void Draw_ai();
+        void Draw_speed_up();
+        void Draw_speed_down();
         void Draw_player();
         void score();
         void Draw2d();
