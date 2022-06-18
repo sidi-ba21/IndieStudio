@@ -65,7 +65,6 @@ void Bomberman::Core::Draw()
     }
     else
         _menu.loop();
-
     EndDrawing();
 }
 
