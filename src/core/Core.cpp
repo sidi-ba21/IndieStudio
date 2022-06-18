@@ -96,16 +96,27 @@ void Bomberman::Core::Draw_map()
 
 void Bomberman::Core::Draw_speed_up()
 {
-    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){-13, 0.1, -4}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){-14, 0.1, 4}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){14, 0.1, 4}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){13, 0.1, -5}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){-9, 0.1, -3}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){-7, 0.1, 3}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){5, 0.1, -7}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){10, 0.1, 2}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){-13, 1.1, -4}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){-14, 1.1, 4}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){14, 1.1, 4}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){13, 1.1, -5}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){-9, 1.1, -3}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){-7, 1.1, 3}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){5, 1.1, -7}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){10, 1.1, 2}, 0.80f, 0.1f, 0.80f, WHITE);
 }
 
+void Bomberman::Core::Draw_speed_down()
+{
+    DrawCubeTexture(_box.get_speed_down_texture(), (Vector3){-12, 1.1, -1}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_down_texture(), (Vector3){-11, 1.1, 5}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_down_texture(), (Vector3){6, 1.1, -1}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_down_texture(), (Vector3){12, 1.1, -7}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_down_texture(), (Vector3){-5, 1.1, -7}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_down_texture(), (Vector3){-4, 1.1, 0}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_down_texture(), (Vector3){2, 1.1, -4}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_down_texture(), (Vector3){0, 1.1, 6}, 0.80f, 0.1f, 0.80f, WHITE);
+}
 
 void Bomberman::Core::Draw2d()
 {
@@ -208,6 +219,7 @@ void Bomberman::Core::Draw3d()
     Draw_ai();
     Draw_player();
     Draw_speed_up();
+    Draw_speed_down();
     _box.draw_breakable(_map);
     set_Bomb_AI();
     set_bomb_player();

@@ -83,6 +83,11 @@ Texture2D Bomberman::Box::get_speed_up_texture()
     return _speed_up_texture;
 }
 
+Texture2D Bomberman::Box::get_speed_down_texture()
+{
+    return _speed_down_texture;
+}
+
 Texture2D Bomberman::Box::get_grass_texture()
 {
     return _grass_texture;

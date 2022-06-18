@@ -41,6 +41,7 @@ namespace Bomberman
         void Draw_ai();
         void Draw_bomb(Vector3 centerpos);
         void Draw_speed_up();
+        void Draw_speed_down();
         void Draw_player();
         void score();
         void Draw2d();
