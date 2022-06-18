@@ -94,6 +94,19 @@ void Bomberman::Core::Draw_map()
     DrawRectangleLines(screenWidth - _map.get_cubicTexture().width * 4 - 20, 20, _map.get_cubicTexture().width * 4, _map.get_cubicTexture().height * 4, GREEN);
 }
 
+void Bomberman::Core::Draw_speed()
+{
+    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){-14, 0.1, -4}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){-14, 0.1, 4}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){14, 0.1, 4}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){14, 0.1, -4}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){0, 0.1, 0}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){0, 0.1, 1}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){0, 0.1, 2}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(_box.get_speed_up_texture(), (Vector3){0, 0.1, 2}, 0.80f, 0.1f, 0.80f, WHITE);
+}
+
+
 void Bomberman::Core::Draw2d()
 {
     DrawFPS(10, 1060);
@@ -194,6 +207,7 @@ void Bomberman::Core::Draw3d()
 
     Draw_ai();
     Draw_player();
+    Draw_speed();
     _box.draw_breakable(_map);
     set_Bomb_AI();
     set_bomb_player();

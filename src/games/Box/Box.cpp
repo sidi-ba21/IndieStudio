@@ -14,6 +14,7 @@ Bomberman::Box::Box()
 void Bomberman::Box::init()
 {
     _breakable_texture = LoadTexture("Png/woodx_brick.png");
+    _speed_up_texture = LoadTexture("Png/speed.png");
     _grass_texture = LoadTexture("Png/grass_cube.png");
     _brick_texture = LoadTexture("Png/brick_cube.png");
     _rectGrass = Rectangle{(float)_grass_texture.width / 2,
@@ -76,6 +77,11 @@ Texture2D Bomberman::Box::get_breakable_texture()
     return _breakable_texture;
 }
 
+Texture2D Bomberman::Box::get_speed_up_texture()
+{
+    return _speed_up_texture;
+}
+
 Texture2D Bomberman::Box::get_grass_texture()
 {
     return _grass_texture;
@@ -96,4 +102,5 @@ Bomberman::Box::~Box()
     UnloadTexture(_breakable_texture);
     UnloadTexture(_grass_texture);
     UnloadTexture(_brick_texture);
+    UnloadTexture(_speed_up_texture);
 }
