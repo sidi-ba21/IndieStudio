@@ -29,11 +29,11 @@ void Bomberman::Menu::options()
         ClearBackground(RAYWHITE);
         DrawText("OPTIONS", 0, 0, 80.0, WHITE);
 
-        DrawRectangleGradientH(720, 380, 350, 110, PURPLE, SKYBLUE);
-        DrawText("MUSIC", 770, 400, 80.0, WHITE);
+        DrawRectangleGradientH(770, 380, 350, 110, PURPLE, SKYBLUE);
+        DrawText("MUSIC", 820, 400, 80.0, WHITE);
 
-        DrawRectangleGradientH(560, 680, 680, 110, PURPLE, SKYBLUE);
-        DrawText("SOUND EFFECTS", 600, 700, 70.0, WHITE);
+        DrawRectangleGradientH(620, 680, 680, 110, PURPLE, SKYBLUE);
+        DrawText("SOUND EFFECTS", 660, 700, 70.0, WHITE);
         for (size_t i = 4; i < 8; i++)
             DrawTextureRec(btns[i].button, btns[i].sourceRec, (Vector2){ btns[i].btnBounds.x, btns[i].btnBounds.y }, RAYWHITE);
     title_button();

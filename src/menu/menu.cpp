@@ -107,8 +107,6 @@ void Bomberman::Menu::handle_volume()
     SetSoundVolume(this->sfx, volumesfx);
     if (musiic.get_pause() == true)
         SetSoundVolume(this->sfx, 0);
-    else
-        std::cout << "still here\n";
     SetMusicVolume(this->musiic.get_ost(), this->musiic.get_volume());
 }
 
