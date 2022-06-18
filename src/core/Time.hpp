@@ -19,7 +19,6 @@ class Time {
         void reset() { _start = clock_::now(); }
         void elapsed() {
             _elapse = std::chrono::duration_cast<second_>(clock_::now() - _start).count();
-            reset();
         }
         float deltaTime() {
             return _elapse * 1/GetFPS();

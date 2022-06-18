@@ -163,6 +163,12 @@ void Bomberman::Player::Player_move2(Color *mapPixels, Texture2D _cubicTexture)
     }
 }
 
+void Bomberman::Player::draw()
+{
+    DrawModelEx(get_Model(), get_pos(1), (Vector3){0, 1, 0},  get_rotate1(), (Vector3){1, 1, 1}, WHITE);
+    DrawModelEx(get_Model2(), get_pos(2), (Vector3){0, 1, 0}, get_rotate2(), (Vector3){1, 1, 1}, WHITE);
+}
+
 Model Bomberman::Player::get_Model()
 {
     return _model;

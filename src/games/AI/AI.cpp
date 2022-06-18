@@ -104,3 +104,8 @@ void Bomberman::AI::move_AI(Color *mapPixels, Texture2D _cubicTexture)
         _Rotate_AI = 90;
     }
 }
+
+void Bomberman::AI::draw()
+{
+    DrawModelEx(get_Model(), get_pos(), (Vector3){0, 1, 0}, get_rotate(), (Vector3){1, 1, 1}, WHITE);
+}

@@ -77,6 +77,7 @@ void Bomberman::Menu::tuto()
 
 void Bomberman::Menu::the_end(int id)
 {
+    (void) id;
     is_game = false;
     is_options = false;
     is_title = false;

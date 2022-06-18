@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.17)
 project(bomberman)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}")
-
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -g3")
 find_package(raylib 4.0 QUIET)
 
 if (NOT raylib_FOUND)

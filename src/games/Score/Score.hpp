@@ -8,6 +8,7 @@
 #include "raylib.h"
 #include <cmath>
 #include <fstream>
+#include <vector>
 
 #ifndef SCORE_HPP_
     #define SCORE_HPP_
@@ -19,9 +20,7 @@ namespace Bomberman {
             Score() = default;
             ~Score() = default;
             void init();
-            void update1();
-            void update2();
-            void update_AI();
+            void update(int n);
             int get_score1();
             int get_score2();
             int get_score_AI();
@@ -62,6 +61,7 @@ namespace Bomberman {
 
         protected:
         private:
+            std::vector<int> _score = {0, 0, 0};
             int _score1{0};
             std::string _highscore{ "NOT AVAILABLE" };
             int _score2{0};
