@@ -47,6 +47,22 @@ void Bomberman::Core::game_loop()
             }
             _map.update();
             _camera.Camera_move();
+            if ((_player.get_life() <= 0) && (_player.get_life(2) <= 0)){
+                _menu.set_id(0);
+                _menu.set_score(_score.get_score_AI());
+                _menu.set_finish(true);
+                _menu.set_gamebool(false);
+            } else if ((_player.get_life(2) <= 0) && (_ai.get_life() <= 0)) {
+                _menu.set_id(1);
+                _menu.set_score(_score.get_score1());
+                _menu.set_finish(true);
+                _menu.set_gamebool(false);
+            } else if ((_player.get_life() <= 0) && (_ai.get_life() <= 0)) {
+                _menu.set_id(2);
+                _menu.set_score(_score.get_score2());
+                _menu.set_finish(true);
+                _menu.set_gamebool(false);
+            }
         }
         Draw();
         _menu.update();

@@ -9,6 +9,7 @@
 
 static Texture2D cmd;
 
+
 void Bomberman::Menu::game()
 {
     this->is_game = true;
@@ -71,17 +72,59 @@ void Bomberman::Menu::tuto()
         title_button();
 }
 
-void Bomberman::Menu::the_end(int id)
+void Bomberman::Menu::the_end()
 {
-    (void) id;
-    is_game = false;
-    is_options = false;
-    is_title = false;
-    is_tuto = false;
-    is_pause = false;
-    is_finished = true;
-
+    static int i = 0;
+    size_t p = 0;
+    if (i == 0) {
+        face[0] = LoadTexture("Png/player_face_AI.png");
+        face[1] = LoadTexture("Png/player_face1.png");
+        face[2] = LoadTexture("Png/player_face2.png");
+        face[3] = LoadTexture("Png/victory.png");
+        immg.push_back(Bomberman::Button("Png/basic_home.png", (Rectangle){0, 0, 540, 120}, (Rectangle){200, 900, 540, 120}));
+        immg.push_back(Bomberman::Button("Png/basic_exit.png",(Rectangle){0, 0, 540, 120}, (Rectangle){1100, 900, 540, 120}));
+        immg[0].init();
+        immg[1].init();
+        (i++);
+    } else {
+        SetSoundVolume(sfx, 0);
+        SetMusicVolume(musiic.get_ost(), 0);
+        is_game = false;
+        is_options = false;
+        is_title = false;
+        is_tuto = false;
+        is_pause = false;
+        is_finished = true;
+        for (p = 0; p < immg.size(); p++) {
+            if (CheckCollisionPointRec(mousepos, immg[p].btnBounds)) {
+                if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+                    (immg[p].sourceRec.y = 344);
+                } else
+                    immg[p].sourceRec.y = 175;
+                if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+                    break;
+            } else
+                immg[p].sourceRec.y = 0;
+        }
+    }
+    if (p == 0) {
+        is_finished = false;
+        is_title = true;
+    }
+    if (p == 1) {
+        is_finished = false;
+        adios();
+    }
     BeginDrawing();
-        ClearBackground(RAYWHITE);
+        //ClearBackground(RAYWHITE);
         DrawText("ENDING", 0, 0, 80, RAYWHITE);
+        if (id != 0)
+            DrawText(TextFormat("PLAYER %u WON !!", id), 50, 500, 80, MAGENTA);
+        else 
+            DrawText("AI WON ! TOO BAD", 50, 500, 80, MAGENTA);
+        DrawTextureRec(immg[0].button, immg[0].sourceRec, (Vector2){ immg[0].btnBounds.x, immg[0].btnBounds.y }, RAYWHITE);
+        DrawTextureRec(immg[1].button, immg[1].sourceRec, (Vector2){ immg[1].btnBounds.x, immg[1].btnBounds.y }, RAYWHITE);
+        DrawText(TextFormat("SCORE : %u", score), 1400, 600, 80, SKYBLUE);
+        DrawTexture(face[3], 550, 0, RAYWHITE);
+        DrawTexture(face[id], 850, 500, RAYWHITE);
 }

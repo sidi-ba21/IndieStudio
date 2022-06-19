@@ -97,7 +97,7 @@ void Bomberman::Box::remove_breakable(Bomberman::Map map, Vector3 pos)
     }
 }
 
-int Bomberman::Box::Damage(Bomberman::Map map, Vector3 pos, Bomberman::Player player, Bomberman::AI ai, int n)
+int Bomberman::Box::Damage(Vector3 pos, Bomberman::Player player, Bomberman::AI ai, int n)
 {
     auto posP1 = player.get_pos();
     auto posP2 = player.get_pos(2);
