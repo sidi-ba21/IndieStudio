@@ -40,10 +40,12 @@ void Bomberman::Bomb::explosion(Bomberman::Box &box, Bomberman::Map &map, Bomber
 {
     elapsed();
     if (_ispressed && getTime() > 3 && getTime() < 3.5) {
-        box.remove_breakable(map, get_vector3(), player);
-        auto i = box.Damage(map, get_vector3(), player, n);
-        if (i != -1)
+        box.remove_breakable(map, get_vector3());
+        auto i = box.Damage(map, get_vector3(), player, ai, n);
+        if (i != -1 && i != 0)
             player.set_life(-1, i);
+        if (i == 0)
+            ai.set_life(-1);
         score.update(n);
     }
 }

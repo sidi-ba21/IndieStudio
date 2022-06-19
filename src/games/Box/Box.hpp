@@ -8,6 +8,7 @@
 #include "raylib.h"
 #include "../Map/Map.hpp"
 #include "../Player/Player.hpp"
+#include "../AI/AI.hpp"
 #include "../../graphicals/Draw/Draw.hpp"
 
 #ifndef BOX_HPP_
@@ -21,8 +22,9 @@ namespace Bomberman
             ~Box();
             void init();
             void draw_breakable(Bomberman::Map map);
-            void remove_breakable(Bomberman::Map map, Vector3 pos, Bomberman::Player player);
-            int Damage(Bomberman::Map map, Vector3 pos, Bomberman::Player player, int n);
+            void remove_breakable(Bomberman::Map map, Vector3 pos);
+            int Damage(Bomberman::Map map, Vector3 pos, Bomberman::Player player,
+            Bomberman::AI ai, int n);
             Texture2D get_breakable_texture();
             Texture2D get_speed_up_texture();
             Texture2D get_speed_down_texture();
