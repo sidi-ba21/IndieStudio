@@ -45,6 +45,10 @@ namespace Bomberman
             int get_life() {
                 return _life;
             }
+            void set_life(int life) {
+                _life += life;
+            }
+
         protected:
         private:
             unsigned int _animCount_AI{2};
