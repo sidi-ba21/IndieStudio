@@ -42,14 +42,16 @@ namespace Bomberman
                 return _Rotate_AI;
             }
             bool Check_collision_AI(Vector3, int direction, Color *mapPixels, Texture2D _cubicTexture);
-            
+            int get_life() {
+                return _life;
+            }
         protected:
         private:
             unsigned int _animCount_AI{2};
             int _AnimFrameCounter_AI{0};
             float _Rotate_AI{0};
             int _check;
-            int life{3};
+            int _life{3};
 
             Vector3 _Pos_AI{-15, 0.1, 6};
             Model _Model_AI;
