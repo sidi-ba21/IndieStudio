@@ -39,6 +39,7 @@ namespace Bomberman
             Texture2D _speed_up_texture;
             Texture2D _speed_down_texture;
             Rectangle _rectGrass;
+            int del{0};
         };
 
 }

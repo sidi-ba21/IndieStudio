@@ -21,23 +21,26 @@ void Bomberman::Player::init()
 
     SetMaterialTexture(&_model.materials[0], MATERIAL_MAP_DIFFUSE, _texture);
     SetMaterialTexture(&_model2.materials[0], MATERIAL_MAP_DIFFUSE, _texture2);
+    del = 1;
 }
 
 Bomberman::Player::~Player()
 {
-    UnloadModel(_model);
-    UnloadTexture(_texture);
-    UnloadModel(_model2);
-    UnloadTexture(_texture2);
-    UnloadTexture(_player_face1);
-    UnloadTexture(_player_face2);
-    UnloadTexture(_player_face_AI);
-    for (unsigned int i = 0; i < _animCount; i++)
-    {
-        UnloadModelAnimation(_anim[i]);
-        UnloadModelAnimation(_anim2[i]);
+    if (!del) {
+        UnloadModel(_model);
+        UnloadTexture(_texture);
+        UnloadModel(_model2);
+        UnloadTexture(_texture2);
+        UnloadTexture(_player_face1);
+        UnloadTexture(_player_face2);
+        UnloadTexture(_player_face_AI);
+        for (unsigned int i = 0; i < _animCount; i++)
+        {
+            UnloadModelAnimation(_anim[i]);
+            UnloadModelAnimation(_anim2[i]);
+        }
+        RL_FREE(_anim);
     }
-    RL_FREE(_anim);
 }
 
 void Bomberman::Player::Power_up1()

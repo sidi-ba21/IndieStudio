@@ -64,6 +64,7 @@ namespace Bomberman
             Vector3 _Chk_pos;
 
             std::time_t _time{0};
+            int del{0};
     };
 }
 
