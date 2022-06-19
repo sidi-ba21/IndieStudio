@@ -82,7 +82,7 @@ void Bomberman::Box::draw_breakable(Bomberman::Map map)
     }
 }
 
-void Bomberman::Box::remove_breakable(Bomberman::Map map, Vector3 pos, Bomberman::Player player)
+void Bomberman::Box::remove_breakable(Bomberman::Map map, Vector3 pos)
 {
     int x = ((int)(pos.x + 16));
     int y = ((int)(pos.z + 8));
@@ -114,10 +114,11 @@ void Bomberman::Box::remove_breakable(Bomberman::Map map, Vector3 pos, Bomberman
     }
 }
 
-int Bomberman::Box::Damage(Bomberman::Map map, Vector3 pos, Bomberman::Player player, int n)
+int Bomberman::Box::Damage(Bomberman::Map map, Vector3 pos, Bomberman::Player player, Bomberman::AI ai, int n)
 {
     auto posP1 = player.get_pos();
     auto posP2 = player.get_pos(2);
+    auto posA1 = ai.get_pos();
     int x = ((int)(pos.x + 16));
     int y = ((int)(pos.z + 8));
 
@@ -141,6 +142,19 @@ int Bomberman::Box::Damage(Bomberman::Map map, Vector3 pos, Bomberman::Player pl
         return 1;
     if ((int)posP2.x == (x - 16) && (int)posP2.z == (y - 1 - 8))
         return 2;
+    
+    if (n != 0) {
+        if ((int)posA1.x == (x - 16) && (int)posA1.z == (y - 8))
+            return 0;
+        if ((int)posA1.x == (x + 1 - 16) && (int)posA1.z == (y - 8))
+            return 0;
+        if ((int)posA1.x == (x - 1 - 16) && (int)posA1.z == (y - 8))
+            return 0;
+        if ((int)posA1.x == (x - 16) && (int)posA1.z == (y + 1 - 8))
+            return 0;
+        if ((int)posA1.x == (x - 16) && (int)posA1.z == (y - 1 - 8))
+            return 0;
+    }
     return (-1);
 }
 
