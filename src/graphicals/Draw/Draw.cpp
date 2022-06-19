@@ -42,3 +42,13 @@ void Raylib::Draw::draw_bomb(std::size_t n)
     DrawSphere(_vector3[n], 0.3, BLACK);
     DrawSphereWires(_vector3[n], 0.3, 10, 10, BROWN);
 }
+
+void Raylib::Draw::draw_box(std::size_t n, std::size_t x, std::size_t y, std::size_t h)
+{
+    DrawCubeTexture(get_texture(n), Vector3{x - 16.0f, 0.5, y - 8.f}, 1, h, 1, WHITE);
+}
+
+void Raylib::Draw::remove_box(float x, float y)
+{
+    DrawCube(Vector3{x, 0.1, y}, 1, 1, 1, RED);
+}
