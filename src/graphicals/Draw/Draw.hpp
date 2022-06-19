@@ -29,7 +29,7 @@ namespace Raylib {
             void draw_player(std::size_t n = 0);
             void draw_background(std::size_t n = 0);
             void draw_bomb(std::size_t n = 0);
-            void draw_box(std::size_t n, std::size_t x, std::size_t y, std::size_t h);
+            void draw_box(std::size_t n, std::size_t x, std::size_t y, float z, std::size_t h);
             void remove_box(float x, float y);
             void set_image(std::string &path) {
                 _image.push_back(LoadImage(path.c_str()));

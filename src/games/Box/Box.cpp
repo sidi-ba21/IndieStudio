@@ -61,11 +61,11 @@ void Bomberman::Box::draw_breakable(Bomberman::Map map)
     for (std::size_t y = 0; y < 16; y++) {
         for (std::size_t x = 0; x < 32; x++) {
             if (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x], RED))
-                draw_box(BREAKABLE, x, y, 1);
+                draw_box(BREAKABLE, x, y, 0.5 , 1);
             if (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x], BLACK))
-                draw_box(GRASS_TEXTURE, x, y, 0);
+                draw_box(GRASS_TEXTURE, x, y, 0.1, 0);
             if (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x], WHITE))
-                draw_box(BRICK, x, y, 1);
+                draw_box(BRICK, x, y, 0.5, 1);
         }
     }
 }
