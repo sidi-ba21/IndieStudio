@@ -23,6 +23,7 @@ include_directories(include)
 add_executable(bomberman   src/core/main.cpp
 src/core/Core.cpp
 src/games/Player/Player.cpp
+src/games/Player/Buff.cpp
 src/games/Camera/Camera.cpp
 src/games/Map/Map.cpp
 src/games/Box/Box.cpp
