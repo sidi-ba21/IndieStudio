@@ -42,10 +42,10 @@ namespace Raylib {
                 _vector2.push_back((Vector2){x, y});
             }
             void set_vector3(float x, float y, float z) {
-                _vector3.push_back((Vector3){x, y, z});
+                _vector3 = (Vector3){x, y, z};
             }
             void set_meshCubicmap(std::size_t n = 0) {
-                _mesh.push_back(GenMeshCubicmap(_image[n], _vector3[n]));
+                _mesh.push_back(GenMeshCubicmap(_image[n], _vector3));
             }
             void set_modelfromMesh(std::size_t n = 0) {
                 _model.push_back(LoadModelFromMesh(_mesh[n]));
@@ -59,6 +59,9 @@ namespace Raylib {
             void set_modelAnim(std::string &path, unsigned int animcount) {
                 _anim.push_back(LoadModelAnimations(path.c_str(), &animcount));
             }
+            //void del_vector3() {
+            //    _vector3.pop_back();
+            //}
             void free_texture(std::size_t n = 0) {
                 if (_texture.size() - 1 >= n && _texture[n].id != 0)
                     UnloadTexture(_texture[n]);
@@ -91,7 +94,7 @@ namespace Raylib {
             }
             Model get_model(std::size_t n = 0) { return _model[n]; }
             Vector2 get_vector2(std::size_t n = 0) { return _vector2[n]; }
-            Vector3 get_vector3(std::size_t n = 0) { return _vector3[n]; }
+            Vector3 get_vector3(std::size_t n = 0) { return _vector3; }
             Texture2D get_texture(std::size_t n = 0) { return _texture[n]; }
             Image get_image(std::size_t n = 0) { return _image[n]; }
             Color *get_color(std::size_t n = 0) { return _color[n]; }
@@ -101,7 +104,7 @@ namespace Raylib {
         private:
             const int screenWidth{1920};
             const int screenHeight{1080};
-            std::vector<Vector3> _vector3;
+            Vector3 _vector3;
             std::vector<Vector2> _vector2;
             std::vector<Image> _image;
             std::vector<Texture2D> _texture;

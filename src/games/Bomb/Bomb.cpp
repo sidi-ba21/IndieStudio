@@ -26,6 +26,7 @@ void Bomberman::Bomb::pose_bomb(int x, int y, int z)
     if (getTime() > 6) {
         _ispressed = false;
         reset();
+        //del_vector3();
     }
     if (!_ispressed) {
         set_vector3(x, y, z);
