@@ -25,7 +25,7 @@ void Bomberman::Box::init()
 
 void Bomberman::Box::random_walls()
 {
-    const char *tab1[10] = {
+    const char *tab1[11] = {
         "Png/wood_cube.png",
         "Png/stone_cube.png",
         "Png/fullgrass_cube.png",
@@ -36,8 +36,9 @@ void Bomberman::Box::random_walls()
         "Png/flower_cube.png",
         "Png/cubex.png",
         "Png/face_cube.png",
+        "Png/clearbrick_cube.png",
     };
-    _brick_texture = LoadTexture(tab1[random() % 10]);
+    _brick_texture = LoadTexture(tab1[random() % 11]);
 }
 
 void Bomberman::Box::random_breackable()

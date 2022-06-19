@@ -13,7 +13,7 @@ void Bomberman::AI::init_AI()
 {
     _Model_AI = LoadModel("assets/robo6.iqm");
     _Anim_AI = LoadModelAnimations("assets/robo6.iqm", &_animCount_AI);
-    _texture_AI = LoadTexture("Png/meme_player.png");
+    _texture_AI = LoadTexture("Png/girl.png");
     SetMaterialTexture(&_Model_AI.materials[0], MATERIAL_MAP_DIFFUSE, _texture_AI);
 }
 

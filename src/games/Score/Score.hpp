@@ -18,13 +18,14 @@ namespace Bomberman {
     class Score {
         public:
             Score() = default;
-            ~Score() = default;
+            ~Score();
             void init();
             void update(int n);
             int get_score1();
             int get_score2();
             int get_score_AI();
             int get_highscore();
+            void draw_face();
             void loadScore() {
                 std::ifstream file;
                 std::string line;

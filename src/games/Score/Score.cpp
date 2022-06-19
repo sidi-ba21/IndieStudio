@@ -8,7 +8,7 @@
 #include "Score.hpp"
 
 void Bomberman::Score::init()
-{
+{    
 }
 
 void Bomberman::Score::update(int n)
@@ -34,4 +34,8 @@ int Bomberman::Score::get_score2()
 int Bomberman::Score::get_score_AI()
 {
     return _score_AI;
+}
+
+Bomberman::Score::~Score()
+{
 }
