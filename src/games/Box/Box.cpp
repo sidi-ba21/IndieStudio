@@ -12,7 +12,7 @@ void Bomberman::Box::init()
     std::vector<std::string> tab = {
         "Png/speed.png",
         "Png/speed_down.png",
-        "Png/fullgrass_cube.png",
+        "Png/grass_floor.png",
     };
     del_texture();
     for (auto &tmp : tab)
