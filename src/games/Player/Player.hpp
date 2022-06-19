@@ -74,7 +74,9 @@ namespace Bomberman
         int get_life1() {
                 return _life1;
         }
-        
+        int get_life2() {
+                return _life2;
+        }
 
     protected:
     private:
