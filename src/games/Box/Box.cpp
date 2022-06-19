@@ -37,7 +37,7 @@ void Bomberman::Box::random_walls()
         "Png/face_cube.png",
         "Png/clearbrick_cube.png",
     };
-    set_texture(tab[random() % 11]);
+    set_texture(tab[rand() % 11]);
 
 }
 
@@ -53,7 +53,7 @@ void Bomberman::Box::random_breackable()
         "Png/oldchest_cube.png",
 
     };
-    set_texture(tab[random() % 7]);
+    set_texture(tab[rand() % 7]);
 }
 
 void Bomberman::Box::draw_breakable(Bomberman::Map map)
