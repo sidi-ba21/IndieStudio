@@ -10,6 +10,7 @@
 
 #include <raylib.h>
 #include "Error.hpp"
+#include "../games/Player/Buff.hpp"
 #include "../games/Player/Player.hpp"
 #include "../games/Camera/Camera.hpp"
 #include "../games/Score/Score.hpp"
@@ -57,6 +58,7 @@ namespace Bomberman
         Raylib::Draw _draw;
         Background _background;
         Player _player;
+        Buff _Buff;
         Camera _camera;
         Score _score;
         Box _box;

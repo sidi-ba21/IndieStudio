@@ -35,10 +35,16 @@ void Bomberman::Core::game_loop()
         if (_menu.get_pause() == false)
         {
             _ai.move_AI(_map.get_color(), _map.get_texture());
-            if (_player.get_life() > 0)
+            if (_player.get_life() > 0){
                 _player.Player_move1(_map.get_color(), _map.get_texture());
-            if (_player.get_life(2) > 0)
+                _Buff.Power_up1(_player);
+                _Buff.Power_down1(_player);
+            }
+            if (_player.get_life(2) > 0){
                 _player.Player_move2(_map.get_color(), _map.get_texture());
+                _Buff.Power_up2(_player);
+                _Buff.Power_down2(_player);
+            }
             _map.update();
             _camera.Camera_move();
         }
