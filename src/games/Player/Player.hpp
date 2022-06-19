@@ -71,9 +71,10 @@ namespace Bomberman
             return _rotate2;
         }
         bool Check_collision(Vector3, int direction, Color *mapPixels, Texture2D _cubicTexture);
-        int get_life() {
-                return _life;
-            }
+        int get_life1() {
+                return _life1;
+        }
+        
 
     protected:
     private:
