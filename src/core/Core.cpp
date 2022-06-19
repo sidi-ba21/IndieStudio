@@ -36,8 +36,10 @@ void Bomberman::Core::game_loop()
         if (_menu.get_pause() == false)
         {
             _ai.move_AI(_map.get_color(), _map.get_cubicTexture());
-            _player.Player_move1(_map.get_color(), _map.get_cubicTexture());
-            _player.Player_move2(_map.get_color(), _map.get_cubicTexture());
+            if (_player.get_life() > 0)
+                _player.Player_move1(_map.get_color(), _map.get_cubicTexture());
+            if (_player.get_life(2) > 0)
+                _player.Player_move2(_map.get_color(), _map.get_cubicTexture());
             _map.update();
             _camera.Camera_move();
         }
@@ -125,15 +127,16 @@ void Bomberman::Core::Draw2d()
 void Bomberman::Core::set_bomb()
 {
     _bomb[0].pose_bomb(_ai.get_pos());
-    if (IsKeyPressed(KEY_RIGHT_SHIFT))
+    if (IsKeyPressed(KEY_RIGHT_SHIFT) && _player.get_life() > 0)
         _bomb[1].pose_bomb(_player.get_pos(1));
-    if ((IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN) || IsKeyPressed(KEY_LEFT_SHIFT)))
+    if ((IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN) || IsKeyPressed(KEY_LEFT_SHIFT))
+    && _player.get_life(2) > 0)
         _bomb[2].pose_bomb(_player.get_pos(2));
 
     for (std::size_t i = 0; i < _bomb.size(); i++)
     {
         _bomb[i].wait_bomb();
-        _bomb[i].explosion(_box, _map, _score, i);
+        _bomb[i].explosion(_box, _map, _score, i, _ai, _player);
     }
 }
 
