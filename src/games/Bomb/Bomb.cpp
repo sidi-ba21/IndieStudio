@@ -24,11 +24,12 @@ void Bomberman::Bomb::pose_bomb(float x, float y, float z)
 {
     elapsed();
     if (getTime() > 5) {
+        reset();
         _ispressed = false;
+        del_vector3();
     }
     if (!_ispressed) {
         set_vector3(x, y, z);
-        reset();
         draw_bomb();
         _ispressed = true;
     }
