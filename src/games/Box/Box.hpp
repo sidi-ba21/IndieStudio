@@ -7,6 +7,7 @@
 
 #include "raylib.h"
 #include "../Map/Map.hpp"
+#include "../Player/Player.hpp"
 
 #ifndef BOX_HPP_
     #define BOX_HPP_
@@ -19,7 +20,7 @@ namespace Bomberman
             ~Box();
             void init();
             void draw_breakable(Bomberman::Map map);
-            void remove_breakable(Bomberman::Map map, Vector3 pos);
+            void remove_breakable(Bomberman::Map map, Vector3 pos, Player player);
             Texture2D get_breakable_texture();
             Texture2D get_speed_up_texture();
             Texture2D get_speed_down_texture();
