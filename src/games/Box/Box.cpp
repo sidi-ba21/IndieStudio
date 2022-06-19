@@ -84,54 +84,54 @@ void Bomberman::Box::draw_breakable(Bomberman::Map map)
 
 void Bomberman::Box::remove_breakable(Bomberman::Map map, Vector3 pos, Player player)
 {
-    int x = (int)pos.x + 16;
-    int y = (int)pos.z + 8;
     auto posP1 = player.get_pos();
     auto posP2 = player.get_pos(2);
+    int x = ((int)(pos.x + 16));
+    int y = ((int)(pos.z + 8));
 
     if (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x], RED) || COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x], BLACK))
     {
         map.get_color()[y * map.get_texture().width + x] = BLACK;
         DrawCube(Vector3{(float)(x - 16), 0.1, (float)(y - 8)}, 1, 1, 1, RED);
-        if ((int)posP1.x + 16 == x && (int)posP1.z + 8 == y)
+        if ((int)posP1.x == (x - 16) && (int)posP1.z == (y - 8))
             player.set_life(-1);
-        if ((int)posP2.x + 16 == x && (int)posP2.z + 8 == y)
+        if ((int)posP2.x == (x - 16) && (int)posP2.z == (y - 8))
             player.set_life(-1, 2);
     }
-    if (x < 15 && (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x + 1], RED) || COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x + 1], BLACK)))
+    if (x < 31 && (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x + 1], RED) || COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x + 1], BLACK)))
     {
         map.get_color()[y * map.get_texture().width + x + 1] = BLACK;
         DrawCube(Vector3{(float)(x + 1 - 16), 0.1, (float)(y - 8)}, 1, 1, 1, RED);
-        if ((int)posP1.x + 16 == x + 1 && (int)posP1.z + 8 == y)
+        if ((int)posP1.x == (x + 1 - 16) && (int)posP1.z == (y - 8))
             player.set_life(-1);
-        if ((int)posP2.x + 16 == x + 1 && (int)posP2.z + 8 == y)
+        if ((int)posP2.x == (x + 1 - 16) && (int)posP2.z == (y - 8))
             player.set_life(-1, 2);
     }
-    if (x > -15 && (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x - 1], RED) || COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x - 1], BLACK)))
+    if (x > 0 && (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + (x - 1)], RED) || COLOR_EQUAL(map.get_color()[y * map.get_texture().width + (x - 1)], BLACK)))
     {
         map.get_color()[y * map.get_texture().width + x - 1] = BLACK;
         DrawCube(Vector3{(float)(x - 1 - 16), 0.1, (float)(y - 8)}, 1, 1, 1, RED);
-        if ((int)posP1.x + 16 == x - 1 && (int)posP1.z + 8 == y)
+        if ((int)posP1.x == (x - 1 - 16) && (int)posP1.z == (y - 8))
             player.set_life(-1);
-        if ((int)posP2.x + 16 == x - 1 && (int)posP2.z + 8 == y)
+        if ((int)posP2.x == (x - 1 - 16) && (int)posP2.z == (y - 8))
             player.set_life(-1, 2);
     }
-    if (y < 7 && (COLOR_EQUAL(map.get_color()[(y + 1) * map.get_texture().width + x], RED) || COLOR_EQUAL(map.get_color()[(y + 1) * map.get_texture().width + x], BLACK)))
+    if (y < 15 && (COLOR_EQUAL(map.get_color()[(y + 1) * map.get_texture().width + x], RED) || COLOR_EQUAL(map.get_color()[(y + 1) * map.get_texture().width + x], BLACK)))
     {
         map.get_color()[(y + 1) * map.get_texture().width + x] = BLACK;
         DrawCube(Vector3{(float)(x - 16), 0.1, (float)(y + 1 - 8)}, 1, 1, 1, RED);
-        if ((int)posP1.x + 16 == x && (int)posP1.z + 8 == y + 1)
+        if ((int)posP1.x == (x - 16) && (int)posP1.z == (y + 1 - 8))
             player.set_life(-1);
-        if ((int)posP2.x + 16 == x && (int)posP2.z + 8 == y + 1)
+        if ((int)posP2.x == (x - 16) && (int)posP2.z == (y + 1 - 8))
             player.set_life(-1, 2);
     }
-    if (y > -7 && (COLOR_EQUAL(map.get_color()[(y - 1) * map.get_texture().width + x], RED) || COLOR_EQUAL(map.get_color()[(y - 1) * map.get_texture().width + x], BLACK)))
+    if (y > 0 && (COLOR_EQUAL(map.get_color()[(y - 1) * map.get_texture().width + x], RED) || COLOR_EQUAL(map.get_color()[(y - 1) * map.get_texture().width + x], BLACK)))
     {
         map.get_color()[(y - 1) * map.get_texture().width + x] = BLACK;
         DrawCube(Vector3{(float)(x - 16), 0.1, (float)(y - 1 - 8)}, 1, 1, 1, RED);
-        if ((int)posP1.x + 16 == x && (int)posP1.z + 8 == y - 1)
+        if ((int)posP1.x == (x - 16) && (int)posP1.z == (y - 1 - 8))
             player.set_life(-1);
-        if ((int)posP2.x + 16 == x && (int)posP2.z + 8 == y - 1)
+        if ((int)posP2.x == (x - 16) && (int)posP2.z == (y - 1 - 8))
             player.set_life(-1, 2);
     }
 }
