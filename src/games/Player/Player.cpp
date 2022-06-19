@@ -188,6 +188,9 @@ void Bomberman::Player::draw_face()
     DrawTextureEx(_player_face1, (Vector2){130, 200}, 0, 0.9f, WHITE);
     DrawTextureEx(_player_face2, (Vector2){130, 100}, 0, 0.25f, WHITE);
     DrawTextureEx(_player_face_AI, (Vector2){130, 300}, 0, 0.25f, WHITE);
+    DrawTextureEx(_player_face1, (Vector2){1680, 200}, 0, 0.9f, WHITE);
+    DrawTextureEx(_player_face2, (Vector2){1680, 100}, 0, 0.25f, WHITE);
+    DrawTextureEx(_player_face_AI, (Vector2){1680, 300}, 0, 0.25f, WHITE);
 }
 
 Model Bomberman::Player::get_Model()
