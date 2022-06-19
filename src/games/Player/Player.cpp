@@ -58,11 +58,13 @@ void Bomberman::Player::Power_up1()
         spd1 = spd1 + 0.01;
     if (_pos1.x > 9 && _pos1.x < 11 && _pos1.z > 1 && _pos1.z < 3)
         spd1 = spd1 + 0.01;
+    if (spd1 > 0.1)
+        spd1 = 0.1;
 }
 
 void Bomberman::Player::Power_up2()
 {
-    if (_pos2.x > -14 && _pos2.x < -12 && _pos2.z > -5 && _pos2.z < -3)
+    if (_pos2.x > -14 && _pos2.x < -12 && _pos2.z > -5 && _pos2.z < -3) 
         spd2 = spd2 + 0.01;
     if (_pos2.x > -15 && _pos2.x < -13 && _pos2.z > 3 && _pos2.z < 5)
         spd2 = spd2 + 0.01;
@@ -78,6 +80,8 @@ void Bomberman::Player::Power_up2()
         spd2 = spd2 + 0.01;
     if (_pos2.x > 9 && _pos2.x < 11 && _pos2.z > 1 && _pos2.z < 3)
         spd2 = spd2 + 0.01;
+    if (spd2 > 0.1)
+        spd2 = 0.1;
 }
 
 void Bomberman::Player::Power_down1()
@@ -98,6 +102,8 @@ void Bomberman::Player::Power_down1()
         spd1 = spd1 - 0.01;
     if (_pos1.x > -1 && _pos1.x < 1 && _pos1.z > 5 && _pos1.z < 7)
         spd1 = spd1 - 0.01;
+    if (spd1 < 0.02)
+        spd1 = 0.02;
 }
 
 void Bomberman::Player::Power_down2()
@@ -118,6 +124,8 @@ void Bomberman::Player::Power_down2()
         spd2 = spd2 - 0.01;
     if (_pos2.x > -1 && _pos2.x < 1 && _pos2.z > 5 && _pos2.z < 7)
         spd2 = spd2 - 0.01;
+    if (spd2 < 0.02)
+        spd2 = 0.02;
 }
 
 bool Bomberman::Player::Check_collision(Vector3 pos, int direction,
@@ -253,8 +261,10 @@ Texture2D Bomberman::Player::score_player_face_2()
 
 void Bomberman::Player::draw()
 {
-    DrawModelEx(get_Model(), get_pos(1), (Vector3){0, 1, 0}, get_rotate1(), (Vector3){1, 1, 1}, WHITE);
-    DrawModelEx(get_Model2(), get_pos(2), (Vector3){0, 1, 0}, get_rotate2(), (Vector3){1, 1, 1}, WHITE);
+    if (this->get_life() > 0)
+        DrawModelEx(get_Model(), get_pos(1), (Vector3){0, 1, 0}, get_rotate1(), (Vector3){1, 1, 1}, WHITE);
+    if (this->get_life(2) > 0)
+        DrawModelEx(get_Model2(), get_pos(2), (Vector3){0, 1, 0}, get_rotate2(), (Vector3){1, 1, 1}, WHITE);
 }
 
 void Bomberman::Player::draw_face()
