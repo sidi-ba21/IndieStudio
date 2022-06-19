@@ -73,7 +73,6 @@ void Bomberman::AI::move_AI(Color *mapPixels, Texture2D _cubicTexture)
         _check = GetRandomValue(0, 3);
         _time = std::time(nullptr);
     }
-
     if (_check == 0 && (now - _time) <= GetRandomValue(0, 2) && !Check_collision_AI(_Pos_AI, 2, mapPixels, _cubicTexture)) {
         UpdateModelAnimation(_Model_AI, _Anim_AI[0], _AnimFrameCounter_AI);
         _AnimFrameCounter_AI++;
