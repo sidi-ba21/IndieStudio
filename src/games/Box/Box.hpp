@@ -21,7 +21,8 @@ namespace Bomberman
             ~Box();
             void init();
             void draw_breakable(Bomberman::Map map);
-            void remove_breakable(Bomberman::Map map, Vector3 pos, Player player);
+            void remove_breakable(Bomberman::Map map, Vector3 pos, Bomberman::Player player);
+            int Damage(Bomberman::Map map, Vector3 pos, Bomberman::Player player, int n);
             Texture2D get_breakable_texture();
             Texture2D get_speed_up_texture();
             Texture2D get_speed_down_texture();
