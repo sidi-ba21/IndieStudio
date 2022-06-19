@@ -20,19 +20,13 @@ void Bomberman::Bomb::update()
 
 }
 
-void Bomberman::Bomb::draw_bomb()
-{
-    DrawSphere(_pos, 0.3, BLACK);
-    DrawSphereWires(_pos, 0.3, 10, 10, BROWN);
-}
-
-void Bomberman::Bomb::pose_bomb(Vector3 player_pos)
+void Bomberman::Bomb::pose_bomb(int x, int y, int z)
 {
     elapsed();
     if (getTime() > 6 || !_ispressed) {
-        _pos = player_pos;
-        reset();
+        set_vector3(x, y, z);
         draw_bomb();
+        reset();
         _ispressed = 1;
     }
 }
@@ -41,8 +35,9 @@ void Bomberman::Bomb::explosion(Bomberman::Box &box, Bomberman::Map &map, Bomber
     int n, Bomberman::AI &ai, Bomberman::Player &player)
 {
     elapsed();
+    //(void) ai;
     if (getTime() > 3 && getTime() < 3.5) {
-        box.remove_breakable(map, _pos, player);
+        box.remove_breakable(map, get_vector3(), player);
         score.update(n);
     }
 }
@@ -52,11 +47,6 @@ void Bomberman::Bomb::wait_bomb()
     elapsed();
     if (getTime() > 0 && getTime() < 3)
         draw_bomb();
-}
-
-Vector3 Bomberman::Bomb::get_pos()
-{
-    return _pos;
 }
 
 Bomberman::Bomb::~Bomb()

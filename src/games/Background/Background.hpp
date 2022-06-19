@@ -6,27 +6,25 @@
 */
 
 #include <raylib.h>
+#include "../../graphicals/Draw/Draw.hpp"
 
 #ifndef BACKGROUND_HPP_
     #define BACKGROUND_HPP_
 
 namespace Bomberman {
 
-    class Background {
+    class Background : public Raylib::Draw {
         public:
             Background() = default;
             ~Background() {
-                UnloadTexture(_texture);
+                free_texture();
             }
             void init() {
-                _texture = LoadTexture("Png/space_background.png");
-            }
-            void draw() {
-                DrawTextureV(_texture, Vector2{0, 0}, WHITE);
+                std::string path = std::string("Png/space_background.png");
+                set_texture(path);
             }
         protected:
         private:
-            Texture2D _texture;
     };
 }
 

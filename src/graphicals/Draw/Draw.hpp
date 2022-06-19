@@ -27,6 +27,8 @@ namespace Raylib {
             void draw_box();
             void draw_map();
             void draw_player();
+            void draw_background();
+            void draw_bomb();
             void set_image(std::string &path) {
                 _image = LoadImage(path.c_str());
             }
