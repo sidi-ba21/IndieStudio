@@ -39,10 +39,9 @@ namespace Bomberman
         void draw_face();
         void Player_move1(Color *, Texture2D _cubicTexture);
         void Player_move2(Color *, Texture2D _cubicTexture);
-        void Power_up2();
-        void Power_up1();
-        void Power_down1();
-        void Power_down2();
+        float get_spd1();
+        float spd1 = 0.05;
+        float spd2 = 0.05;
         Model get_Model();
         Model get_Model2();
         Texture2D score_player_face1();
@@ -89,8 +88,6 @@ namespace Bomberman
         int _animFrameCounter{0};
         float _rotate1{0};
         float _rotate2{0};
-        float spd1 = 0.05;
-        float spd2 = 0.05;
         int _life1{3};
         int _life2{3};
 

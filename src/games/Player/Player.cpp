@@ -43,94 +43,6 @@ Bomberman::Player::~Player()
     }
 }
 
-void Bomberman::Player::Power_up1()
-{
-    if (_pos1.x > -14 && _pos1.x < -12 && _pos1.z > -5 && _pos1.z < -3)
-        spd1 = spd1 + 0.01;
-    if (_pos1.x > -15 && _pos1.x < -13 && _pos1.z > 3 && _pos1.z < 5)
-        spd1 = spd1 + 0.01;
-    if (_pos1.x > 13 && _pos1.x < 15 && _pos1.z > 3 && _pos1.z < 5)
-        spd1 = spd1 + 0.01;
-    if (_pos1.x > 12 && _pos1.x < 14 && _pos1.z > -6 && _pos1.z < -4)
-        spd1 = spd1 + 0.01;
-    if (_pos1.x > -10 && _pos1.x < -8 && _pos1.z > -4 && _pos1.z < -2)
-        spd1 = spd1 + 0.01;
-    if (_pos1.x > -8 && _pos1.x < -6 && _pos1.z > 4 && _pos1.z < 6)
-        spd1 = spd1 + 0.01;
-    if (_pos1.x > 4 && _pos1.x < 6 && _pos1.z > -8 && _pos1.z < -6)
-        spd1 = spd1 + 0.01;
-    if (_pos1.x > 9 && _pos1.x < 11 && _pos1.z > 1 && _pos1.z < 3)
-        spd1 = spd1 + 0.01;
-    if (spd1 > 0.1)
-        spd1 = 0.1;
-}
-
-void Bomberman::Player::Power_up2()
-{
-    if (_pos2.x > -14 && _pos2.x < -12 && _pos2.z > -5 && _pos2.z < -3) 
-        spd2 = spd2 + 0.01;
-    if (_pos2.x > -15 && _pos2.x < -13 && _pos2.z > 3 && _pos2.z < 5)
-        spd2 = spd2 + 0.01;
-    if (_pos2.x > 13 && _pos2.x < 15 && _pos2.z > 3 && _pos2.z < 5)
-        spd2 = spd2 + 0.01;
-    if (_pos2.x > 12 && _pos2.x < 14 && _pos2.z > -6 && _pos2.z < -4)
-        spd2 = spd2 + 0.01;
-    if (_pos2.x > -10 && _pos2.x < -8 && _pos2.z > -4 && _pos2.z < -2)
-        spd2 = spd2 + 0.01;
-    if (_pos2.x > -8 && _pos2.x < -6 && _pos2.z > 4 && _pos2.z < 6)
-        spd2 = spd2 + 0.01;
-    if (_pos2.x > 4 && _pos2.x < 6 && _pos2.z > -8 && _pos2.z < -6)
-        spd2 = spd2 + 0.01;
-    if (_pos2.x > 9 && _pos2.x < 11 && _pos2.z > 1 && _pos2.z < 3)
-        spd2 = spd2 + 0.01;
-    if (spd2 > 0.1)
-        spd2 = 0.1;
-}
-
-void Bomberman::Player::Power_down1()
-{
-    if (_pos1.x > -13 && _pos1.x < -11 && _pos1.z > -2 && _pos1.z < 0)
-        spd1 = spd1 - 0.01;
-    if (_pos1.x > -12 && _pos1.x < -10 && _pos1.z > 4 && _pos1.z < 6)
-        spd1 = spd1 - 0.01;
-    if (_pos1.x > 5 && _pos1.x < 7 && _pos1.z > -2 && _pos1.z < 0)
-        spd1 = spd1 - 0.01;
-    if (_pos1.x > 11 && _pos1.x < 13 && _pos1.z > -8 && _pos1.z < -6)
-        spd1 = spd1 - 0.01;
-    if (_pos1.x > -6 && _pos1.x < -4 && _pos1.z > -8 && _pos1.z < -6)
-        spd1 = spd1 - 0.01;
-    if (_pos1.x > -5 && _pos1.x < -3 && _pos1.z > -1 && _pos1.z < 1)
-        spd1 = spd1 - 0.01;
-    if (_pos1.x > 1 && _pos1.x < 3 && _pos1.z > -5 && _pos1.z < -3)
-        spd1 = spd1 - 0.01;
-    if (_pos1.x > -1 && _pos1.x < 1 && _pos1.z > 5 && _pos1.z < 7)
-        spd1 = spd1 - 0.01;
-    if (spd1 < 0.02)
-        spd1 = 0.02;
-}
-
-void Bomberman::Player::Power_down2()
-{
-    if (_pos2.x > -13 && _pos2.x < -11 && _pos2.z > -2 && _pos2.z < 0)
-        spd2 = spd2 - 0.01;
-    if (_pos2.x > -12 && _pos2.x < -10 && _pos2.z > 4 && _pos2.z < 6)
-        spd2 = spd2 - 0.01;
-    if (_pos2.x > 5 && _pos2.x < 7 && _pos2.z > -2 && _pos2.z < 0)
-        spd2 = spd2 - 0.01;
-    if (_pos2.x > 11 && _pos2.x < 13 && _pos2.z > -8 && _pos2.z < -6)
-        spd2 = spd2 - 0.01;
-    if (_pos2.x > -6 && _pos2.x < -4 && _pos2.z > -8 && _pos2.z < -6)
-        spd2 = spd2 - 0.01;
-    if (_pos2.x > -5 && _pos2.x < -3 && _pos2.z > -1 && _pos2.z < 1)
-        spd2 = spd2 - 0.01;
-    if (_pos2.x > 1 && _pos2.x < 3 && _pos2.z > -5 && _pos2.z < -3)
-        spd2 = spd2 - 0.01;
-    if (_pos2.x > -1 && _pos2.x < 1 && _pos2.z > 5 && _pos2.z < 7)
-        spd2 = spd2 - 0.01;
-    if (spd2 < 0.02)
-        spd2 = 0.02;
-}
-
 bool Bomberman::Player::Check_collision(Vector3 pos, int direction,
                                         Color *mapPixels, Texture2D _cubicTexture)
 {
@@ -165,8 +77,6 @@ bool Bomberman::Player::Check_collision(Vector3 pos, int direction,
 
 void Bomberman::Player::Player_move1(Color *mapPixels, Texture2D _cubicTexture)
 {
-    Power_up1();
-    Power_down1();
     if (IsKeyDown(KEY_UP) && !Check_collision(_pos1, 2, mapPixels, _cubicTexture))
     {
         UpdateModelAnimation(_model, _anim[0], _animFrameCounter);
@@ -207,8 +117,6 @@ void Bomberman::Player::Player_move1(Color *mapPixels, Texture2D _cubicTexture)
 
 void Bomberman::Player::Player_move2(Color *mapPixels, Texture2D _cubicTexture)
 {
-    Power_up2();
-    Power_down2();
     if ((IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_UP) || IsKeyDown(KEY_W)) && !Check_collision(_pos2, 2, mapPixels, _cubicTexture))
     {
         UpdateModelAnimation(_model2, _anim2[0], _animFrameCounter);
