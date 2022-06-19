@@ -76,8 +76,8 @@ void Bomberman::Menu::the_end()
     size_t p = 0;
     if (i == 0) {
         face[0] = LoadTexture("Png/player_face_AI.png");
-        face[1] = LoadTexture("Png/player_face1x.png");
-        face[2] = LoadTexture("Png/player_face2x.png");
+        face[1] = LoadTexture("Png/player_face2x.png");
+        face[2] = LoadTexture("Png/player_face1x.png");
         face[3] = LoadTexture("Png/victory.png");
         immg.push_back(Bomberman::Button("Png/basic_home.png", (Rectangle){0, 0, 540, 120}, (Rectangle){200, 900, 540, 120}));
         immg.push_back(Bomberman::Button("Png/basic_exit.png",(Rectangle){0, 0, 540, 120}, (Rectangle){1100, 900, 540, 120}));
