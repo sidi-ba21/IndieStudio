@@ -18,7 +18,12 @@ void Bomberman::Player::init()
     _player_face1 = LoadTexture("Png/player_face1.png");
     _player_face2 = LoadTexture("Png/player_face2.png");
     _player_face_AI = LoadTexture("Png/player_face_AI.png");
-
+    _pos1 = Vector3{14, 0.1, 6};
+    _pos2 = Vector3{-15, 0.1, -7};
+    _life1 = 3;
+    _life2 = 3;
+    _rotate1 = 0;
+    _rotate2 = 0;
     SetMaterialTexture(&_model.materials[0], MATERIAL_MAP_DIFFUSE, _texture);
     SetMaterialTexture(&_model2.materials[0], MATERIAL_MAP_DIFFUSE, _texture2);
     del = 1;

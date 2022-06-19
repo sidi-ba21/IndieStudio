@@ -34,12 +34,12 @@ void Bomberman::Core::game_loop()
         if (_menu.get_pause() == false)
         {
             _ai.move_AI(_map.get_color(), _map.get_texture());
-            if (_player.get_life() > 0){
+            if (_player.get_life() > 0) {
                 _player.Player_move1(_map.get_color(), _map.get_texture());
                 _Buff.Power_up1(_player);
                 _Buff.Power_down1(_player);
             }
-            if (_player.get_life(2) > 0){
+            if (_player.get_life(2) > 0) {
                 _player.Player_move2(_map.get_color(), _map.get_texture());
                 _Buff.Power_up2(_player);
                 _Buff.Power_down2(_player);
@@ -84,13 +84,14 @@ void Bomberman::Core::score()
 void Bomberman::Core::Draw_text()
 {
     DrawText("The map generated is : ", 1410, 20, 30, MAGENTA);
-    DrawText(TextFormat("SCORE       : %i", _score.get_score1()), 15, 120, 30, MAGENTA);
-    DrawText(TextFormat("SCORE       : %i", _score.get_score2()), 15, 220, 30, MAGENTA);
-    DrawText(TextFormat("SCORE       : %i", _score.get_score_AI()), 15, 320, 30, MAGENTA);
+    DrawText(TextFormat("SCORE       : %u", _score.get_score1()), 15, 120, 30, MAGENTA);
+    DrawText(TextFormat("SCORE       : %u", _score.get_score2()), 15, 220, 30, MAGENTA);
+    DrawText(TextFormat("SCORE       : %u", _score.get_score_AI()), 15, 320, 30, MAGENTA);
     DrawText(TextFormat("HI-SCORE: %s", _score.getHightScore().c_str()), 15, 20, 40, RED);
     auto tmp = GetTime();
-    auto minutes = (float)(int)tmp / 60;
+    auto minutes = (float)(int)(tmp / 60);
     auto seconds = (float)((int)tmp % 60);
+
     DrawText(TextFormat("Elapsed Time: %02.0f : %02.0f", minutes, seconds), 800, 100, 40, MAGENTA);
 }
 
