@@ -5,7 +5,8 @@
 ** Map
 */
 
-#include "raylib.h"
+//#include "raylib.h"
+#include "../../graphicals/Draw/Draw.hpp"
 #include <cmath>
 
 #ifndef COLOR_EQUAL
@@ -16,7 +17,7 @@
 
 namespace Bomberman {
 
-    class Map {
+    class Map : public Raylib::Draw {
         public:
             Map() = default;
             ~Map();

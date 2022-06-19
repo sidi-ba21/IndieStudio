@@ -22,7 +22,7 @@ void Bomberman::Map::init()
 
 void Bomberman::Map::random_maps()
 {
-    char const *tab[9] = {
+    char const *tab[] = {
         "Png/test_map.png",
         "Png/test_map1.png",
         "Png/test_map2.png",
@@ -38,18 +38,18 @@ void Bomberman::Map::random_maps()
 
 void Bomberman::Map::random_textures()
 {
-   const char *tab1[] = {
-        (char *)"Png/brickstone_cube.png",
-        (char *)"Png/fullgrass_cube.png",
-        (char *)"Png/brickstone_cube.png",
-        (char *)"Png/fullgrass_cube.png",
+    const char *tab1[] = {
+        "Png/brickstone_cube.png",
+        "Png/fullgrass_cube.png",
+        "Png/brickstone_cube.png",
+        "Png/fullgrass_cube.png",
     };
-    _texture = LoadTexture(tab1[random() % 5]);
+    _texture = LoadTexture(tab1[random() % 4]);
 }
 
 void Bomberman::Map::draw(int screenWidth)
 {
-    DrawTextureEx(get_cubicTexture(), (Vector2){screenWidth - get_cubicTexture().width * 4.0f - 20, 20.0f}, 0.0f, 4.0f, WHITE);
+    DrawTextureEx(get_cubicTexture(), (Vector2){screenWidth - get_cubicTexture().width * 4.0f - 20, 20.0f}, 0.0, 4.0, WHITE);
     DrawRectangleLines(screenWidth - get_cubicTexture().width * 4 - 20, 20, get_cubicTexture().width * 4, get_cubicTexture().height * 4, GREEN);
 }
 

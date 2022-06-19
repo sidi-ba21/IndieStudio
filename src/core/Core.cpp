@@ -11,8 +11,6 @@
 
 Bomberman::Core::Core()
 {
-    InitWindow(screenWidth, screenHeight, "BOOOOOMBERMAAN");
-    ToggleFullscreen();
     init();
     game_loop();
 }
@@ -31,7 +29,7 @@ void Bomberman::Core::init(void)
 
 void Bomberman::Core::game_loop()
 {
-    while (!WindowShouldClose())
+    while (_draw.game_loop())
     {
         if (_menu.get_pause() == false)
         {
@@ -58,8 +56,7 @@ void Bomberman::Core::Draw()
     {
         if (_menu.get_pause() == true)
             _menu.pause();
-        else
-        {
+        else {
             Draw2d();
             Draw3d();
         }
@@ -116,7 +113,7 @@ void Bomberman::Core::Draw_speed_down()
 void Bomberman::Core::Draw2d()
 {
     DrawFPS(10, 1060);
-    _map.draw(screenWidth);
+    _map.draw(_draw.get_dimscreen());
     Draw_text();
     score();
 }
@@ -147,9 +144,4 @@ void Bomberman::Core::Draw3d()
     Draw_speed_down();
     set_bomb();
     EndMode3D();
-}
-
-Bomberman::Core::~Core()
-{
-    CloseWindow(); // Close window and OpenGL context
 }
