@@ -11,10 +11,14 @@ void Bomberman::Map::init()
 {
     del_image();
     random_maps();
+    del_texturefromImage();
     set_texturefromImage();
     set_vector3(1.0, 1.0, 1.0);
+    del_meshCubicmap();
     set_meshCubicmap();
+    del_modelfromMesh();
     set_modelfromMesh();
+    del_colorfromImage();
     set_colorfromImage();
     del = 1;
 }
@@ -32,7 +36,7 @@ void Bomberman::Map::random_maps()
         "Png/test_map7.png",
         "Png/test_map8.png",
     };
-    set_image(tab[GetRandomValue(0, 8)]);
+    set_image(tab[rand() % 9]);
 }
 
 void Bomberman::Map::draw()

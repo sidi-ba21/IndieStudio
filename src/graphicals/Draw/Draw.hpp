@@ -38,14 +38,24 @@ namespace Raylib {
                 _image.push_back(LoadImage(path.c_str()));
             }
             void del_image() {
-                if (_image.size() > 0)
+                if (_image.size() > 0) {
+                    if (_image[0].data != nullptr)
+                        UnloadImage(_image[0]);
                     _image.pop_back();
+                }
             }
             void set_texture(std::string &path) {
                 _texture.push_back(LoadTexture(path.c_str()));
             }
             void set_texturefromImage(std::size_t n = 0) {
                 _texture.push_back(LoadTextureFromImage(_image[n]));
+            }
+            void del_texturefromImage() {
+                if (_texture.size() > 0) {
+                    if (_texture[0].id != 0)
+                        UnloadTexture(_texture[0]);
+                    _texture.pop_back();
+                }
             }
             void set_vector2(float x, float y) {
                 _vector2.push_back((Vector2){x, y});
@@ -56,14 +66,42 @@ namespace Raylib {
             void set_meshCubicmap(std::size_t n = 0) {
                 _mesh.push_back(GenMeshCubicmap(_image[n], _vector3[n]));
             }
+            void del_meshCubicmap() {
+                if (_mesh.size() > 0) {
+                    if (_mesh[0].vaoId != 0)
+                        UnloadMesh(_mesh[0]);
+                    _mesh.pop_back();
+                }
+            }
             void set_modelfromMesh(std::size_t n = 0) {
                 _model.push_back(LoadModelFromMesh(_mesh[n]));
+            }
+            void del_modelfromMesh() {
+                if (_mesh.size() > 0) {
+                    if (_mesh[0].vaoId != 0)
+                        UnloadMesh(_mesh[0]);
+                    _mesh.pop_back();
+                }
             }
             void set_colorfromImage(std::size_t n = 0) {
                 _color.push_back(LoadImageColors(_image[n]));
             }
+            void del_colorfromImage() {
+                if (_color.size() > 0) {
+                    if (_color[0] != nullptr)
+                        UnloadImageColors(_color[0]);
+                    _color.pop_back();
+                }
+            }
             void set_model(std::string &path) { 
                 _model.push_back(LoadModel(path.c_str()));
+            }
+            void del_model() {
+                if (_model.size() > 0) {
+                    if (_model[0].meshes != nullptr)
+                        UnloadModel(_model[0]);
+                    _model.pop_back();
+                }
             }
             void set_modelAnim(std::string &path, unsigned int animcount) {
                 _anim.push_back(LoadModelAnimations(path.c_str(), &animcount));
