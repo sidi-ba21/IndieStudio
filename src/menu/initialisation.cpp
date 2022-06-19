@@ -39,6 +39,7 @@ void Bomberman::Menu::init()
     for (size_t i = 0; i < this->btns.size(); i++)
         this->btns[i].init();
     PlayMusicStream(musiic.get_ost());
+    the_end();
 }
 
 Bomberman::Menu::~Menu()

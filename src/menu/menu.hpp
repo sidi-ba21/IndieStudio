@@ -67,6 +67,11 @@ namespace Bomberman {
             void set_finish(bool obj) { is_finished = obj; }
             bool get_finish() { return is_finished; }
 
+            void set_id(int nb) { id = nb; }
+            int get_id() { return id; }
+            void set_score(int nb) { score = nb; }
+            int get_score() { return score; }
+
             void game();
             void options();
             void adios();
@@ -74,7 +79,7 @@ namespace Bomberman {
             void tuto();
             void game_options();
             void title_button();
-            void the_end(int);
+            void the_end();
             void handle_volume();
 
         private:
@@ -91,5 +96,10 @@ namespace Bomberman {
             int screenWidth = 1920;
             int screenHeight = 1080;
             std::vector<Button> btns;
+            int id = 0;
+            int score = 69;
+            Texture2D face[4];
+            std::vector<Bomberman::Button> immg;
+
     };
 }
