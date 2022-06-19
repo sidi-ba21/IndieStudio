@@ -43,6 +43,9 @@ void Bomberman::Bomb::explosion(Bomberman::Box &box, Bomberman::Map &map, Bomber
     elapsed();
     if (getTime() > 3 && getTime() < 3.5) {
         box.remove_breakable(map, _pos, player);
+        auto i = box.Damage(map, _pos, player, n);
+        if (i != -1)
+            player.set_life(-1, i);
         score.update(n);
     }
 }
