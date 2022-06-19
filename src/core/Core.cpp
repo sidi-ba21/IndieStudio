@@ -128,12 +128,12 @@ void Bomberman::Core::Draw2d()
 void Bomberman::Core::set_bomb()
 {
     if (_ai.get_life() > 0)
-        _bomb[0].pose_bomb(_ai.get_pos().x, _ai.get_pos().y, _ai.get_pos().z);
+        _bomb[0].pose_bomb(_ai.get_pos().x, _ai.get_pos().y + 0.4, _ai.get_pos().z);
     if (IsKeyPressed(KEY_RIGHT_SHIFT) && _player.get_life() > 0)
-        _bomb[1].pose_bomb(_player.get_pos(1).x, _player.get_pos(1).y, _player.get_pos(1).z);
+        _bomb[1].pose_bomb(_player.get_pos(1).x, _player.get_pos(1).y + 0.4, _player.get_pos(1).z);
     if ((IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN) || IsKeyPressed(KEY_LEFT_SHIFT))
     && _player.get_life(2) > 0)
-        _bomb[2].pose_bomb(_player.get_pos(2).x, _player.get_pos(2).y, _player.get_pos(2).z);
+        _bomb[2].pose_bomb(_player.get_pos(2).x, _player.get_pos(2).y + 0.4, _player.get_pos(2).z);
 
     for (std::size_t i = 0; i < _bomb.size(); i++) {
         _bomb[i].wait_bomb();

@@ -39,8 +39,8 @@ void Raylib::Draw::draw_background(std::size_t n)
 
 void Raylib::Draw::draw_bomb(std::size_t n)
 {
-    DrawSphere(_vector3[n], 0.5, BLACK);
-    DrawSphereWires(_vector3[n], 0.5, 10, 10, BROWN);
+    DrawSphere(_vector3[n], 0.3, BLACK);
+    DrawSphereWires(_vector3[n], 0.3, 10, 10, BROWN);
 }
 
 void Raylib::Draw::draw_box(std::size_t n, std::size_t x, std::size_t y, float z, std::size_t h)
