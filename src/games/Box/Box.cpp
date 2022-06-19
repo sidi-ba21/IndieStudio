@@ -39,7 +39,7 @@ void Bomberman::Box::random_walls()
         "Png/face_cube.png",
         "Png/clearbrick_cube.png",
     };
-    _brick_texture = LoadTexture(tab1[random() % 11]);
+    _brick_texture = LoadTexture(tab1[GetRandomValue(0, 10)]);
 }
 
 void Bomberman::Box::random_breackable()
@@ -54,7 +54,7 @@ void Bomberman::Box::random_breackable()
         "Png/oldchest_cube.png",
 
     };
-    _breakable_texture = LoadTexture(tab1[random() % 7]);
+    _breakable_texture = LoadTexture(tab1[GetRandomValue(0, 6)]);
 }
 
 void Bomberman::Box::draw_breakable(Bomberman::Map map)

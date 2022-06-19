@@ -26,6 +26,7 @@ void Bomberman::Menu::title_button()
             is_game = false;
             is_title = true;
             is_tuto = false;
+            already_clicked = true;
         }
     } else
         btns[10].sourceRec.y = 0;
@@ -66,6 +67,7 @@ void Bomberman::Menu::update()
         is_game = false;
         is_title = true;
         is_tuto = false;
+        already_clicked = true;
     }
     if (IsKeyPressed(KEY_SPACE)) {
         (musiic.set_pause());
