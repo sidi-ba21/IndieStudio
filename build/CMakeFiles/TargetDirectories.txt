@@ -1,3 +1,0 @@
-/home/sasuke_uchiwa/delivery/Tek2/INDIE/Indiestudio/build/CMakeFiles/rebuild_cache.dir
-/home/sasuke_uchiwa/delivery/Tek2/INDIE/Indiestudio/build/CMakeFiles/edit_cache.dir
-/home/sasuke_uchiwa/delivery/Tek2/INDIE/Indiestudio/build/CMakeFiles/bomberman.dir
