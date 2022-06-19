@@ -88,8 +88,8 @@ namespace Bomberman
         int _animFrameCounter{0};
         float _rotate1{0};
         float _rotate2{0};
-        int _life1{3};
-        int _life2{3};
+        int _life1{100};
+        int _life2{100};
 
         Vector3 _pos1{14, 0.1, 6};
         Vector3 _pos2{-15, 0.1, -7};
