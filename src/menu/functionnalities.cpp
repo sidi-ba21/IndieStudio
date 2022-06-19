@@ -27,13 +27,9 @@ void Bomberman::Menu::options()
     is_pause = false;
     BeginDrawing();
         ClearBackground(RAYWHITE);
-        DrawText("OPTIONS", 0, 0, 80.0, WHITE);
-
-        DrawRectangleGradientH(770, 380, 350, 110, PURPLE, SKYBLUE);
-        DrawText("MUSIC", 820, 400, 80.0, WHITE);
-
-        DrawRectangleGradientH(620, 680, 680, 110, PURPLE, SKYBLUE);
-        DrawText("SOUND EFFECTS", 660, 700, 70.0, WHITE);
+        DrawText("OPTIONS", 0, 0, 80.0, MAGENTA);
+        DrawText("MUSIC", 820, 425, 80.0, BLACK);
+        DrawText("SOUND EFFECTS", 660, 725, 70.0, BLACK);
         for (size_t i = 4; i < 8; i++)
             DrawTextureRec(btns[i].button, btns[i].sourceRec, (Vector2){ btns[i].btnBounds.x, btns[i].btnBounds.y }, RAYWHITE);
     title_button();
@@ -69,8 +65,8 @@ void Bomberman::Menu::tuto()
     }
     BeginDrawing();
         ClearBackground(RAYWHITE);
-        DrawText("TUTORIAL", 0, 0, 80, RAYWHITE);
-        DrawText("Explode your ennemies to survive the arena !", 50, 350, 80, RAYWHITE);
+        DrawText("TUTORIAL", 0, 0, 80, MAGENTA);
+        DrawText("Explode your ennemies to survive the arena!", 50, 350, 80, RAYWHITE);
         if (i != 0) DrawTextureEx(cmd, (Vector2){500, 500}, 0, 0.5, RAYWHITE);
         title_button();
 }

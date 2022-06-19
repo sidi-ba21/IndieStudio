@@ -79,9 +79,9 @@ void Bomberman::Core::score()
 void Bomberman::Core::Draw_text()
 {
     DrawText("The map generated is : ", 1410, 20, 30, MAGENTA);
-    DrawText(TextFormat("SCORE PLAYER1: %i", _score.get_score1()), 15, 80, 30, MAGENTA);
-    DrawText(TextFormat("SCORE PLAYER2: %i", _score.get_score2()), 15, 120, 30, MAGENTA);
-    DrawText(TextFormat("SCORE AI: %i", _score.get_score_AI()), 15, 160, 30, MAGENTA);
+    DrawText(TextFormat("SCORE       : %i", _score.get_score1()), 15, 120, 30, MAGENTA);
+    DrawText(TextFormat("SCORE       : %i", _score.get_score2()), 15, 220, 30, MAGENTA);
+    DrawText(TextFormat("SCORE       : %i", _score.get_score_AI()), 15, 320, 30, MAGENTA);
     DrawText(TextFormat("HI-SCORE: %s", _score.getHightScore().c_str()), 15, 20, 40, RED);
     auto tmp = GetTime();
     auto minutes = (float)(int)tmp / 60;
@@ -116,8 +116,8 @@ void Bomberman::Core::Draw_speed_down()
 void Bomberman::Core::Draw2d()
 {
     DrawFPS(10, 1060);
+    _player.draw_face();
     _map.draw(screenWidth);
-    _score.draw_face();
     Draw_text();
     score();
 }

@@ -15,6 +15,9 @@ void Bomberman::Player::init()
     _anim2 = LoadModelAnimations("assets/robo6.iqm", &_animCount);
     _texture = LoadTexture("Png/zombie.png");
     _texture2 = LoadTexture("Png/meme_player.png");
+    _player_face1 = LoadTexture("Png/player_face1.png");
+    _player_face2 = LoadTexture("Png/player_face2.png");
+    _player_face_AI = LoadTexture("Png/player_face_AI.png");
 
     SetMaterialTexture(&_model.materials[0], MATERIAL_MAP_DIFFUSE, _texture);
     SetMaterialTexture(&_model2.materials[0], MATERIAL_MAP_DIFFUSE, _texture2);
@@ -26,6 +29,9 @@ Bomberman::Player::~Player()
     UnloadTexture(_texture);
     UnloadModel(_model2);
     UnloadTexture(_texture2);
+    UnloadTexture(_player_face1);
+    UnloadTexture(_player_face2);
+    UnloadTexture(_player_face_AI);
     for (unsigned int i = 0; i < _animCount; i++)
     {
         UnloadModelAnimation(_anim[i]);
@@ -230,10 +236,32 @@ void Bomberman::Player::Player_move2(Color *mapPixels, Texture2D _cubicTexture)
     }
 }
 
+Texture2D Bomberman::Player::score_player_face1()
+{
+    return _player_face1;
+}
+
+Texture2D Bomberman::Player::score_player_face_AI()
+{
+    return _player_face_AI;
+}
+
+Texture2D Bomberman::Player::score_player_face_2()
+{
+    return _player_face2;
+}
+
 void Bomberman::Player::draw()
 {
     DrawModelEx(get_Model(), get_pos(1), (Vector3){0, 1, 0}, get_rotate1(), (Vector3){1, 1, 1}, WHITE);
     DrawModelEx(get_Model2(), get_pos(2), (Vector3){0, 1, 0}, get_rotate2(), (Vector3){1, 1, 1}, WHITE);
+}
+
+void Bomberman::Player::draw_face()
+{
+    DrawTextureEx(_player_face1, (Vector2){130, 200}, 0, 0.9f, WHITE);
+    DrawTextureEx(_player_face2, (Vector2){130, 100}, 0, 0.25f, WHITE);
+    DrawTextureEx(_player_face_AI, (Vector2){130, 300}, 0, 0.25f, WHITE);
 }
 
 Model Bomberman::Player::get_Model()
