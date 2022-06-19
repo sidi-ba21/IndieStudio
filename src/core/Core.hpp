@@ -10,7 +10,6 @@
 
 #include <raylib.h>
 #include "Error.hpp"
-#include "../graphicals/Raylib.hpp"
 #include "../games/Player/Player.hpp"
 #include "../games/Camera/Camera.hpp"
 #include "../games/Score/Score.hpp"
@@ -20,6 +19,7 @@
 #include "../menu/menu.hpp"
 #include "../games/Box/Box.hpp"
 #include "../games/Bomb/Bomb.hpp"
+#include "../graphicals/Draw/Draw.hpp"
 #include <iostream>
 #include <string>
 #include <cmath>
@@ -54,8 +54,7 @@ namespace Bomberman
 
     protected:
     private:
-        const int screenWidth{1920};
-        const int screenHeight{1080};
+        Raylib::Draw _draw;
         Background _background;
         Player _player;
         Camera _camera;

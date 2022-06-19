@@ -62,17 +62,17 @@ void Bomberman::Box::draw_breakable(Bomberman::Map map)
     {
         for (int x = 0; x < 32; x++)
         {
-            if (COLOR_EQUAL(map.get_color()[y * map.get_cubicTexture().width + x], RED))
+            if (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x], RED))
             {
                 DrawCubeTexture(get_breakable_texture(), Vector3{x - 16.0f, 0.5, y - 8.f},
                                 1, 1, 1, WHITE);
             }
-            if (COLOR_EQUAL(map.get_color()[y * map.get_cubicTexture().width + x], BLACK))
+            if (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x], BLACK))
             {
                 DrawCubeTextureRec(get_grass_texture(), get_rectGrass(), {x - 16.0f, 0.1, y - 8.f},
                                    1, 0, 1, WHITE);
             }
-            if (COLOR_EQUAL(map.get_color()[y * map.get_cubicTexture().width + x], WHITE))
+            if (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x], WHITE))
             {
                 DrawCubeTexture(get_brick_texture(), {x - 16.0f, 0.5, y - 8.f},
                                 1, 1, 1, WHITE);
@@ -88,48 +88,45 @@ void Bomberman::Box::remove_breakable(Bomberman::Map map, Vector3 pos, Player pl
     auto posP1 = player.get_pos();
     auto posP2 = player.get_pos(2);
 
-    COLOR_EQUAL(map.get_color()[y * map.get_cubicTexture().width + x], RED);
-    COLOR_EQUAL(map.get_color()[y * map.get_cubicTexture().width + x], BLACK);
-
-    if (COLOR_EQUAL(map.get_color()[y * map.get_cubicTexture().width + x], RED) || COLOR_EQUAL(map.get_color()[y * map.get_cubicTexture().width + x], BLACK))
+    if (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x], RED) || COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x], BLACK))
     {
-        map.get_color()[y * map.get_cubicTexture().width + x] = BLACK;
+        map.get_color()[y * map.get_texture().width + x] = BLACK;
         DrawCube(Vector3{(float)(x - 16), 0.1, (float)(y - 8)}, 1, 1, 1, RED);
         if ((int)posP1.x + 16 == x && (int)posP1.z + 8 == y)
             player.set_life(-1);
         if ((int)posP2.x + 16 == x && (int)posP2.z + 8 == y)
             player.set_life(-1, 2);
     }
-    if (x < 15 && (COLOR_EQUAL(map.get_color()[y * map.get_cubicTexture().width + x + 1], RED) || COLOR_EQUAL(map.get_color()[y * map.get_cubicTexture().width + x + 1], BLACK)))
+    if (x < 15 && (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x + 1], RED) || COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x + 1], BLACK)))
     {
-        map.get_color()[y * map.get_cubicTexture().width + x + 1] = BLACK;
+        map.get_color()[y * map.get_texture().width + x + 1] = BLACK;
         DrawCube(Vector3{(float)(x + 1 - 16), 0.1, (float)(y - 8)}, 1, 1, 1, RED);
         if ((int)posP1.x + 16 == x + 1 && (int)posP1.z + 8 == y)
             player.set_life(-1);
         if ((int)posP2.x + 16 == x + 1 && (int)posP2.z + 8 == y)
             player.set_life(-1, 2);
     }
-    if (x > -15 && (COLOR_EQUAL(map.get_color()[y * map.get_cubicTexture().width + x - 1], RED) || COLOR_EQUAL(map.get_color()[y * map.get_cubicTexture().width + x - 1], BLACK)))
+    if (x > -15 && (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x - 1], RED) || COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x - 1], BLACK)))
     {
-        map.get_color()[y * map.get_cubicTexture().width + x - 1] = BLACK;
+        map.get_color()[y * map.get_texture().width + x - 1] = BLACK;
         DrawCube(Vector3{(float)(x - 1 - 16), 0.1, (float)(y - 8)}, 1, 1, 1, RED);
         if ((int)posP1.x + 16 == x - 1 && (int)posP1.z + 8 == y)
             player.set_life(-1);
         if ((int)posP2.x + 16 == x - 1 && (int)posP2.z + 8 == y)
             player.set_life(-1, 2);
     }
-    if (y < 7 && (COLOR_EQUAL(map.get_color()[(y + 1) * map.get_cubicTexture().width + x], RED) || COLOR_EQUAL(map.get_color()[(y + 1) * map.get_cubicTexture().width + x], BLACK)))
+    if (y < 7 && (COLOR_EQUAL(map.get_color()[(y + 1) * map.get_texture().width + x], RED) || COLOR_EQUAL(map.get_color()[(y + 1) * map.get_texture().width + x], BLACK)))
     {
-        map.get_color()[(y + 1) * map.get_cubicTexture().width + x] = BLACK;
+        map.get_color()[(y + 1) * map.get_texture().width + x] = BLACK;
         DrawCube(Vector3{(float)(x - 16), 0.1, (float)(y + 1 - 8)}, 1, 1, 1, RED);
         if ((int)posP1.x + 16 == x && (int)posP1.z + 8 == y + 1)
             player.set_life(-1);
         if ((int)posP2.x + 16 == x && (int)posP2.z + 8 == y + 1)
             player.set_life(-1, 2);
     }
-    if (y > -7 && (COLOR_EQUAL(map.get_color()[(y - 1) * map.get_cubicTexture().width + x], RED) || COLOR_EQUAL(map.get_color()[(y - 1) * map.get_cubicTexture().width + x], BLACK)))
+    if (y > -7 && (COLOR_EQUAL(map.get_color()[(y - 1) * map.get_texture().width + x], RED) || COLOR_EQUAL(map.get_color()[(y - 1) * map.get_texture().width + x], BLACK)))
     {
-        map.get_color()[(y - 1) * map.get_cubicTexture().width + x] = BLACK;
+        map.get_color()[(y - 1) * map.get_texture().width + x] = BLACK;
         DrawCube(Vector3{(float)(x - 16), 0.1, (float)(y - 1 - 8)}, 1, 1, 1, RED);
         if ((int)posP1.x + 16 == x && (int)posP1.z + 8 == y - 1)
             player.set_life(-1);

@@ -8,6 +8,7 @@
 #include "raylib.h"
 #include "../Map/Map.hpp"
 #include "../Player/Player.hpp"
+#include "../../graphicals/Draw/Draw.hpp"
 
 #ifndef BOX_HPP_
     #define BOX_HPP_
