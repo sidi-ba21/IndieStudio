@@ -53,14 +53,14 @@ void Raylib::Draw::remove_box(float x, float y)
     DrawCube(Vector3{x, 0.1, y}, 1, 1, 1, RED);
 }
 
-void Raylib::Draw::draw_score(std::vector<int> &score, std::string hightscore)
+void Raylib::Draw::draw_score(std::vector<int> &score, std::string hightscore, float time)
 {
     DrawText("The map generated is : ", 1410, 20, 30, MAGENTA);
     DrawText(TextFormat("SCORE       : %u", score[0]), 15, 120, 30, MAGENTA);
     DrawText(TextFormat("SCORE       : %u", score[1]), 15, 220, 30, MAGENTA);
     DrawText(TextFormat("SCORE       : %u", score[2]), 15, 320, 30, MAGENTA);
     DrawText(TextFormat("HI-SCORE: %s", hightscore.c_str()), 15, 20, 40, RED);
-    auto tmp = GetTime();
+    auto tmp = time;
     auto minutes = (float)(int)(tmp / 60);
     auto seconds = (float)((int)tmp % 60);
     DrawText(TextFormat("Elapsed Time: %02.0f : %02.0f", minutes, seconds), 800, 100, 40, MAGENTA);
