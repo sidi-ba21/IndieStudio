@@ -28,7 +28,7 @@ namespace Bomberman {
             void init();
             void update();
             void time_bomb();
-            Vector3 get_pos();
+            std::tuple<float, float, float> get_pos();
             void pose_bomb(float x, float y, float z);
             void explosion(Bomberman::Box &box, Bomberman::Map &map, Bomberman::Score &score, int n,
                            Bomberman::AI &ai, Bomberman::Player &player);
@@ -36,6 +36,7 @@ namespace Bomberman {
 
         protected:
         private:
+            std::tuple<float, float, float> _pos;
             bool _ispressed = false;
     };
 
