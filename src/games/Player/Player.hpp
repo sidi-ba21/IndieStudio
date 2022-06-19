@@ -71,11 +71,17 @@ namespace Bomberman
             return _rotate2;
         }
         bool Check_collision(Vector3, int direction, Color *mapPixels, Texture2D _cubicTexture);
-        int get_life1() {
+        int get_life(int player = 1) {
+            if (player == 1)
                 return _life1;
-        }
-        int get_life2() {
+            else
                 return _life2;
+        }
+        void set_life(int life, int player = 1) {
+            if (player == 1)
+                _life1 += life;
+            else
+                _life2 += life;
         }
 
     protected:
