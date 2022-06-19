@@ -15,6 +15,10 @@ void Bomberman::AI::init_AI()
     _Anim_AI = LoadModelAnimations("assets/robo6.iqm", &_animCount_AI);
     _texture_AI = LoadTexture("Png/girl.png");
     SetMaterialTexture(&_Model_AI.materials[0], MATERIAL_MAP_DIFFUSE, _texture_AI);
+    _life = 100;
+    _Rotate_AI = 0;
+    _Pos_AI = Vector3{-15, 0.1, 6};
+    _time = std::time(nullptr);
     del = 1;
 }
 

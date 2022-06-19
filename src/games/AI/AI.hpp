@@ -55,7 +55,7 @@ namespace Bomberman
             int _AnimFrameCounter_AI{0};
             float _Rotate_AI{0};
             int _check;
-            int _life{3};
+            int _life{100};
 
             Vector3 _Pos_AI{-15, 0.1, 6};
             Model _Model_AI;
