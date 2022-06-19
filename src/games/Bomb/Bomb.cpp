@@ -37,11 +37,12 @@ void Bomberman::Bomb::pose_bomb(Vector3 player_pos)
     }
 }
 
-void Bomberman::Bomb::explosion(Bomberman::Box &box, Bomberman::Map &map, Bomberman::Score &score, int n)
+void Bomberman::Bomb::explosion(Bomberman::Box &box, Bomberman::Map &map, Bomberman::Score &score,
+    int n, Bomberman::AI &ai, Bomberman::Player &player)
 {
     elapsed();
     if (getTime() > 3 && getTime() < 3.5) {
-        box.remove_breakable(map, _pos);
+        box.remove_breakable(map, _pos, player);
         score.update(n);
     }
 }
