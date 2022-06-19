@@ -20,16 +20,16 @@ void Bomberman::Bomb::update()
 
 }
 
-void Bomberman::Bomb::pose_bomb(int x, int y, int z)
+void Bomberman::Bomb::pose_bomb(float x, float y, float z)
 {
     elapsed();
-    if (getTime() > 6) {
+    if (getTime() > 5) {
         _ispressed = false;
-        reset();
-        //del_vector3();
     }
     if (!_ispressed) {
         set_vector3(x, y, z);
+        reset();
+        draw_bomb();
         _ispressed = true;
     }
 }
