@@ -18,13 +18,17 @@ namespace Bomberman {
     class Score {
         public:
             Score() = default;
-            ~Score() = default;
+            ~Score();
             void init();
             void update(int n);
             int get_score1();
             int get_score2();
             int get_score_AI();
             int get_highscore();
+            Texture2D score_player_face1();
+            Texture2D score_player_face_AI();
+            Texture2D score_player_face_2();
+            void draw_face();
             void loadScore() {
                 std::ifstream file;
                 std::string line;
@@ -66,6 +70,9 @@ namespace Bomberman {
             std::string _highscore{ "NOT AVAILABLE" };
             int _score2{0};
             int _score_AI{0};
+            Texture2D _player_face1;
+            Texture2D _player_face2;
+            Texture2D _player_face_AI;
     };
 
 }
