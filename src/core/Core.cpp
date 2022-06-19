@@ -11,6 +11,7 @@
 
 Bomberman::Core::Core()
 {
+    _draw.initWindow();
     init();
     game_loop();
 }
@@ -33,9 +34,9 @@ void Bomberman::Core::game_loop()
     {
         if (_menu.get_pause() == false)
         {
-            _ai.move_AI(_map.get_color(), _map.get_cubicTexture());
-            _player.Player_move1(_map.get_color(), _map.get_cubicTexture());
-            _player.Player_move2(_map.get_color(), _map.get_cubicTexture());
+            _ai.move_AI(_map.get_color(), _map.get_texture());
+            _player.Player_move1(_map.get_color(), _map.get_texture());
+            _player.Player_move2(_map.get_color(), _map.get_texture());
             _map.update();
             _camera.Camera_move();
         }
@@ -113,7 +114,7 @@ void Bomberman::Core::Draw_speed_down()
 void Bomberman::Core::Draw2d()
 {
     DrawFPS(10, 1060);
-    _map.draw(_draw.get_dimscreen());
+    _map.draw();
     Draw_text();
     score();
 }
@@ -144,4 +145,9 @@ void Bomberman::Core::Draw3d()
     Draw_speed_down();
     set_bomb();
     EndMode3D();
+}
+
+Bomberman::Core::~Core()
+{
+    _draw.closeWindow();
 }

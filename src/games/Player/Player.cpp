@@ -35,9 +35,9 @@ Bomberman::Player::~Player()
 
 void Bomberman::Player::Power_up1()
 {
-    if (_pos1.z < 1 && _pos1.z > 0  && _pos2.x < 1 && _pos2.x > 0)
+    if (_pos1.z < -3 && _pos1.z > -4  && _pos2.x < -12 && _pos2.x > -13)
         spd1 = spd1 + 0.01;
-    if (_pos1.z < -6 && _pos1.z > -5  && _pos2.x < -6 && _pos2.x > -5)
+    if (_pos1.z < 5 && _pos1.z > 4  && _pos2.x < 15 && _pos2.x > 14)
         spd1 = spd1 + 0.01;
     if (_pos1.z < 6 && _pos1.z > 5  && _pos2.x < 6 && _pos2.x > 5)
         spd1 = spd1 + 0.01;
@@ -53,7 +53,7 @@ void Bomberman::Player::Power_up2()
         spd2 = spd2 + 0.01;
     if (_pos2.z < 6 && _pos2.z > 5  && _pos2.x < 6 && _pos2.x > 5)
         spd2 = spd2 + 0.01;
-    if (_pos2.z < -5 && _pos2.z > -4  && _pos2.x < 1 && _pos2.x > 0)
+    if (_pos2.z < -4 && _pos2.z > -5  && _pos2.x < 1 && _pos2.x > 0)
         spd2 = spd2 + 0.01;
 }
 

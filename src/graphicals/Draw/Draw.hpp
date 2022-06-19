@@ -7,6 +7,7 @@
 
 #include "raylib.h"
 #include "../../core/Error.hpp"
+#include <vector>
 
 #ifndef DRAW_HPP_
     #define DRAW_HPP_
@@ -15,9 +16,10 @@ namespace Raylib {
 
     class Draw {
         public:
-            Draw();
-            ~Draw();
+            Draw() = default;
+            ~Draw() = default;
             void initWindow();
+            void closeWindow();
             int get_dimscreen() {
                 return screenWidth;
             }
@@ -32,13 +34,13 @@ namespace Raylib {
                 _texture = LoadTexture(path.c_str());
             }
             void set_texturefromImage() {
-                _texture2 = LoadTextureFromImage(_image);
+                _texture = LoadTextureFromImage(_image);
             }
-            void set_vector2(std::vector<float> &vect) {
-                _vector2 = (Vector2){vect[0], vect[1]};
+            void set_vector2(float x, float y) {
+                _vector2 = (Vector2){x, y};
             }
-            void set_vector3(std::vector<float> &vect) {
-                _vector3 = (Vector3){vect[0], vect[1], vect[2]};
+            void set_vector3(float x, float y, float z) {
+                _vector3 = (Vector3){x, y, z};
             }
             void set_meshCubicmap() {
                 _mesh = GenMeshCubicmap(_image, _vector3);
@@ -55,6 +57,36 @@ namespace Raylib {
             void set_modelAnim(std::string &path, unsigned int animcount) {
                 _anim = LoadModelAnimations(path.c_str(), &animcount);
             }
+            void free_texture() {
+                if (_texture.id != 0)
+                    UnloadTexture(_texture);
+                else
+                    throw GraphicsError("texture already free");
+            }
+            void free_image() {
+                if (_image.data != nullptr)
+                    UnloadImage(_image);
+                else
+                    throw GraphicsError("Image already free");
+            }
+            void free_model() {
+                if (_model.meshes != nullptr || _model.materials != nullptr)
+                    UnloadModel(_model);
+                else
+                    throw GraphicsError("Model already free");
+            }
+            void free_mesh() {
+                if (_mesh.vaoId != 0)
+                    UnloadMesh(_mesh);
+                else
+                    throw GraphicsError("mesh already free");
+            }
+            void free_color() {
+                if (_color != nullptr)
+                    UnloadImageColors(_color);
+                else
+                    throw GraphicsError("color already free");
+            }
             Model get_model() { return _model; }
             Vector2 get_vector2() { return _vector2; }
             Vector3 get_vector3() { return _vector3; }
@@ -62,6 +94,7 @@ namespace Raylib {
             Texture2D get_texture2() { return _texture2; }
             Image get_image() { return _image; }
             Color *get_color() { return _color; }
+            ModelAnimation *get_modelanim() { return _anim; }
 
         protected:
         private:

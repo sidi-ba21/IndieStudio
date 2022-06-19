@@ -24,13 +24,12 @@ namespace Bomberman {
             void init();
             void update();
             void random_maps();
-            void random_textures();
-            void draw(int screenWidth);
-            Model get_model();
-            Vector3 get_pos();
-            Texture2D get_cubicTexture();
-            Image get_image();
-            Color *get_color();
+            void draw();
+            //Model get_model();
+            //Vector3 get_pos();
+            //Texture2D get_cubicTexture();
+            //Image get_image();
+            //Color *get_color();
 
         protected:
         private:

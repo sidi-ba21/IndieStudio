@@ -7,16 +7,6 @@
 
 #include "Draw.hpp"
 
-Raylib::Draw::Draw()
-{
-    initWindow();
-}
-
-Raylib::Draw::~Draw()
-{
-    CloseWindow();
-}
-
 void Raylib::Draw::initWindow()
 {
     InitWindow(screenWidth, screenHeight, "Bomberman");
@@ -24,6 +14,11 @@ void Raylib::Draw::initWindow()
         throw GraphicsError("Failed to create window");
     ToggleFullscreen();
     SetTargetFPS(60);
+}
+
+void Raylib::Draw::closeWindow()
+{
+    CloseWindow();
 }
 
 bool Raylib::Draw::game_loop()

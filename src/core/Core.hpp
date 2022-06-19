@@ -33,7 +33,7 @@ namespace Bomberman
     {
     public:
         Core();
-        ~Core() = default;
+        ~Core();
         void init();
         void game_loop();
         void Draw();

@@ -7,6 +7,7 @@
 
 #include "raylib.h"
 #include "../Map/Map.hpp"
+#include "../../graphicals/Draw/Draw.hpp"
 
 #ifndef BOX_HPP_
     #define BOX_HPP_
@@ -18,14 +19,16 @@ namespace Bomberman
             Box();
             ~Box();
             void init();
-            void draw_breakable(Bomberman::Map map);
-            void remove_breakable(Bomberman::Map map, Vector3 pos);
+            void draw_breakable(Bomberman::Map &map);
+            void remove_breakable(Bomberman::Map &map, Vector3 pos);
             Texture2D get_breakable_texture();
             Texture2D get_speed_up_texture();
             Texture2D get_speed_down_texture();
             Texture2D get_grass_texture();
             Texture2D get_brick_texture();
             Rectangle get_rectGrass();
+            void random_walls();
+            void random_breackable();
 
         protected:
         private:
