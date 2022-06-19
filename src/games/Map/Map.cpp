@@ -9,6 +9,7 @@
 
 void Bomberman::Map::init()
 {
+    del_image();
     random_maps();
     set_texturefromImage();
     set_vector3(1.0, 1.0, 1.0);

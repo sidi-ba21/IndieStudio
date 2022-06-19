@@ -34,6 +34,10 @@ namespace Raylib {
             void set_image(std::string &path) {
                 _image.push_back(LoadImage(path.c_str()));
             }
+            void del_image() {
+                if (_image.size() > 0)
+                    _image.pop_back();
+            }
             void set_texture(std::string &path) {
                 _texture.push_back(LoadTexture(path.c_str()));
             }
@@ -70,6 +74,18 @@ namespace Raylib {
             void del_vector3() {
                 if (!_vector3.empty())
                     _vector3.pop_back();
+            }
+            void del_texture() {
+                if (_texture.size() == 5) {
+                   for (int i = 0; i < 5; i++) {
+                        if (_texture[i].id != 0)
+                            UnloadTexture(_texture[i]);
+                        _texture.pop_back();
+                   }
+                }
+            }
+            std::size_t get_texturesize() {
+                return _texture.size();
             }
             void free_texture(std::size_t n = 0) {
                 if (_texture.size() - 1 >= n && _texture[n].id != 0)
