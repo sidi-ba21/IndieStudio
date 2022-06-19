@@ -15,16 +15,19 @@ void Bomberman::AI::init_AI()
     _Anim_AI = LoadModelAnimations("assets/robo6.iqm", &_animCount_AI);
     _texture_AI = LoadTexture("Png/girl.png");
     SetMaterialTexture(&_Model_AI.materials[0], MATERIAL_MAP_DIFFUSE, _texture_AI);
+    del = 1;
 }
 
 Bomberman::AI::~AI()
 {
-    UnloadModel(_Model_AI);
-    UnloadTexture(_texture_AI);
-    for (unsigned int i = 0; i < _animCount_AI; i++){
-        UnloadModelAnimation(_Anim_AI[i]);
+    if (!del) {
+        UnloadModel(_Model_AI);
+        UnloadTexture(_texture_AI);
+        for (unsigned int i = 0; i < _animCount_AI; i++){
+            UnloadModelAnimation(_Anim_AI[i]);
+        }
+        RL_FREE(_Anim_AI);
     }
-    RL_FREE(_Anim_AI);
 }
 
 bool Bomberman::AI::Check_collision_AI(Vector3 pos, int direction,

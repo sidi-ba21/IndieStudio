@@ -105,6 +105,7 @@ namespace Bomberman
         Texture2D _player_face1;
         Texture2D _player_face2;
         Texture2D _player_face_AI;
+        int del{0};
     };
 }
 

@@ -21,6 +21,7 @@ void Bomberman::Box::init()
     _rectGrass = Rectangle{(float)_grass_texture.width / 2,
                            (float)_grass_texture.height / 2,
                            (float)_grass_texture.width / 2, (float)_grass_texture.height / 2};
+    del = 1;
 }
 
 void Bomberman::Box::random_walls()
@@ -167,8 +168,10 @@ Rectangle Bomberman::Box::get_rectGrass()
 
 Bomberman::Box::~Box()
 {
-    UnloadTexture(_breakable_texture);
-    UnloadTexture(_grass_texture);
-    UnloadTexture(_brick_texture);
-    UnloadTexture(_speed_up_texture);
+    if (!del) {
+        UnloadTexture(_breakable_texture);
+        UnloadTexture(_grass_texture);
+        UnloadTexture(_brick_texture);
+        UnloadTexture(_speed_up_texture);
+    }
 }
