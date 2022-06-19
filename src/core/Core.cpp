@@ -94,6 +94,24 @@ void Bomberman::Core::Draw_text()
     auto seconds = (float)((int)tmp % 60);
 
     DrawText(TextFormat("Elapsed Time: %02.0f : %02.0f", minutes, seconds), 800, 100, 40, MAGENTA);
+    if (_player.get_life() > 0)
+        DrawText(TextFormat("LIFE       : %u / 100", _player.get_life()), 1600, 120, 30, MAGENTA);
+    else if (_player.get_life() <= 0){
+        DrawText(TextFormat("LIFE       : "), 1600, 120, 30, MAGENTA);
+        DrawText(TextFormat("DEAD"), 1790, 120, 30, RED);
+    }
+    if (_player.get_life(2) > 0)
+        DrawText(TextFormat("LIFE       : %u / 100", _player.get_life(2)), 1600, 220, 30, MAGENTA);
+    else if (_player.get_life(2) <= 0) {
+        DrawText(TextFormat("LIFE       : "), 1600, 220, 30, MAGENTA);
+        DrawText(TextFormat("DEAD"), 1790, 220, 30, RED);
+    }
+    if (_ai.get_life() > 0)
+        DrawText(TextFormat("LIFE       : %u / 100", _ai.get_life()), 1600, 320, 30, MAGENTA);
+    else if (_ai.get_life() <= 0) {
+        DrawText(TextFormat("LIFE       : "), 1600, 320, 30, MAGENTA);
+        DrawText(TextFormat("DEAD"), 1790, 320, 30, RED);
+    }
 }
 
 void Bomberman::Core::Draw_speed_up()
