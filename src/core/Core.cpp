@@ -33,7 +33,8 @@ void Bomberman::Core::game_loop()
     {
         if (_menu.get_pause() == false)
         {
-            _ai.move_AI(_map.get_color(), _map.get_texture());
+            if (_ai.get_life() > 0)
+                _ai.move_AI(_map.get_color(), _map.get_texture());
             if (_player.get_life() > 0) {
                 _player.Player_move1(_map.get_color(), _map.get_texture());
                 _Buff.Power_up1(_player);
@@ -148,7 +149,8 @@ void Bomberman::Core::Draw2d()
 
 void Bomberman::Core::set_bomb()
 {
-    _bomb[0].pose_bomb(_ai.get_pos().x, _ai.get_pos().y, _ai.get_pos().z);
+    if (_ai.get_life() > 0)
+        _bomb[0].pose_bomb(_ai.get_pos().x, _ai.get_pos().y, _ai.get_pos().z);
     if (IsKeyPressed(KEY_RIGHT_SHIFT) && _player.get_life() > 0)
         _bomb[1].pose_bomb(_player.get_pos(1).x, _player.get_pos(1).y, _player.get_pos(1).z);
     if ((IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN) || IsKeyPressed(KEY_LEFT_SHIFT))
