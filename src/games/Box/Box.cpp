@@ -19,7 +19,6 @@ void Bomberman::Box::init()
         set_texture(tmp);
     random_walls();
     random_breackable();
-    printf("size === %ld\n", get_texturesize());
     del = 1;
 }
 
