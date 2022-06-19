@@ -92,6 +92,7 @@ void Bomberman::Core::Draw_text()
     auto tmp = GetTime();
     auto minutes = (float)(int)(tmp / 60);
     auto seconds = (float)((int)tmp % 60);
+
     DrawText(TextFormat("Elapsed Time: %02.0f : %02.0f", minutes, seconds), 800, 100, 40, MAGENTA);
 }
 
