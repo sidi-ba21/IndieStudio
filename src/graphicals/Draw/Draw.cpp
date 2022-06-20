@@ -39,8 +39,8 @@ void Raylib::Draw::draw_background(std::size_t n)
 
 void Raylib::Draw::draw_bomb(std::size_t n)
 {
-    DrawSphere(_vector3[n], 0.5, BLACK);
-    DrawSphereWires(_vector3[n], 0.5, 10, 10, BROWN);
+    DrawSphere(_vector3[n], 0.3, BLACK);
+    DrawSphereWires(_vector3[n], 0.3, 10, 10, BROWN);
 }
 
 void Raylib::Draw::draw_box(std::size_t n, std::size_t x, std::size_t y, float z, std::size_t h)
@@ -51,4 +51,63 @@ void Raylib::Draw::draw_box(std::size_t n, std::size_t x, std::size_t y, float z
 void Raylib::Draw::remove_box(float x, float y)
 {
     DrawCube(Vector3{x, 0.1, y}, 1, 1, 1, RED);
+}
+
+void Raylib::Draw::draw_score(std::vector<int> &score, std::string hightscore)
+{
+    DrawText("The map generated is : ", 1410, 20, 30, MAGENTA);
+    DrawText(TextFormat("SCORE       : %u", score[0]), 15, 120, 30, MAGENTA);
+    DrawText(TextFormat("SCORE       : %u", score[1]), 15, 220, 30, MAGENTA);
+    DrawText(TextFormat("SCORE       : %u", score[2]), 15, 320, 30, MAGENTA);
+    DrawText(TextFormat("HI-SCORE: %s", hightscore.c_str()), 15, 20, 40, RED);
+    auto tmp = GetTime();
+    auto minutes = (float)(int)(tmp / 60);
+    auto seconds = (float)((int)tmp % 60);
+    DrawText(TextFormat("Elapsed Time: %02.0f : %02.0f", minutes, seconds), 800, 100, 40, MAGENTA);
+}
+
+void Raylib::Draw::draw_text_player(std::vector<int> &life)
+{
+    if (life[0] > 0)
+        DrawText(TextFormat("LIFE       : %u / 100", life[0]), 1600, 120, 30, MAGENTA);
+    else if (life[0] <= 0){
+        DrawText(TextFormat("LIFE       : "), 1600, 120, 30, MAGENTA);
+        DrawText(TextFormat("DEAD"), 1790, 120, 30, RED);
+    }
+    if (life[1] > 0)
+        DrawText(TextFormat("LIFE       : %u / 100", life[1]), 1600, 220, 30, MAGENTA);
+    else if (life[1] <= 0) {
+        DrawText(TextFormat("LIFE       : "), 1600, 220, 30, MAGENTA);
+        DrawText(TextFormat("DEAD"), 1790, 220, 30, RED);
+    }
+    if (life[2] > 0)
+        DrawText(TextFormat("LIFE       : %u / 100", life[2]), 1600, 320, 30, MAGENTA);
+    else if (life[2] <= 0) {
+        DrawText(TextFormat("LIFE       : "), 1600, 320, 30, MAGENTA);
+        DrawText(TextFormat("DEAD"), 1790, 320, 30, RED);
+    }
+}
+
+void Raylib::Draw::draw_speed_up(Texture2D texture)
+{
+    DrawCubeTexture(texture, (Vector3){-13, 0.1, -4}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(texture, (Vector3){-14, 0.1, 4}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(texture, (Vector3){14, 0.1, 4}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(texture, (Vector3){13, 0.1, -5}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(texture, (Vector3){-9, 0.1, -3}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(texture, (Vector3){-7, 0.1, 3}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(texture, (Vector3){5, 0.1, -7}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(texture, (Vector3){10, 0.1, 2}, 0.80f, 0.1f, 0.80f, WHITE);
+}
+
+void Raylib::Draw::draw_speed_down(Texture2D texture)
+{
+    DrawCubeTexture(texture, (Vector3){-12, 0.1, -1}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(texture, (Vector3){-11, 0.1, 5}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(texture, (Vector3){6, 0.1, -1}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(texture, (Vector3){12, 0.1, -7}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(texture, (Vector3){-5, 0.1, -7}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(texture, (Vector3){-4, 0.1, 0}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(texture, (Vector3){2, 0.1, -4}, 0.80f, 0.1f, 0.80f, WHITE);
+    DrawCubeTexture(texture, (Vector3){0, 0.1, 6}, 0.80f, 0.1f, 0.80f, WHITE);
 }

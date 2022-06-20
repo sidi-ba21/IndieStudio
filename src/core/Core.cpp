@@ -109,58 +109,11 @@ void Bomberman::Core::score()
 
 void Bomberman::Core::Draw_text()
 {
-    DrawText("The map generated is : ", 1410, 20, 30, MAGENTA);
-    DrawText(TextFormat("SCORE       : %u", _score.get_score1()), 15, 120, 30, MAGENTA);
-    DrawText(TextFormat("SCORE       : %u", _score.get_score2()), 15, 220, 30, MAGENTA);
-    DrawText(TextFormat("SCORE       : %u", _score.get_score_AI()), 15, 320, 30, MAGENTA);
-    DrawText(TextFormat("HI-SCORE: %s", _score.getHightScore().c_str()), 15, 20, 40, RED);
-    auto tmp = GetTime();
-    auto minutes = (float)(int)(tmp / 60);
-    auto seconds = (float)((int)tmp % 60);
+    std::vector<int> score = {_score.get_score1(), _score.get_score2(), _score.get_score_AI()};
+    std::vector<int> life = {_player.get_life(1), _player.get_life(2), _ai.get_life()};
+    _draw.draw_score(score, _score.getHightScore());
+    _draw.draw_text_player(life);
 
-    DrawText(TextFormat("Elapsed Time: %02.0f : %02.0f", minutes, seconds), 800, 100, 40, MAGENTA);
-    if (_player.get_life() > 0)
-        DrawText(TextFormat("LIFE       : %u / 100", _player.get_life()), 1600, 120, 30, MAGENTA);
-    else if (_player.get_life() <= 0){
-        DrawText(TextFormat("LIFE       : "), 1600, 120, 30, MAGENTA);
-        DrawText(TextFormat("DEAD"), 1790, 120, 30, RED);
-    }
-    if (_player.get_life(2) > 0)
-        DrawText(TextFormat("LIFE       : %u / 100", _player.get_life(2)), 1600, 220, 30, MAGENTA);
-    else if (_player.get_life(2) <= 0) {
-        DrawText(TextFormat("LIFE       : "), 1600, 220, 30, MAGENTA);
-        DrawText(TextFormat("DEAD"), 1790, 220, 30, RED);
-    }
-    if (_ai.get_life() > 0)
-        DrawText(TextFormat("LIFE       : %u / 100", _ai.get_life()), 1600, 320, 30, MAGENTA);
-    else if (_ai.get_life() <= 0) {
-        DrawText(TextFormat("LIFE       : "), 1600, 320, 30, MAGENTA);
-        DrawText(TextFormat("DEAD"), 1790, 320, 30, RED);
-    }
-}
-
-void Bomberman::Core::Draw_speed_up()
-{
-    DrawCubeTexture(_box.get_texture(SPEED_UP), (Vector3){-13, 0.1, -4}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_texture(SPEED_UP), (Vector3){-14, 0.1, 4}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_texture(SPEED_UP), (Vector3){14, 0.1, 4}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_texture(SPEED_UP), (Vector3){13, 0.1, -5}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_texture(SPEED_UP), (Vector3){-9, 0.1, -3}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_texture(SPEED_UP), (Vector3){-7, 0.1, 3}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_texture(SPEED_UP), (Vector3){5, 0.1, -7}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_texture(SPEED_UP), (Vector3){10, 0.1, 2}, 0.80f, 0.1f, 0.80f, WHITE);
-}
-
-void Bomberman::Core::Draw_speed_down()
-{
-    DrawCubeTexture(_box.get_texture(SPEED_DOWN), (Vector3){-12, 0.1, -1}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_texture(SPEED_DOWN), (Vector3){-11, 0.1, 5}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_texture(SPEED_DOWN), (Vector3){6, 0.1, -1}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_texture(SPEED_DOWN), (Vector3){12, 0.1, -7}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_texture(SPEED_DOWN), (Vector3){-5, 0.1, -7}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_texture(SPEED_DOWN), (Vector3){-4, 0.1, 0}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_texture(SPEED_DOWN), (Vector3){2, 0.1, -4}, 0.80f, 0.1f, 0.80f, WHITE);
-    DrawCubeTexture(_box.get_texture(SPEED_DOWN), (Vector3){0, 0.1, 6}, 0.80f, 0.1f, 0.80f, WHITE);
 }
 
 void Bomberman::Core::Draw2d()
@@ -175,12 +128,12 @@ void Bomberman::Core::Draw2d()
 void Bomberman::Core::set_bomb()
 {
     if (_ai.get_life() > 0)
-        _bomb[0].pose_bomb(_ai.get_pos().x, _ai.get_pos().y, _ai.get_pos().z);
+        _bomb[0].pose_bomb(_ai.get_pos().x, _ai.get_pos().y + 0.4, _ai.get_pos().z);
     if (IsKeyPressed(KEY_RIGHT_SHIFT) && _player.get_life() > 0)
-        _bomb[1].pose_bomb(_player.get_pos(1).x, _player.get_pos(1).y, _player.get_pos(1).z);
+        _bomb[1].pose_bomb(_player.get_pos(1).x, _player.get_pos(1).y + 0.4, _player.get_pos(1).z);
     if ((IsGamepadButtonDown(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN) || IsKeyPressed(KEY_LEFT_SHIFT))
     && _player.get_life(2) > 0)
-        _bomb[2].pose_bomb(_player.get_pos(2).x, _player.get_pos(2).y, _player.get_pos(2).z);
+        _bomb[2].pose_bomb(_player.get_pos(2).x, _player.get_pos(2).y + 0.4, _player.get_pos(2).z);
 
     for (std::size_t i = 0; i < _bomb.size(); i++) {
         _bomb[i].wait_bomb();
@@ -195,8 +148,8 @@ void Bomberman::Core::Draw3d()
     _ai.draw();
     _player.draw();
     _box.draw_breakable(_map);
-    Draw_speed_up();
-    Draw_speed_down();
+    _draw.draw_speed_up(_box.get_texture(SPEED_UP));
+    _draw.draw_speed_down(_box.get_texture(SPEED_DOWN));
     set_bomb();
     EndMode3D();
 }
