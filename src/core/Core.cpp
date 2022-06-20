@@ -25,6 +25,7 @@ void Bomberman::Core::init(void)
     _camera.init();
     _menu.init();
     _box.init();
+    _score.init();
 }
 
 void Bomberman::Core::game_loop()
@@ -68,6 +69,14 @@ void Bomberman::Core::game_loop()
         _menu.update();
         _time.elapsed();
         _time.reset();
+        if (_menu.get_title() && _menu.get_already_clicked()) {
+            _box.init();
+            _score.init();
+             _map.init();
+            _player.init();
+            _ai.init_AI();
+            _menu.set_already_clicked(false);
+        }
     }
 }
 
