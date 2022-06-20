@@ -110,6 +110,7 @@ void Bomberman::Menu::the_end()
     if (p == 0) {
         is_finished = false;
         is_title = true;
+        already_clicked = true;
     }
     if (p == 1) {
         is_finished = false;

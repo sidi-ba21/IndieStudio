@@ -66,6 +66,8 @@ namespace Bomberman {
             bool get_pause() { return is_pause; }
             void set_finish(bool obj) { is_finished = obj; }
             bool get_finish() { return is_finished; }
+            void set_already_clicked(bool obj) { already_clicked = obj; }
+            bool get_already_clicked() { return already_clicked; }
 
             void set_id(int nb) { id = nb; }
             int get_id() { return id; }
@@ -90,6 +92,7 @@ namespace Bomberman {
             bool is_pause = false;
             bool is_tuto = false;
             bool is_finished = false;
+            bool already_clicked = false;
             size_t i = 4;
             ost musiic;
             Sound sfx;
