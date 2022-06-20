@@ -21,21 +21,20 @@ void Bomberman::Menu::title_button()
         } else
             btns[10].sourceRec.y = 175;
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
-            if (is_options == false) {
-                is_options = false;
-                is_pause = false;
-                is_game = false;
-                is_title = true;
-                is_tuto = false;
-                already_clicked = true;
-            }
-            if (is_options == true) {
+            if (is_options == true && is_pause == true) {
                 is_options = false;
                 is_pause = true;
                 is_game = true;
                 is_title = false;
                 is_tuto = false;
                 already_clicked = false;
+            }else {
+                is_options = false;
+                is_pause = false;
+                is_game = false;
+                is_title = true;
+                is_tuto = false;
+                already_clicked = true;
             }
         }
     } else
@@ -50,7 +49,7 @@ void Bomberman::Menu::update()
     screenHeight = GetScreenHeight();
     mousepos = GetMousePosition();
     static size_t limit = 0;
-    if (is_title == true) {
+    if (is_title == true && !is_options) {
         i = 0;
         limit = 4;
     } else if (is_options == true) {
@@ -114,7 +113,7 @@ void Bomberman::Menu::game_options()
     } else if  (i == 2 || i == 11)
         adios();
     if (i == 3 || is_tuto == true) tuto();
-    if (is_pause) (pause());
+    if (is_pause && !is_options) (pause());
 }
 
 void Bomberman::Menu::handle_volume()

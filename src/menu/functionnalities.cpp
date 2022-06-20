@@ -21,11 +21,9 @@ void Bomberman::Menu::game()
 
 void Bomberman::Menu::options()
 {
-    is_title = false;
     is_game = false;
     is_options = true;
     is_tuto = false;
-    is_pause = false;
     BeginDrawing();
         ClearBackground(RAYWHITE);
         DrawText("OPTIONS", 0, 0, 80.0, MAGENTA);
