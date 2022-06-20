@@ -14,11 +14,12 @@ void Bomberman::Box::init()
         "Png/speed_down.png",
         "Png/fullgrass_cube.png",
     };
+    del_texture();
     for (auto &tmp : tab)
         set_texture(tmp);
     random_walls();
     random_breackable();
-
+    printf("size === %ld\n", get_texturesize());
     del = 1;
 }
 
