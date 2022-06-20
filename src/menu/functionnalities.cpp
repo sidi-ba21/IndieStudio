@@ -78,8 +78,8 @@ void Bomberman::Menu::the_end()
     size_t p = 0;
     if (i == 0) {
         face[0] = LoadTexture("Png/player_face_AI.png");
-        face[1] = LoadTexture("Png/player_face1.png");
-        face[2] = LoadTexture("Png/player_face2.png");
+        face[1] = LoadTexture("Png/player_face1x.png");
+        face[2] = LoadTexture("Png/player_face2x.png");
         face[3] = LoadTexture("Png/victory.png");
         immg.push_back(Bomberman::Button("Png/basic_home.png", (Rectangle){0, 0, 540, 120}, (Rectangle){200, 900, 540, 120}));
         immg.push_back(Bomberman::Button("Png/basic_exit.png",(Rectangle){0, 0, 540, 120}, (Rectangle){1100, 900, 540, 120}));
@@ -118,14 +118,14 @@ void Bomberman::Menu::the_end()
     }
     BeginDrawing();
         //ClearBackground(RAYWHITE);
-        DrawText("ENDING", 0, 0, 80, RAYWHITE);
+        DrawText("ENDING", 0, 0, 80, MAGENTA);
         if (id != 0)
-            DrawText(TextFormat("PLAYER %u WON !!", id), 50, 500, 80, MAGENTA);
+            DrawText(TextFormat("PLAYER %u WON !!", id), 50, 600, 80, YELLOW);
         else 
-            DrawText("AI WON ! TOO BAD", 50, 500, 80, MAGENTA);
+            DrawText("AI WON ! TOO BAD", 50, 600, 80, YELLOW);
         DrawTextureRec(immg[0].button, immg[0].sourceRec, (Vector2){ immg[0].btnBounds.x, immg[0].btnBounds.y }, RAYWHITE);
         DrawTextureRec(immg[1].button, immg[1].sourceRec, (Vector2){ immg[1].btnBounds.x, immg[1].btnBounds.y }, RAYWHITE);
-        DrawText(TextFormat("SCORE : %u", score), 1400, 600, 80, SKYBLUE);
-        DrawTexture(face[3], 550, 0, RAYWHITE);
+        DrawText(TextFormat("SCORE : %u", score), 1200, 600, 80, YELLOW);
+        DrawTextureEx(face[3], Vector2{610, -50}, 0, 0.85,  RAYWHITE);
         DrawTexture(face[id], 850, 500, RAYWHITE);
 }
