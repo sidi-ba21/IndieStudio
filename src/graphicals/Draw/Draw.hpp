@@ -24,7 +24,10 @@ namespace Raylib {
                 return screenWidth;
             }
             bool game_loop();
-            void draw_box(std::size_t n = 0);
+            void draw_score(std::vector<int> &score, std::string hightscore);
+            void draw_text_player(std::vector<int> &life);
+            void draw_speed_up(Texture2D texture);
+            void draw_speed_down(Texture2D texture);
             void draw_map(std::size_t n = 0);
             void draw_player(std::size_t n = 0);
             void draw_background(std::size_t n = 0);
