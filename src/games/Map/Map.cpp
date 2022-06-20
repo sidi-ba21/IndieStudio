@@ -31,7 +31,7 @@ void Bomberman::Map::random_maps()
         "Png/test_map7.png",
         "Png/test_map8.png",
     };
-    set_image(tab[GetRandomValue(0, 8)]);
+    set_image(tab[random() % 9]);
 }
 
 void Bomberman::Map::draw()

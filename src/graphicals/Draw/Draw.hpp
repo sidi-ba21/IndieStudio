@@ -29,6 +29,8 @@ namespace Raylib {
             void draw_player(std::size_t n = 0);
             void draw_background(std::size_t n = 0);
             void draw_bomb(std::size_t n = 0);
+            void draw_box(std::size_t n, std::size_t x, std::size_t y, float z, std::size_t h);
+            void remove_box(float x, float y);
             void set_image(std::string &path) {
                 _image.push_back(LoadImage(path.c_str()));
             }
@@ -58,6 +60,12 @@ namespace Raylib {
             }
             void set_modelAnim(std::string &path, unsigned int animcount) {
                 _anim.push_back(LoadModelAnimations(path.c_str(), &animcount));
+            }
+            void set_cameraMode(std::size_t n) {
+                SetCameraMode(_camera, n);
+            }
+            void set_rect(float x, float y, float height, float width) {
+                rect = Rectangle{x, y, height, width};
             }
             void del_vector3() {
                 if (!_vector3.empty())
@@ -100,7 +108,8 @@ namespace Raylib {
             Image get_image(std::size_t n = 0) { return _image[n]; }
             Color *get_color(std::size_t n = 0) { return _color[n]; }
             ModelAnimation *get_modelanim(std::size_t n = 0) { return _anim[n]; }
-
+            Camera3D get_camera3D() { return _camera; }
+            Rectangle get_rectangle() { return rect; }
         protected:
         private:
             const int screenWidth{1920};
@@ -113,6 +122,8 @@ namespace Raylib {
             std::vector<Mesh> _mesh;
             std::vector<Model> _model;
             std::vector<Color *> _color;
+            Rectangle rect;
+            Camera3D _camera; //= (Camera3D){(Vector3){-5, 8, -5}, (Vector3){0, 2, 0}, (Vector3){0, 2, 0}, 45, CAMERA_PERSPECTIVE};
     };
 
 }

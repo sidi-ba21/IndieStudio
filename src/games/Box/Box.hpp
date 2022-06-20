@@ -16,35 +16,30 @@
 
 namespace Bomberman
 {
-    class Box {
+    class Box : public Raylib::Draw {
         public:
-            Box();
+            Box() = default;
             ~Box();
             void init();
             void draw_breakable(Bomberman::Map map);
             void remove_breakable(Bomberman::Map map, Vector3 pos);
             int Damage(Vector3 pos, Bomberman::Player player,
             Bomberman::AI ai, int n);
-            Texture2D get_breakable_texture();
-            Texture2D get_speed_up_texture();
-            Texture2D get_speed_down_texture();
-            Texture2D get_grass_texture();
-            Texture2D get_brick_texture();
-            Rectangle get_rectGrass();
             void random_walls();
             void random_breackable();
 
         protected:
         private:
-            Texture2D _breakable_texture;
-            Texture2D _grass_texture;
-            Texture2D _brick_texture;
-            Texture2D _speed_up_texture;
-            Texture2D _speed_down_texture;
-            Rectangle _rectGrass;
             int del{0};
         };
 
+    enum box {
+        SPEED_UP = 0,
+        SPEED_DOWN,
+        GRASS_TEXTURE,
+        BRICK,
+        BREAKABLE,
+    };
 }
 
 #endif /* !BOX_HPP_ */

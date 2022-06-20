@@ -7,26 +7,24 @@
 
 #include "Box.hpp"
 
-Bomberman::Box::Box()
-{
-}
-
 void Bomberman::Box::init()
 {
-    _speed_up_texture = LoadTexture("Png/speed.png");
-    _speed_down_texture = LoadTexture("Png/speed_down.png");
-    _grass_texture = LoadTexture("Png/grass_cube.png");
+    std::vector<std::string> tab = {
+        "Png/speed.png",
+        "Png/speed_down.png",
+        "Png/fullgrass_cube.png",
+    };
+    for (auto &tmp : tab)
+        set_texture(tmp);
     random_walls();
     random_breackable();
-    _rectGrass = Rectangle{(float)_grass_texture.width / 2,
-                           (float)_grass_texture.height / 2,
-                           (float)_grass_texture.width / 2, (float)_grass_texture.height / 2};
+
     del = 1;
 }
 
 void Bomberman::Box::random_walls()
 {
-    const char *tab1[11] = {
+    std::vector<std::string> tab = {
         "Png/wood_cube.png",
         "Png/stone_cube.png",
         "Png/fullgrass_cube.png",
@@ -39,12 +37,13 @@ void Bomberman::Box::random_walls()
         "Png/face_cube.png",
         "Png/clearbrick_cube.png",
     };
-    _brick_texture = LoadTexture(tab1[GetRandomValue(0, 10)]);
+    set_texture(tab[random() % 11]);
+
 }
 
 void Bomberman::Box::random_breackable()
 {
-    const char *tab1[7] = {
+    std::vector<std::string> tab = {
         "Png/woodx_brick.png",
         "Png/tnt_cube.png",
         "Png/chest_cube.png",
@@ -54,30 +53,19 @@ void Bomberman::Box::random_breackable()
         "Png/oldchest_cube.png",
 
     };
-    _breakable_texture = LoadTexture(tab1[GetRandomValue(0, 6)]);
+    set_texture(tab[random() % 7]);
 }
 
 void Bomberman::Box::draw_breakable(Bomberman::Map map)
 {
-    for (int y = 0; y < 16; y++)
-    {
-        for (int x = 0; x < 32; x++)
-        {
+    for (std::size_t y = 0; y < 16; y++) {
+        for (std::size_t x = 0; x < 32; x++) {
             if (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x], RED))
-            {
-                DrawCubeTexture(get_breakable_texture(), Vector3{x - 16.0f, 0.5, y - 8.f},
-                                1, 1, 1, WHITE);
-            }
+                draw_box(BREAKABLE, x, y, 0.5 , 1);
             if (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x], BLACK))
-            {
-                DrawCubeTextureRec(get_grass_texture(), get_rectGrass(), {x - 16.0f, 0.1, y - 8.f},
-                                   1, 0, 1, WHITE);
-            }
+                draw_box(GRASS_TEXTURE, x, y, 0.1, 0);
             if (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x], WHITE))
-            {
-                DrawCubeTexture(get_brick_texture(), {x - 16.0f, 0.5, y - 8.f},
-                                1, 1, 1, WHITE);
-            }
+                draw_box(BRICK, x, y, 0.5, 1);
         }
     }
 }
@@ -87,30 +75,25 @@ void Bomberman::Box::remove_breakable(Bomberman::Map map, Vector3 pos)
     int x = ((int)(pos.x + 16));
     int y = ((int)(pos.z + 8));
 
-    if (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x], RED) || COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x], BLACK))
-    {
+    if (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x], RED) || COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x], BLACK)) {
         map.get_color()[y * map.get_texture().width + x] = BLACK;
-        DrawCube(Vector3{(float)(x - 16), 0.1, (float)(y - 8)}, 1, 1, 1, RED);
+        remove_box(x - 16, y - 8);
     }
-    if (x < 31 && (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x + 1], RED) || COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x + 1], BLACK)))
-    {
+    if (x < 31 && (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x + 1], RED) || COLOR_EQUAL(map.get_color()[y * map.get_texture().width + x + 1], BLACK))) {
         map.get_color()[y * map.get_texture().width + x + 1] = BLACK;
-        DrawCube(Vector3{(float)(x + 1 - 16), 0.1, (float)(y - 8)}, 1, 1, 1, RED);
+        remove_box(x + 1 - 16, y - 8);
     }
-    if (x > 0 && (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + (x - 1)], RED) || COLOR_EQUAL(map.get_color()[y * map.get_texture().width + (x - 1)], BLACK)))
-    {
+    if (x > 0 && (COLOR_EQUAL(map.get_color()[y * map.get_texture().width + (x - 1)], RED) || COLOR_EQUAL(map.get_color()[y * map.get_texture().width + (x - 1)], BLACK))) {
         map.get_color()[y * map.get_texture().width + x - 1] = BLACK;
-        DrawCube(Vector3{(float)(x - 1 - 16), 0.1, (float)(y - 8)}, 1, 1, 1, RED);
+        remove_box(x - 1 - 16, y - 8);
     }
-    if (y < 15 && (COLOR_EQUAL(map.get_color()[(y + 1) * map.get_texture().width + x], RED) || COLOR_EQUAL(map.get_color()[(y + 1) * map.get_texture().width + x], BLACK)))
-    {
+    if (y < 15 && (COLOR_EQUAL(map.get_color()[(y + 1) * map.get_texture().width + x], RED) || COLOR_EQUAL(map.get_color()[(y + 1) * map.get_texture().width + x], BLACK))) {
         map.get_color()[(y + 1) * map.get_texture().width + x] = BLACK;
-        DrawCube(Vector3{(float)(x - 16), 0.1, (float)(y + 1 - 8)}, 1, 1, 1, RED);
+        remove_box(x - 16, y + 1 - 8);
     }
-    if (y > 0 && (COLOR_EQUAL(map.get_color()[(y - 1) * map.get_texture().width + x], RED) || COLOR_EQUAL(map.get_color()[(y - 1) * map.get_texture().width + x], BLACK)))
-    {
+    if (y > 0 && (COLOR_EQUAL(map.get_color()[(y - 1) * map.get_texture().width + x], RED) || COLOR_EQUAL(map.get_color()[(y - 1) * map.get_texture().width + x], BLACK))) {
         map.get_color()[(y - 1) * map.get_texture().width + x] = BLACK;
-        DrawCube(Vector3{(float)(x - 16), 0.1, (float)(y - 1 - 8)}, 1, 1, 1, RED);
+        remove_box(x - 16, y - 1 - 8);
     }
 }
 
@@ -158,42 +141,10 @@ int Bomberman::Box::Damage(Vector3 pos, Bomberman::Player player, Bomberman::AI 
     return (-1);
 }
 
-Texture2D Bomberman::Box::get_breakable_texture()
-{
-    return _breakable_texture;
-}
-
-Texture2D Bomberman::Box::get_speed_up_texture()
-{
-    return _speed_up_texture;
-}
-
-Texture2D Bomberman::Box::get_speed_down_texture()
-{
-    return _speed_down_texture;
-}
-
-Texture2D Bomberman::Box::get_grass_texture()
-{
-    return _grass_texture;
-}
-
-Texture2D Bomberman::Box::get_brick_texture()
-{
-    return _brick_texture;
-}
-
-Rectangle Bomberman::Box::get_rectGrass()
-{
-    return _rectGrass;
-}
-
 Bomberman::Box::~Box()
 {
     if (!del) {
-        UnloadTexture(_breakable_texture);
-        UnloadTexture(_grass_texture);
-        UnloadTexture(_brick_texture);
-        UnloadTexture(_speed_up_texture);
+        for (std::size_t i = 0; i < 4; i++)
+            free_texture(i);
     }
 }
