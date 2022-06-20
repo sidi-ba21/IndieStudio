@@ -31,6 +31,7 @@ src/games/Score/Score.cpp
 src/games/Bomb/Bomb.cpp
 src/games/AI/AI.cpp
 src/graphicals/Draw/Draw.cpp
+src/graphicals/Draw/Intro.cpp
 src/menu/menu.cpp
 src/menu/initialisation.cpp
 src/menu/functionnalities.cpp

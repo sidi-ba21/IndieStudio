@@ -28,6 +28,8 @@
 #include <vector>
 #include "Time.hpp"
 
+void Intro_game(void);
+
 namespace Bomberman
 {
     class Core
@@ -48,6 +50,7 @@ namespace Bomberman
         void Draw2d();
         void Draw3d();
         void set_bomb();
+        void Intro();
         Core(const Core &) = delete;
         Core &operator=(const Core &) = delete;
         Core(Core &&) = delete;
@@ -70,6 +73,7 @@ namespace Bomberman
         Bomb _bombAI;
         std::vector<Bomb> _bomb{_bombAI, _bombP1, _bombP2};
         Time _time;
+   //     Raylib::Intro _intro;
     };
 }
 

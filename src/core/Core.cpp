@@ -13,6 +13,7 @@ Bomberman::Core::Core()
 {
     _draw.initWindow();
     init();
+    Intro_game();
     game_loop();
 }
 
