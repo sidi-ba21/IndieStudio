@@ -21,12 +21,22 @@ void Bomberman::Menu::title_button()
         } else
             btns[10].sourceRec.y = 175;
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
-            is_options = false;
-            is_pause = false;
-            is_game = false;
-            is_title = true;
-            is_tuto = false;
-            already_clicked = true;
+            if (is_options == false) {
+                is_options = false;
+                is_pause = false;
+                is_game = false;
+                is_title = true;
+                is_tuto = false;
+                already_clicked = true;
+            }
+            if (is_options == true) {
+                is_options = false;
+                is_pause = true;
+                is_game = true;
+                is_title = false;
+                is_tuto = false;
+                already_clicked = false;
+            }
         }
     } else
         btns[10].sourceRec.y = 0;
