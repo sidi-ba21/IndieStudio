@@ -73,6 +73,7 @@ namespace Bomberman
         Bomb _bombAI;
         std::vector<Bomb> _bomb{_bombAI, _bombP1, _bombP2};
         Time _time;
+        Time end_Game;
    //     Raylib::Intro _intro;
     };
 }

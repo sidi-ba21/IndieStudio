@@ -9,6 +9,17 @@
 #include <unistd.h>
 #include <chrono>
 
+static int compare_score(int a, int b, int c)
+{
+    if (a > b && a > c)
+        return 1;
+    if (b > a && b > c)
+        return 2;
+    if (c > a && c > b)
+        return 0;
+    return 0;
+}
+
 Bomberman::Core::Core()
 {
     _draw.initWindow();
@@ -89,6 +100,16 @@ void Bomberman::Core::Draw()
     ClearBackground(RAYWHITE);
     if (_menu.get_game() == true)
     {
+        end_Game.elapsed();
+        if (end_Game.getTime() > 360) {
+            auto i = compare_score(_score.get_score1(), _score.get_score2(), _score.get_score_AI());
+            _menu.set_id(i);
+            i == 0 ? _menu.set_score(_score.get_score_AI()) : i == 1 ?
+            _menu.set_score(_score.get_score1()) : _menu.set_score(_score.get_score2());
+            _menu.set_finish(true);
+            _menu.set_gamebool(false);
+            end_Game.reset();
+        }
         if (_menu.get_pause() == true)
             _menu.pause();
         else {
@@ -112,7 +133,7 @@ void Bomberman::Core::Draw_text()
 {
     std::vector<int> score = {_score.get_score1(), _score.get_score2(), _score.get_score_AI()};
     std::vector<int> life = {_player.get_life(1), _player.get_life(2), _ai.get_life()};
-    _draw.draw_score(score, _score.getHightScore());
+    _draw.draw_score(score, _score.getHightScore(), end_Game.getTime());
     _draw.draw_text_player(life);
 
 }
